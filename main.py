@@ -1,12 +1,10 @@
 """ Main file for the Dungeons and Dragons character generator. """
-from src.dice import Dice
 from src.character import Character
 from src.text_printer import TextPrinter
 
 #Code TODOs
 #TODO: List Classes
 #TODO: List Races
-#TODO: Split printing into own files
 #TODO: Make APIs
 #TODO: Add Web UI
 
@@ -26,6 +24,7 @@ def main():
     frank = Character("Frank", "Elves")
     text_printer = TextPrinter()
     text_printer.print_character(frank)
+    text_printer.print_roll(1,20,2)
 
 if __name__ == '__main__':
     main()

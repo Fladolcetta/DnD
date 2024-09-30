@@ -66,11 +66,12 @@ class Character:
         self.update_skills()
         self.update_class_details()
 
-    def find_modifier(self, stat):
+    def find_modifier_stat(self, stat):
         """ Find the modifier for a given stat. """
-        return self.find_modifier_value(self.stats[stat])
+        return Character.find_modifier_value(self.stats[stat])
 
-    def find_modifier_value(self, value):
+    @staticmethod
+    def find_modifier_value(value):
         """ Find the modifier for a given value. """
         return (value - 10) // 2
 
@@ -99,7 +100,7 @@ class Character:
 
         saving_throws_stats = self.stats.copy()
         for stat in saving_throws_stats:
-            modifier = self.find_modifier_value(saving_throws_stats[stat])
+            modifier = Character.find_modifier_value(saving_throws_stats[stat])
             self.saving_throws[stat] = modifier
         for saving_throw in class_object.get_saving_throw_proficiencies():
             self.saving_throws[saving_throw] = self.saving_throws[saving_throw] + self.proficiency_bonus
@@ -109,22 +110,22 @@ class Character:
         for stat in self.stats:
             if stat == "Strength":
                 for skill in self.strength_skills:
-                    self.strength_skills[skill] = self.find_modifier(stat)
+                    self.strength_skills[skill] = self.find_modifier_stat(stat)
             if stat == "Dexterity":
                 for skill in self.dexterity_skills:
-                    self.dexterity_skills[skill] = self.find_modifier(stat)
+                    self.dexterity_skills[skill] = self.find_modifier_stat(stat)
             if stat == "Constitution":
                 for skill in self.constitution_skills:
-                    self.constitution_skills[skill] = self.find_modifier(stat)
+                    self.constitution_skills[skill] = self.find_modifier_stat(stat)
             if stat == "Intelligence":
                 for skill in self.intelligence_skills:
-                    self.intelligence_skills[skill] = self.find_modifier(stat)
+                    self.intelligence_skills[skill] = self.find_modifier_stat(stat)
             if stat == "Wisdom":
                 for skill in self.wisdom_skills:
-                    self.wisdom_skills[skill] = self.find_modifier(stat)
+                    self.wisdom_skills[skill] = self.find_modifier_stat(stat)
             if stat == "Charisma":
                 for skill in self.charisma_skills:
-                    self.charisma_skills[skill] = self.find_modifier(stat)
+                    self.charisma_skills[skill] = self.find_modifier_stat(stat)
 
         self.all_skills.update(self.strength_skills)
         self.all_skills.update(self.dexterity_skills)
