@@ -9,7 +9,6 @@ from src.text_printer import TextPrinter
 #TODO: Add Web UI
 
 #Repo TODOS
-#TODO: Figure out gitignore
 #TODO: Add Unit Tests
 #TODO: Add Linting
 #TODO: Generate Documentation
