@@ -17,17 +17,30 @@ class TextPrinter:
         if die.critical_fail:
             print("Critical Fail!")
 
-    def sort_dict(self, dict):
-        """ Sort the dictionary. """
-        return dict(sorted(dict.items()))
+    def list_to_dict(self, list_object):
+        """ Convert a list to a dictionary. """
+        dict_object = {}
+        for i in range(0, len(list_object)):
+            dict_object[i] = list_object[i]
 
-    def print_dict(self, dict, title):
+        return dict_object
+
+    def sort_dict(self, dict_object):
+        """ Sort the dictionary. """
+        return dict(sorted(dict_object.items()))
+
+    def print_data(self, data, title):
         """ Print the dictionary. """
-        if dict:
-            dict = self.sort_dict(dict)
+
+        if data:
+            if isinstance(data, list):
+                data = self.list_to_dict(data)
+
+            sorted_data = self.sort_dict(data)
+
             print(f"{title}:")
-            for key, value in dict.items():
-                print(f" - {key}: {value}")
+            for _, value in sorted_data.items():
+                print(f" - {value}")
 
     def print_stats(self, character):
         """ Print the stats of the character. """
@@ -84,9 +97,9 @@ class TextPrinter:
         print(f"Class: {character.dnd_class}")
         print(f"Hit Die: {character.hit_die}")
         print(f"Speed: {character.speed}")
-        self.print_languages(character)
-        self.print_traits(character)
+        self.print_data(character.languages, "Languages")
+        self.print_data(character.traits, "Traist")
+        self.print_data(character.proficiencies, "Proficiencies")
         self.print_stats(character)
         self.print_all_skills(character)
         self.print_saving_throws(character)
-        self.print_proficiencies(character)
