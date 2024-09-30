@@ -21,28 +21,37 @@ def print_stats(character):
     """ Print the stats of the character. """
     stats = dict(sorted(character.stats.items()))
     print("Stats:")
-    for stat in stats:
-        print(f" - {stat}: {stats[stat]} ({character.find_modifier(stat)})")
+    for stat, value in stats.items():
+        print(f" - {stat}: {value} ({print_modifiers(character.find_modifier_value(value))})")
 
 def print_all_skills(character):
     """ Print all the skills of the character. """
     print("Skills:")
-    for skill in character.all_skills:
-        print(f" - {skill}: {character.all_skills[skill]}")
+    for skill, value in character.all_skills.items():
+        print(f" - {skill}: {print_modifiers(value)}")
 
 def print_proficiencies(character):
     """ Print the proficiencies of the character. """
     if character.proficiencies:
-        print(f"Proficiencies:({character.proficiency_bonus})")
+        print("Proficiencies:")
         for proficiency in character.proficiencies:
             print(f" - {proficiency}")
+
+def print_modifiers(value):
+    """ Print the modifiers of the value. """
+    printed_value = ""
+    if value >= 0:
+        printed_value = f"+{value}"
+    else:
+        printed_value = f"{value}"
+    return printed_value
 
 def print_saving_throws(character):
     """ Print the saving throws of the character. """
     if character.saving_throws:
         print("Saving Throws:")
-        for saving_throw in character.saving_throws:
-            print(f" - {saving_throw}")
+        for saving_throw, value in character.saving_throws.items():
+            print(f" - {saving_throw}: {value}")
 
 def print_languages(character):
     """ Print the languages of the character. """

@@ -3,6 +3,7 @@ from src.dice import Dice
 from src.race import Race
 from src.character_class import CharacterClass
 
+# pylint: disable=line-too-long
 class Character:
     """ A class to represent a character in Dungeons and Dragons. """
     def __init__(self, name, desired_race="Human", desired_class="Fighter"):
@@ -67,7 +68,11 @@ class Character:
 
     def find_modifier(self, stat):
         """ Find the modifier for a given stat. """
-        return (self.stats[stat] - 10) // 2
+        return self.find_modifier_value(self.stats[stat])
+
+    def find_modifier_value(self, value):
+        """ Find the modifier for a given value. """
+        return (value - 10) // 2
 
     def update_race_details(self):
         """ Update the character based on the race. """
@@ -80,6 +85,8 @@ class Character:
                 self.stats[stat] = self.stats[stat] + race_object.stats[stat]
             except KeyError:
                 pass
+        self.stats = dict(sorted(self.stats.items()))
+
 
     def update_class_details(self):
         """ Update the character based on the class. """
@@ -89,8 +96,13 @@ class Character:
         for skill in self.all_skills:
             if skill in self.proficiencies:
                 self.all_skills[skill] = self.all_skills[skill] + self.proficiency_bonus
-        #TODO: Add Saving Throws
-        self.saving_throws = class_object.get_saving_throw_proficiencies()
+
+        saving_throws_stats = self.stats.copy()
+        for stat in saving_throws_stats:
+            modifier = self.find_modifier_value(saving_throws_stats[stat])
+            self.saving_throws[stat] = modifier
+        for saving_throw in class_object.get_saving_throw_proficiencies():
+            self.saving_throws[saving_throw] = self.saving_throws[saving_throw] + self.proficiency_bonus
 
     def update_skills(self):
         """ Update the skills based on the stats. """
