@@ -1,7 +1,4 @@
 """ Main file for the Dungeons and Dragons character generator. """
-
-#TODO: Find opposite of primary stats and make lowest
-
 from src.dice import Dice
 from src.character import Character
 

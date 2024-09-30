@@ -10,6 +10,7 @@ class Character:
         self.race = desired_race
         self.dnd_class = desired_class
         self.primary_stat = []
+        self.worst_stat = []
         self.speed = 0
         self.proficiency_bonus = 2
         self.hit_die = 0
@@ -19,11 +20,11 @@ class Character:
         self.traits = []
         self.languages = []
         self.stats = {
-            "Strength": 0,
-            "Dexterity": 0,
             "Constitution": 0,
-            "Intelligence": 0,
+            "Dexterity": 0,
+            "Strength": 0,
             "Wisdom": 0,
+            "Intelligence": 0,
             "Charisma": 0
         }
         self.strength_skills = {
@@ -58,6 +59,7 @@ class Character:
 
         # Roll stats and update values
         self.primary_stat = CharacterClass(self.dnd_class).get_primary_stat()
+        self.worst_stat = CharacterClass(self.dnd_class).get_worst_stat()
         self.roll_stats()
         self.update_race_details()
         self.update_skills()
@@ -130,6 +132,8 @@ class Character:
         stat_array.sort(reverse=True)
         for primary_stat in self.primary_stat:
             self.stats[primary_stat] = stat_array.pop(0)
+        for worst_stat in self.worst_stat:
+            self.stats[worst_stat] = stat_array.pop()
         for key, value in self.stats.items():
             if value == 0:
                 self.stats[key] = stat_array.pop(0)

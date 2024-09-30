@@ -46,6 +46,25 @@ class CharacterClass:
         }
         return primary_stat[self.name]
 
+    def get_worst_stat(self):
+        """ Get the worst stat of the class. """
+        worst_stat = {
+            "Barbarian": ["Intelligence"],
+            "Bard": ["Strength"],
+            "Cleric": ["Strength"],
+            "Druid": ["Strength"],
+            "Fighter": ["Intelligence"],
+            "Monk": ["Intelligence"],
+            "Paladin": ["Intelligence"],
+            "Ranger": ["Intelligence"],
+            "Rogue": ["Strength"],
+            "Sorcerer": ["Strength"],
+            "Warlock": ["Strength"],
+            "Wizard": ["Strength"]
+        }
+
+        return worst_stat[self.name]
+
     def get_saving_throws(self):
         """ Get the saving throws of the class. """
         saving_throws = {
