@@ -17,11 +17,12 @@ def print_roll(total, rolls):
     if die.critical_fail:
         print("Critical Fail!")
 
-def print_stats(stats):
+def print_stats(character):
     """ Print the stats of the character. """
+    stats = dict(sorted(character.stats.items()))
     print("Stats:")
     for stat in stats:
-        print(f" - {stat}: {stats[stat]}")
+        print(f" - {stat}: {stats[stat]} ({character.find_modifier(stat)})")
 
 def print_all_skills(character):
     """ Print all the skills of the character. """
@@ -32,7 +33,7 @@ def print_all_skills(character):
 def print_proficiencies(character):
     """ Print the proficiencies of the character. """
     if character.proficiencies:
-        print(f"Proficiencies:(+{character.proficiency_bonus})")
+        print(f"Proficiencies:({character.proficiency_bonus})")
         for proficiency in character.proficiencies:
             print(f" - {proficiency}")
 
@@ -64,7 +65,7 @@ def print_character(character):
     print(f"Speed: {character.speed}")
     print_languages(character)
     print_traits(character)
-    print_stats(character.stats)
+    print_stats(character)
     print_all_skills(character)
     print_saving_throws(character)
     print_proficiencies(character)

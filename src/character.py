@@ -90,6 +90,7 @@ class Character:
             if skill in self.proficiencies:
                 self.all_skills[skill] = self.all_skills[skill] + self.proficiency_bonus
         #TODO: Add Saving Throws
+        self.saving_throws = class_object.get_saving_throw_proficiencies()
 
     def update_skills(self):
         """ Update the skills based on the stats. """

@@ -7,7 +7,7 @@ class CharacterClass:
         self.name = name
         self.hit_die = self.get_hit_die()
         self.primary_stat = self.get_primary_stat()
-        self.saving_throws_proficiencies = self.get_saving_throws()
+        self.saving_throws_proficiencies = self.get_saving_throw_proficiencies()
         self.skill_proficiencies = self.get_skill_proficiencies()
 
     def get_hit_die(self):
@@ -65,7 +65,7 @@ class CharacterClass:
 
         return worst_stat[self.name]
 
-    def get_saving_throws(self):
+    def get_saving_throw_proficiencies(self):
         """ Get the saving throws of the class. """
         saving_throws = {
             "Barbarian": ["Strength", "Constitution"],
