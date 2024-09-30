@@ -5,11 +5,17 @@ from src.character_class import CharacterClass
 
 class Character:
     """ A class to represent a character in Dungeons and Dragons. """
-    def __init__(self, name, desired_race=None, desired_class=None):
+    def __init__(self, name, desired_race="Human", desired_class="Fighter"):
         self.name = name
         self.race = desired_race
         self.dnd_class = desired_class
+        self.primary_stat = []
         self.speed = 0
+        self.proficiency_bonus = 2
+        self.hit_die = 0
+        self.proficiencies = dict()
+        self.saving_throws = dict()
+        self.all_skills = dict()
         self.traits = []
         self.languages = []
         self.stats = {
@@ -49,12 +55,13 @@ class Character:
             "Performance": 0,
             "Persuasion": 0
         }
-        self.all_skills = dict()
 
         # Roll stats and update values
+        self.primary_stat = CharacterClass(self.dnd_class).get_primary_stat()
         self.roll_stats()
         self.update_race_details()
         self.update_skills()
+        self.update_class_details()
 
     def find_modifier(self, stat):
         """ Find the modifier for a given stat. """
@@ -71,6 +78,16 @@ class Character:
                 self.stats[stat] = self.stats[stat] + race_object.stats[stat]
             except KeyError:
                 pass
+
+    def update_class_details(self):
+        """ Update the character based on the class. """
+        class_object = CharacterClass(self.dnd_class)
+        self.hit_die = class_object.hit_die
+        self.proficiencies = class_object.get_skill_proficiencies()
+        for skill in self.all_skills:
+            if skill in self.proficiencies:
+                self.all_skills[skill] = self.all_skills[skill] + self.proficiency_bonus
+        #TODO: Add Saving Throws
 
     def update_skills(self):
         """ Update the skills based on the stats. """
@@ -103,9 +120,16 @@ class Character:
         self.all_skills = dict(sorted(self.all_skills.items()))
 
 
-    def roll_stats(self, primary_stat=None, secondary_stat=None):
+    def roll_stats(self):
         """ Roll the stats for the character. """
-        for stat in self.stats:
+        stat_array = []
+        for _ in self.stats:
             die = Dice(4, 6, 0)
             total, rolls = die.roll()
-            self.stats[stat] = total - min(rolls)
+            stat_array.append(total - min(rolls))
+        stat_array.sort(reverse=True)
+        for primary_stat in self.primary_stat:
+            self.stats[primary_stat] = stat_array.pop(0)
+        for key, value in self.stats.items():
+            if value == 0:
+                self.stats[key] = stat_array.pop(0)

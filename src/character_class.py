@@ -7,8 +7,8 @@ class CharacterClass:
         self.name = name
         self.hit_die = self.get_hit_die()
         self.primary_stat = self.get_primary_stat()
-        self.saving_throws = self.get_saving_throws()
-        self.skills = self.get_skills()
+        self.saving_throws_proficiencies = self.get_saving_throws()
+        self.skill_proficiencies = self.get_skill_proficiencies()
 
     def get_hit_die(self):
         """ Get the hit die of the class. """
@@ -64,7 +64,7 @@ class CharacterClass:
         }
         return saving_throws[self.name]
 
-    def get_skills(self):
+    def get_skill_proficiencies(self):
         """ Get the skills of the class. """
         skills = {
             "Barbarian": ["Animal Handling", "Athletics", "Intimidation", "Nature", "Perception", "Survival"],

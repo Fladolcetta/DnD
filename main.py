@@ -1,8 +1,6 @@
 """ Main file for the Dungeons and Dragons character generator. """
 
-#TODO: Update character based on class details
 #TODO: Find opposite of primary stats and make lowest
-#TODO: Add proficiency bonus
 
 from src.dice import Dice
 from src.character import Character

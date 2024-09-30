@@ -43,7 +43,7 @@ class Race:
             },
             "Half-Elves": {
                 "Charisma": 2,
-                "Two Other Stats": 1
+                "Two Other Stats": 1 #TODO Fix
             },
             "Dragonborn": {
                 "Strength": 2,
