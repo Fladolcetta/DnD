@@ -1,8 +1,6 @@
 """ Main file for the Dungeons and Dragons character generator. """
 
 #TODO: Update character based on class details
-#TODO: Make skills an array
-#TODO: Make primary stats an array
 #TODO: Find opposite of primary stats and make lowest
 #TODO: Add proficiency bonus
 

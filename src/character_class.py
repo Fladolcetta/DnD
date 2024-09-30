@@ -31,18 +31,18 @@ class CharacterClass:
     def get_primary_stat(self):
         """ Get the primary stat of the class. """
         primary_stat = {
-            "Barbarian": "Strength",
-            "Bard": "Charisma",
-            "Cleric": "Wisdom",
-            "Druid": "Wisdom",
-            "Fighter": "Strength or Dexterity",
-            "Monk": "Dexterity and Wisdom",
-            "Paladin": "Strength and Charisma",
-            "Ranger": "Dexterity and Wisdom",
-            "Rogue": "Dexterity",
-            "Sorcerer": "Charisma",
-            "Warlock": "Charisma",
-            "Wizard": "Intelligence"
+            "Barbarian": ["Strength"],
+            "Bard": ["Charisma"],
+            "Cleric": ["Wisdom"],
+            "Druid": ["Wisdom"],
+            "Fighter": ["Strength", "Dexterity"],
+            "Monk": ["Dexterity", "Wisdom"],
+            "Paladin": ["Strength", "Charisma"],
+            "Ranger": ["Dexterity", "Wisdom"],
+            "Rogue": ["Dexterity"],
+            "Sorcerer": ["Charisma"],
+            "Warlock": ["Charisma"],
+            "Wizard": ["Intelligence"]
         }
         return primary_stat[self.name]
 
@@ -68,7 +68,7 @@ class CharacterClass:
         """ Get the skills of the class. """
         skills = {
             "Barbarian": ["Animal Handling", "Athletics", "Intimidation", "Nature", "Perception", "Survival"],
-            "Bard": ["Any Three"],
+            "Bard": ["Acrobatics", "Performance", "Persuasion"],
             "Cleric": ["History", "Insight", "Medicine", "Persuasion", "Religion"],
             "Druid": ["Arcana", "Animal Handling", "Insight", "Medicine", "Nature", "Perception", "Religion", "Survival"],
             "Fighter": ["Acrobatics", "Animal Handling", "Athletics", "History", "Insight", "Intimidation", "Perception", "Survival"],
