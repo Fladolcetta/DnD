@@ -2,6 +2,24 @@
 from src.dice import Dice
 from src.character import Character
 
+#Code TODOs
+#TODO: List Classes
+#TODO: List Races
+#TODO: Split printing into own files
+#TODO: Make APIs
+#TODO: Add Web UI
+
+#Repo TODOS
+#TODO: Figure out gitignore
+#TODO: Add Unit Tests
+#TODO: Add Linting
+#TODO: Generate Documentation
+#TODO: Update README with generated documentation
+#TODO: Add Code Coverage
+#TODO: Add Containerization
+#TODO: Add Kubernetes
+
+
 def print_roll(total, rolls):
     """ Prompt the user for the number of dice, the number of sides, and the modifier. """
 
