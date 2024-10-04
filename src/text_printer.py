@@ -1,12 +1,26 @@
 """ A module for printing text to the console. """
+import sys
+from io import StringIO
 from src.dice import Dice
 from src.character import Character
 
+sys.stdout = buffer = StringIO()
 # pylint: disable=line-too-long
 class TextPrinter:
     """ A class to print text to the console. """
+
+    def split_string(self, string):
+        """ Split the string. """
+        string_array = string.split("\n")
+
+        html_string = ""
+        for string in string_array:
+            html_string += f"{string}<br>"
+        return html_string
+
     def print_roll(self, num_dice, num_sides, modifier):
         """ Print the roll of the dice. """
+        buffer.truncate(0)
 
         die = Dice(num_dice, num_sides, modifier)
         total_dice, rolls = die.roll()
@@ -16,6 +30,8 @@ class TextPrinter:
             print("Critical Success!")
         if die.critical_fail:
             print("Critical Fail!")
+
+        return self.split_string(buffer.getvalue())
 
     def list_to_dict(self, list_object):
         """ Convert a list to a dictionary. """
@@ -31,7 +47,6 @@ class TextPrinter:
 
     def print_data(self, data, title):
         """ Print the dictionary. """
-
         if data:
             if isinstance(data, list):
                 data = self.list_to_dict(data)
@@ -71,6 +86,8 @@ class TextPrinter:
 
     def print_character(self, character):
         """ Print the character. """
+        buffer.truncate(0)
+
         print(f"Name: {character.name}")
         print(f"Race: {character.race}")
         print(f"Class: {character.dnd_class}")
@@ -82,3 +99,4 @@ class TextPrinter:
         self.print_dict_with_data_and_modifiers(character.stats, "Stats")
         self.print_dict_with_modifiers(character.all_skills, "Skills")
         self.print_dict_with_modifiers(character.saving_throws, "Saving Throws")
+        return self.split_string(buffer.getvalue())
