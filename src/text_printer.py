@@ -17,14 +17,26 @@ class TextPrinter:
             html_string += f"{string}<br>"
         return html_string
 
+    def header(self, title):
+        """ Print the header. """
+        print(f"<h1>{title}</h1>")
+
+    def bolded(self, text):
+        """ Print the text in bold. """
+        print(f"<b>{text}</b>")
+
     def print_roll(self, num_dice, num_sides, modifier):
         """ Print the roll of the dice. """
         buffer.truncate(0)
 
         die = Dice(num_dice, num_sides, modifier)
         total_dice, rolls = die.roll()
-        print(f"Total Dice: {total_dice}")
-        print(f"Rolls: {rolls}")
+        self.header("Dice Roller")
+        self.bolded(f"Rolling {num_dice}d{num_sides} + {modifier}")
+        self.bolded("Result:")
+        print(f"- {total_dice}")
+        self.bolded("Individual Rolls:")
+        print(f"- {rolls}")
         if die.critical_success:
             print("Critical Success!")
         if die.critical_fail:
@@ -52,7 +64,7 @@ class TextPrinter:
 
             sorted_data = self.sort_dict(data)
 
-            print(f"{title}:")
+            self.bolded(f"{title}:")
             for _, value in sorted_data.items():
                 print(f" - {value}")
 
@@ -61,7 +73,7 @@ class TextPrinter:
         if data:
             sorted_data = self.sort_dict(data)
 
-            print(f"{title}:")
+            self.bolded(f"{title}:")
             for key, value in sorted_data.items():
                 print(f" - {key}: {self.print_modifiers(value)}")
 
@@ -70,7 +82,7 @@ class TextPrinter:
         if data:
             sorted_data = self.sort_dict(data)
 
-            print(f"{title}:")
+            self.bolded(f"{title}:")
             for key, value in sorted_data.items():
                 print(f" - {key}: {value} ({self.print_modifiers(Character.find_modifier_value(value))})")
 
@@ -87,11 +99,17 @@ class TextPrinter:
         """ Print the character. """
         buffer.truncate(0)
 
-        print(f"Name: {character.name}")
-        print(f"Race: {character.race}")
-        print(f"Class: {character.dnd_class}")
-        print(f"Hit Die: {character.hit_die}")
-        print(f"Speed: {character.speed}")
+        self.header(f"Character Generator")
+        self.bolded("Name:")
+        print(f"- {character.name}")
+        self.bolded("Race:")
+        print(f"- {character.race}")
+        self.bolded("Class:")
+        print(f"- {character.dnd_class}")
+        self.bolded("Hit Die:")
+        print(f"- {character.hit_die}")
+        self.bolded("Speed:")
+        print(f"- {character.speed}")
         self.print_data(character.languages, "Languages")
         self.print_data(character.traits, "Traist")
         self.print_data(character.proficiencies, "Proficiencies")
