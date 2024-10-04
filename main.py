@@ -5,11 +5,18 @@ from src.text_printer import TextPrinter
 
 app = Flask(__name__)
 
-#Code TODOs
+#Character TODOs
 #TODO: List Classes
 #TODO: List Races
-#TODO: Make APIs
-#TODO: Add Web UI
+#TODO: Make selectable classes and races
+#TODO: Add name text box
+#TODO: Add submit button
+
+#Dice TODOs
+#TODO: Add side selector
+#TODO: Add number of dice selector
+#TODO: Add modifier text box that accepts ints only
+#TODO: Add submit button
 
 #Repo TODOS
 #TODO: Add Unit Tests
@@ -39,4 +46,4 @@ def character():
     return text_printer.print_character(frank)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
