@@ -1,6 +1,5 @@
 """ A module for representing a race in Dungeons and Dragons. """
 
-# pylint: disable=line-too-long
 class Race:
     """ A class to represent a race in Dungeons and Dragons. """
     def __init__(self, name):

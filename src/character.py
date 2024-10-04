@@ -3,7 +3,6 @@ from src.dice import Dice
 from src.race import Race
 from src.character_class import CharacterClass
 
-# pylint: disable=line-too-long
 class Character:
     """ A class to represent a character in Dungeons and Dragons. """
     def __init__(self, name, desired_race="Human", desired_class="Fighter"):

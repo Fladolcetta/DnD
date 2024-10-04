@@ -1,6 +1,5 @@
 """ A module to represent a class in Dungeons and Dragons. """
 
-# pylint: disable=line-too-long
 class CharacterClass:
     """ A class to represent a class in Dungeons and Dragons. """
     def __init__(self, name):

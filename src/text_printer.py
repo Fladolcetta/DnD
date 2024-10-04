@@ -5,7 +5,6 @@ from src.dice import Dice
 from src.character import Character
 
 sys.stdout = buffer = StringIO()
-# pylint: disable=line-too-long
 class TextPrinter:
     """ A class to print text to the console. """
 
