@@ -1,5 +1,5 @@
 """ Main file for the Dungeons and Dragons character generator. """
-from flask import Flask
+from flask import Flask, render_template
 from src.character import Character
 from src.text_printer import TextPrinter
 
@@ -28,14 +28,24 @@ app = Flask(__name__)
 @app.route('/')
 def main():
     """ Main function. """
-    return "Welcome to the Dungeons and Dragons character generator!"
+    text_printer = TextPrinter()
+    links = {
+        "Roll": "/roll",
+        "Character": "/character",
+        "Race List": "/races",
+        "Class List": "/classes"
+    }
+
+    content = text_printer.print_home(links)
+    return render_template('blank.html', subtitle="Home", content=content)
 
 @app.route('/roll')
 def roll():
     """ Roll function. """
     text_printer = TextPrinter()
 
-    return text_printer.print_roll(1,20,2)
+    content = text_printer.print_roll(1,20,2)
+    return render_template('blank.html', subtitle="Dice Roller", content=content)
 
 @app.route('/character')
 def character():
@@ -43,21 +53,24 @@ def character():
     frank = Character("Frank", "Elves")
     text_printer = TextPrinter()
 
-    return text_printer.print_character(frank)
+    content = text_printer.print_character(frank)
+    return render_template('blank.html', subtitle="Character Generator", content=content)
 
 @app.route('/races')
 def races():
     """ List Races """
     text_printer = TextPrinter()
 
-    return text_printer.print_races()
+    content = text_printer.print_races()
+    return render_template('blank.html', subtitle="Race List", content=content)
 
 @app.route('/classes')
 def classes():
     """ List Classes """
     text_printer = TextPrinter()
 
-    return text_printer.print_classes()
+    content = text_printer.print_classes()
+    return render_template('blank.html', subtitle="Class List", content=content)
 
 if __name__ == '__main__':
     app.run(debug=True)

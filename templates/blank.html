@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Frank's Dnd Tool - {{ subtitle }}</title>
+</head>
+<body>
+    {% if subtitle != "Home" %}
+        <a href="/">Home</a>
+    {% endif %}
+
+    {{ content|safe }}
+</body>
+</html>
