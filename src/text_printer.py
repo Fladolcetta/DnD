@@ -17,7 +17,6 @@ class TextPrinter:
     def split_string(self, string):
         """ Split the string. """
         string_array = string.split("\n")
-
         html_string = ""
         for string in string_array:
             html_string += f"<p>{string}</p>"
@@ -35,27 +34,11 @@ class TextPrinter:
         """ Print the text in bold. """
         self.update_text_to_print(f"<b>{text}</b>")
 
-    def print_roll(self, num_dice, num_sides, modifier):
-        """ Print the roll of the dice. """
-        die = Dice(num_dice, num_sides, modifier)
-        total_dice, rolls = die.roll()
-        self.header("Dice Roller")
-        self.subheader(f"Rolling {num_dice}d{num_sides} + {modifier}")
-        self.print_single_value(total_dice, "Result")
-        self.print_data(die.rolls, "Individual Rolls")
-        if die.critical_success:
-            self.update_text_to_print("Critical Success!")
-        if die.critical_fail:
-            self.update_text_to_print("Critical Fail!")
-
-        return self.split_string(self.text_to_print)
-
     def list_to_dict(self, list_object):
         """ Convert a list to a dictionary. """
         dict_object = {}
         for i, value in enumerate(list_object):
             dict_object[i] = value
-
         return dict_object
 
     def sort_dict(self, dict_object):
@@ -67,23 +50,19 @@ class TextPrinter:
         if data:
             if isinstance(data, list):
                 data = self.list_to_dict(data)
-
             sorted_data = self.sort_dict(data)
-
             self.bolded(f"{title}:")
             for _, value in sorted_data.items():
                 self.update_text_to_print(f" - {value}")
 
     def print_single_value(self, value, title):
         """ Print a single value. """
-        self.bolded(f"{title}:")
-        self.update_text_to_print(f"- {value}")
+        self.update_text_to_print(f"<b>{title}</b>: {value}")
 
     def print_dict_with_modifiers(self, data, title):
         """ Print the dictionary with modifiers. """
         if data:
             sorted_data = self.sort_dict(data)
-
             self.bolded(f"{title}:")
             for key, value in sorted_data.items():
                 self.update_text_to_print(f" - {key}: {self.print_modifiers(value)}")
@@ -125,7 +104,6 @@ class TextPrinter:
     def print_races(self):
         """ Print the list of races. """
         race_list = Race.get_all_races()
-
         self.header("Race List:")
         for race_name in race_list:
             current_race = Race(race_name)
@@ -134,7 +112,6 @@ class TextPrinter:
             self.print_data(current_race.traits, "Traits")
             self.print_data(current_race.languages, "Languages")
             self.print_single_value(current_race.speed, "Speed")
-
         return self.split_string(self.text_to_print)
 
     def print_classes(self):
@@ -147,5 +124,18 @@ class TextPrinter:
             self.print_single_value(current_class.hit_die, "Hit Die")
             self.print_data(current_class.skill_proficiencies, "Skill Proficiencies")
             self.print_data(current_class.saving_throws_proficiencies, "Saving Throw Proficiencies")
+        return self.split_string(self.text_to_print)
 
+    def print_roll(self, num_dice, num_sides, modifier):
+        """ Print the roll of the dice. """
+        die = Dice(num_dice, num_sides, modifier)
+        total_dice, rolls = die.roll()
+        self.header("Dice Roller")
+        self.subheader(f"Rolling {num_dice}d{num_sides} + {modifier}")
+        self.print_single_value(total_dice, "Result")
+        self.print_data(die.rolls, "Individual Rolls")
+        if die.critical_success:
+            self.update_text_to_print("Critical Success!")
+        if die.critical_fail:
+            self.update_text_to_print("Critical Fail!")
         return self.split_string(self.text_to_print)
