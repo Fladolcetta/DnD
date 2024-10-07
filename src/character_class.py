@@ -99,3 +99,21 @@ class CharacterClass:
             "Wizard": ["Arcana", "History", "Insight", "Investigation", "Medicine", "Religion"]
         }
         return skills[self.name]
+
+    @staticmethod
+    def get_all_classes():
+        """ Get all classes. """
+        return [
+            "Barbarian",
+            "Bard",
+            "Cleric",
+            "Druid",
+            "Fighter",
+            "Monk",
+            "Paladin",
+            "Ranger",
+            "Rogue",
+            "Sorcerer",
+            "Warlock",
+            "Wizard"
+        ]

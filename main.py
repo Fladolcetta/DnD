@@ -54,5 +54,12 @@ def races():
 
     return text_printer.print_races()
 
+@app.route('/classes')
+def classes():
+    """ List Classes """
+    text_printer = TextPrinter()
+
+    return text_printer.print_classes()
+
 if __name__ == '__main__':
     app.run(debug=True)

@@ -4,6 +4,7 @@ from io import StringIO
 from src.dice import Dice
 from src.character import Character
 from src.race import Race
+from src.character_class import CharacterClass
 
 sys.stdout = buffer = StringIO()
 class TextPrinter:
@@ -138,5 +139,21 @@ class TextPrinter:
             self.bolded("Speed:")
             print(f"- {current_race.speed}")
 
+
+        return self.split_string(buffer.getvalue())
+
+    def print_classes(self):
+        """ Print the list of classes. """
+        buffer.truncate(0)
+
+        self.header("Class List:")
+        for class_name in CharacterClass.get_all_classes():
+            current_class = CharacterClass(class_name)
+            self.subheader(f"{current_class.name}")
+            self.print_data(current_class.primary_stat, "Primary Stat")
+            self.bolded("Hit Die:")
+            print(f"- {current_class.hit_die}")
+            self.print_data(current_class.skill_proficiencies, "Skill Proficiencies")
+            self.print_data(current_class.saving_throws_proficiencies, "Saving Throw Proficiencies")
 
         return self.split_string(buffer.getvalue())
