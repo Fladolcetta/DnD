@@ -1,5 +1,5 @@
 """ Main file for the Dungeons and Dragons character generator. """
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from src.character import Character
 from src.text_printer import TextPrinter
 
@@ -14,7 +14,6 @@ app = Flask(__name__)
 #TODO: Add side selector
 #TODO: Add number of dice selector
 #TODO: Add modifier text box that accepts ints only
-#TODO: Add submit button
 
 #Repo TODOS
 #TODO: Add Unit Tests
@@ -44,8 +43,26 @@ def roll():
     """ Roll function. """
     text_printer = TextPrinter()
 
-    content = text_printer.print_roll(1,20,2)
-    return render_template('blank.html', subtitle="Dice Roller", content=content)
+    content = ""
+    num_sides = 6
+    num_dice = 1
+    modifier = 0
+
+    try:
+        if "Roll" in request.args.get("roll"):
+            num_dice = int(request.args.get("num_dice"))
+            num_sides = int(request.args.get("num_sides"))
+            modifier = int(request.args.get("modifier"))
+            content = text_printer.print_roll(num_dice, num_sides, modifier)
+    except TypeError:
+        pass
+
+    return render_template('roll.html',
+                            subtitle="Dice Roller",
+                            num_sides=num_sides,
+                            num_dice=num_dice,
+                            modifier=modifier,
+                            content=content)
 
 @app.route('/character')
 def character():

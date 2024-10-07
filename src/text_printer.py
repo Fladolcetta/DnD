@@ -135,8 +135,11 @@ class TextPrinter:
         """ Print the roll of the dice. """
         die = Dice(num_dice, num_sides, modifier)
         total_dice, rolls = die.roll()
-        self.header("Dice Roller")
-        self.subheader(f"Rolling {num_dice}d{num_sides} + {modifier}")
+        if modifier >= 0:
+            modifier_string = f" + {modifier}"
+        elif modifier < 0:
+            modifier_string = f" - {abs(modifier)}"
+        self.subheader(f"Rolling {num_dice}d{num_sides}{modifier_string}")
         self.print_single_value(total_dice, "Result")
         self.print_data(die.rolls, "Individual Rolls")
         if die.critical_success:
