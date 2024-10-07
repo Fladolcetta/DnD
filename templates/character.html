@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Frank's Dnd Tool - {{ subtitle }}</title>
+</head>
+<body>
+    <a href="/">Home</a>
+
+    <h1>Character Generator</h1>
+    <form>
+        <p>
+            <label for="name">Character Name:</label><br>
+            <input type="text" name="name" value={{name}}>
+        </p>
+        <p>
+            <label for="race">Race:</label><br>
+            <input type="text" name="race" value={{race}}>
+        </p>
+        <p>
+            <label for="character_class">Class:</label><br>
+            <input type="text" name="character_class" value={{character_class}}>
+        </p>
+        <p>
+            <label for="create">Create Character:</label><br>
+            <input type="submit" name="create" value="Create">
+        </p>
+    </form>
+    {{ content|safe }}
+</body>
+</html>

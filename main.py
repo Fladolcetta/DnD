@@ -7,13 +7,6 @@ app = Flask(__name__)
 
 #Character TODOs
 #TODO: Make selectable classes and races
-#TODO: Add name text box
-#TODO: Add submit button
-
-#Dice TODOs
-#TODO: Add side selector
-#TODO: Add number of dice selector
-#TODO: Add modifier text box that accepts ints only
 
 #Repo TODOS
 #TODO: Add Unit Tests
@@ -23,6 +16,7 @@ app = Flask(__name__)
 #TODO: Add Code Coverage
 #TODO: Add Containerization
 #TODO: Add Kubernetes
+#TODO: Update branch rules to require PRs
 
 @app.route('/')
 def main():
@@ -67,11 +61,30 @@ def roll():
 @app.route('/character')
 def character():
     """ Character function. """
-    frank = Character("Frank", "Elves")
     text_printer = TextPrinter()
 
-    content = text_printer.print_character(frank)
-    return render_template('blank.html', subtitle="Character Generator", content=content)
+    content = ""
+    name = ""
+    race = ""
+    character_class = ""
+
+
+    try:
+        if "Create" in request.args.get("create"):
+            name = str(request.args.get("name"))
+            race = str(request.args.get("race"))
+            character_class = str(request.args.get("character_class"))
+            new_char = Character(name, race, character_class)
+
+            content = text_printer.print_character(new_char)
+    except TypeError:
+        pass
+    return render_template('character.html',
+                            subtitle="Character Generator",
+                            name=name,
+                            race=race,
+                            character_class=character_class,
+                            content=content)
 
 @app.route('/races')
 def races():

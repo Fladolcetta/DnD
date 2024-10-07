@@ -92,7 +92,8 @@ class TextPrinter:
 
     def print_character(self, character):
         """ Print the character. """
-        self.header(f"Character Generator")
+        self.subheader(f"Creating a new character: {character.name}")
+
         self.print_single_value(character.name, "Name")
         self.print_single_value(character.race, "Race")
         self.print_single_value(character.dnd_class, "Class")
