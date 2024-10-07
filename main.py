@@ -6,8 +6,6 @@ from src.text_printer import TextPrinter
 app = Flask(__name__)
 
 #Character TODOs
-#TODO: List Classes
-#TODO: List Races
 #TODO: Make selectable classes and races
 #TODO: Add name text box
 #TODO: Add submit button

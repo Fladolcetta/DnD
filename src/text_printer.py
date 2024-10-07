@@ -16,7 +16,7 @@ class TextPrinter:
 
         html_string = ""
         for string in string_array:
-            html_string += f"{string}<br>"
+            html_string += f"<p>{string}</p>"
         return html_string
 
     def header(self, title):
@@ -74,6 +74,11 @@ class TextPrinter:
             for _, value in sorted_data.items():
                 print(f" - {value}")
 
+    def print_single_value(self, value, title):
+        """ Print a single value. """
+        self.bolded(f"{title}:")
+        print(f"- {value}")
+
     def print_dict_with_modifiers(self, data, title):
         """ Print the dictionary with modifiers. """
         if data:
@@ -106,16 +111,11 @@ class TextPrinter:
         buffer.truncate(0)
 
         self.header(f"Character Generator")
-        self.bolded("Name:")
-        print(f"- {character.name}")
-        self.bolded("Race:")
-        print(f"- {character.race}")
-        self.bolded("Class:")
-        print(f"- {character.dnd_class}")
-        self.bolded("Hit Die:")
-        print(f"- {character.hit_die}")
-        self.bolded("Speed:")
-        print(f"- {character.speed}")
+        self.print_single_value(character.name, "Name")
+        self.print_single_value(character.race, "Race")
+        self.print_single_value(character.dnd_class, "Class")
+        self.print_single_value(character.hit_die, "Hit Die")
+        self.print_single_value(character.speed, "Speed")
         self.print_data(character.languages, "Languages")
         self.print_data(character.traits, "Traist")
         self.print_data(character.proficiencies, "Proficiencies")
@@ -136,9 +136,7 @@ class TextPrinter:
             self.print_dict_with_modifiers(current_race.stats, "Stats")
             self.print_data(current_race.traits, "Traits")
             self.print_data(current_race.languages, "Languages")
-            self.bolded("Speed:")
-            print(f"- {current_race.speed}")
-
+            self.print_single_value(current_race.speed, "Speed")
 
         return self.split_string(buffer.getvalue())
 
@@ -151,8 +149,7 @@ class TextPrinter:
             current_class = CharacterClass(class_name)
             self.subheader(f"{current_class.name}")
             self.print_data(current_class.primary_stat, "Primary Stat")
-            self.bolded("Hit Die:")
-            print(f"- {current_class.hit_die}")
+            self.print_single_value(current_class.hit_die, "Hit Die")
             self.print_data(current_class.skill_proficiencies, "Skill Proficiencies")
             self.print_data(current_class.saving_throws_proficiencies, "Saving Throw Proficiencies")
 
