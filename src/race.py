@@ -87,6 +87,11 @@ class Race:
 
         return race_languages[self.name]
 
+    @staticmethod
+    def get_all_races():
+        """ Get a list of all the Dungeons and Dragons races """
+        return ["Humans", "Elves", "Dwarves", "Halflings", "Half-Orcs", "Gnomes", "Half-Elves", "Dragonborn", "Tieflings"]
+
     def get_race_traits(self):
         """ Get the traits of the Race. """
         race_traits = {

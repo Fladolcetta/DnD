@@ -36,6 +36,7 @@ def main():
 def roll():
     """ Roll function. """
     text_printer = TextPrinter()
+
     return text_printer.print_roll(1,20,2)
 
 @app.route('/character')
@@ -43,7 +44,15 @@ def character():
     """ Character function. """
     frank = Character("Frank", "Elves")
     text_printer = TextPrinter()
+
     return text_printer.print_character(frank)
+
+@app.route('/races')
+def races():
+    """ List Races """
+    text_printer = TextPrinter()
+
+    return text_printer.print_races()
 
 if __name__ == '__main__':
     app.run(debug=True)

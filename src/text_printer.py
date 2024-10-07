@@ -3,6 +3,7 @@ import sys
 from io import StringIO
 from src.dice import Dice
 from src.character import Character
+from src.race import Race
 
 sys.stdout = buffer = StringIO()
 class TextPrinter:
@@ -116,4 +117,15 @@ class TextPrinter:
         self.print_dict_with_data_and_modifiers(character.stats, "Stats")
         self.print_dict_with_modifiers(character.all_skills, "Skills")
         self.print_dict_with_modifiers(character.saving_throws, "Saving Throws")
+        return self.split_string(buffer.getvalue())
+
+    def print_races(self):
+        """ Print the list of races. """
+        buffer.truncate(0)
+        race_list = Race.get_all_races()
+
+        self.bolded("Race List:")
+        for race in race_list:
+            print (f"- {race}")
+
         return self.split_string(buffer.getvalue())
