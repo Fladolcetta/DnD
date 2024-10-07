@@ -22,6 +22,10 @@ class TextPrinter:
         """ Print the header. """
         print(f"<h1>{title}</h1>")
 
+    def subheader(self, title):
+        """ Print the subheader. """
+        print(f"<h2>{title}</h2>")
+
     def bolded(self, text):
         """ Print the text in bold. """
         print(f"<b>{text}</b>")
@@ -124,8 +128,15 @@ class TextPrinter:
         buffer.truncate(0)
         race_list = Race.get_all_races()
 
-        self.bolded("Race List:")
-        for race in race_list:
-            print (f"- {race}")
+        self.header("Race List:")
+        for race_name in race_list:
+            current_race = Race(race_name)
+            self.subheader(f"{current_race.name}")
+            self.print_dict_with_modifiers(current_race.stats, "Stats")
+            self.print_data(current_race.traits, "Traits")
+            self.print_data(current_race.languages, "Languages")
+            self.bolded("Speed:")
+            print(f"- {current_race.speed}")
+
 
         return self.split_string(buffer.getvalue())
