@@ -12,7 +12,7 @@ class Race:
     def get_race_bonus_stat(self):
         """ Get the bonus stats of the Race."""
         race_bonus_stat = {
-            "Humans": {
+            "Human": {
                 "Strength": 1,
                 "Dexterity": 1,
                 "Constitution": 1,
@@ -20,27 +20,27 @@ class Race:
                 "Wisdom": 1,
                 "Charisma": 1
             },
-            "Elves": {
+            "Elf": {
                 "Dexterity": 2,
                 "Intelligence": 1
             },
-            "Dwarves": {
+            "Dwarf": {
                 "Constitution": 2,
                 "Wisdom": 1
             },
-            "Halflings": {
+            "Halfling": {
                 "Dexterity": 2,
                 "Charisma": 1
             },
-            "Half-Orcs": {
+            "Half-Orc": {
                 "Strength": 2,
                 "Constitution": 1
             },
-            "Gnomes": {
+            "Gnome": {
                 "Intelligence": 2,
                 "Constitution": 1
             },
-            "Half-Elves": {
+            "Half-Elf": {
                 "Charisma": 2,
                 "Constitution": 1,
                 "Wisdom": 1
@@ -49,7 +49,7 @@ class Race:
                 "Strength": 2,
                 "Charisma": 1
             },
-            "Tieflings": {
+            "Tiefling": {
                 "Intelligence": 1,
                 "Charisma": 2
             }
@@ -59,30 +59,30 @@ class Race:
     def get_race_speed(self):
         """ Get the speed of the Race."""
         race_speed = {
-            "Humans": 30,
-            "Elves": 30,
-            "Dwarves": 25,
-            "Halflings": 25,
-            "Half-Orcs": 30,
-            "Gnomes": 25,
-            "Half-Elves": 30,
+            "Human": 30,
+            "Elf": 30,
+            "Dwarf": 25,
+            "Halfling": 25,
+            "Half-Orc": 30,
+            "Gnome": 25,
+            "Half-Elf": 30,
             "Dragonborn": 30,
-            "Tieflings": 30
+            "Tiefling": 30
         }
         return race_speed[self.name]
 
     def get_race_languages(self):
         """ Get the languages of the Race."""
         race_languages = {
-            "Humans": ["Common"],
-            "Elves": ["Common", "Elvish"],
-            "Dwarves": ["Common", "Dwarvish"],
-            "Halflings": ["Common", "Halfling"],
-            "Half-Orcs": ["Common", "Orc"],
-            "Gnomes": ["Common", "Gnomish"],
-            "Half-Elves": ["Common", "Elvish"],
+            "Human": ["Common"],
+            "Elf": ["Common", "Elvish"],
+            "Dwarf": ["Common", "Dwarvish"],
+            "Halfling": ["Common", "Halfling"],
+            "Half-Orc": ["Common", "Orc"],
+            "Gnome": ["Common", "Gnomish"],
+            "Half-Elf": ["Common", "Elvish"],
             "Dragonborn": ["Common", "Draconic"],
-            "Tieflings": ["Common", "Infernal"]
+            "Tiefling": ["Common", "Infernal"]
         }
 
         return race_languages[self.name]
@@ -90,15 +90,15 @@ class Race:
     def get_race_traits(self):
         """ Get the traits of the Race. """
         race_traits = {
-            "Humans": ["None"],
-            "Elves": ["Darkvision", "Keen Senses", "Fey Ancestry", "Trance"],
-            "Dwarves": ["Darkvision", "Dwarven Resilience", "Dwarven Combat Training", "Stonecunning"],
-            "Halflings": ["Lucky", "Brave", "Halfling Nimbleness"],
-            "Half-Orcs": ["Darkvision", "Menacing", "Relentless Endurance", "Savage Attacks"],
-            "Gnomes": ["Darkvision", "Gnome Cunning"],
-            "Half-Elves": ["Darkvision", "Fey Ancestry", "Skill Versatility"],
+            "Human": ["None"],
+            "Elf": ["Darkvision", "Keen Senses", "Fey Ancestry", "Trance"],
+            "Dwarf": ["Darkvision", "Dwarven Resilience", "Dwarven Combat Training", "Stonecunning"],
+            "Halfling": ["Lucky", "Brave", "Halfling Nimbleness"],
+            "Half-Orc": ["Darkvision", "Menacing", "Relentless Endurance", "Savage Attacks"],
+            "Gnome": ["Darkvision", "Gnome Cunning"],
+            "Half-Elf": ["Darkvision", "Fey Ancestry", "Skill Versatility"],
             "Dragonborn": ["Draconic Ancestry", "Breath Weapon", "Damage Resistance"],
-            "Tieflings": ["Darkvision", "Hellish Resistance", "Infernal Legacy"]
+            "Tiefling": ["Darkvision", "Hellish Resistance", "Infernal Legacy"]
         }
 
         return race_traits[self.name]
@@ -107,13 +107,13 @@ class Race:
     def get_all_races():
         """ Get a list of all the Dungeons and Dragons races """
         return [
-            "Humans",
-            "Elves",
-            "Dwarves",
-            "Halflings",
-            "Half-Orcs",
-            "Gnomes",
-            "Half-Elves",
+            "Human",
+            "Elf",
+            "Dwarf",
+            "Halfling",
+            "Half-Orc",
+            "Gnome",
+            "Half-Elf",
             "Dragonborn",
-            "Tieflings"
+            "Tiefling"
             ]
