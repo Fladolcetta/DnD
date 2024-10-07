@@ -1,14 +1,18 @@
 """ A module for printing text to the console. """
-import sys
-from io import StringIO
 from src.dice import Dice
 from src.character import Character
 from src.race import Race
 from src.character_class import CharacterClass
 
-sys.stdout = buffer = StringIO()
 class TextPrinter:
     """ A class to print text to the console. """
+
+    def __init__(self):
+        self.text_to_print = ""
+
+    def update_text_to_print(self, text):
+        """ Print the text. """
+        self.text_to_print += text + "\n"
 
     def split_string(self, string):
         """ Split the string. """
@@ -21,34 +25,30 @@ class TextPrinter:
 
     def header(self, title):
         """ Print the header. """
-        print(f"<h1>{title}</h1>")
+        self.update_text_to_print(f"<h1>{title}</h1>")
 
     def subheader(self, title):
         """ Print the subheader. """
-        print(f"<h2>{title}</h2>")
+        self.update_text_to_print(f"<h2>{title}</h2>")
 
     def bolded(self, text):
         """ Print the text in bold. """
-        print(f"<b>{text}</b>")
+        self.update_text_to_print(f"<b>{text}</b>")
 
     def print_roll(self, num_dice, num_sides, modifier):
         """ Print the roll of the dice. """
-        buffer.truncate(0)
-
         die = Dice(num_dice, num_sides, modifier)
         total_dice, rolls = die.roll()
         self.header("Dice Roller")
-        self.bolded(f"Rolling {num_dice}d{num_sides} + {modifier}")
-        self.bolded("Result:")
-        print(f"- {total_dice}")
-        self.bolded("Individual Rolls:")
-        print(f"- {rolls}")
+        self.subheader(f"Rolling {num_dice}d{num_sides} + {modifier}")
+        self.print_single_value(total_dice, "Result")
+        self.print_data(die.rolls, "Individual Rolls")
         if die.critical_success:
-            print("Critical Success!")
+            self.update_text_to_print("Critical Success!")
         if die.critical_fail:
-            print("Critical Fail!")
+            self.update_text_to_print("Critical Fail!")
 
-        return self.split_string(buffer.getvalue())
+        return self.split_string(self.text_to_print)
 
     def list_to_dict(self, list_object):
         """ Convert a list to a dictionary. """
@@ -72,12 +72,12 @@ class TextPrinter:
 
             self.bolded(f"{title}:")
             for _, value in sorted_data.items():
-                print(f" - {value}")
+                self.update_text_to_print(f" - {value}")
 
     def print_single_value(self, value, title):
         """ Print a single value. """
         self.bolded(f"{title}:")
-        print(f"- {value}")
+        self.update_text_to_print(f"- {value}")
 
     def print_dict_with_modifiers(self, data, title):
         """ Print the dictionary with modifiers. """
@@ -86,7 +86,7 @@ class TextPrinter:
 
             self.bolded(f"{title}:")
             for key, value in sorted_data.items():
-                print(f" - {key}: {self.print_modifiers(value)}")
+                self.update_text_to_print(f" - {key}: {self.print_modifiers(value)}")
 
     def print_dict_with_data_and_modifiers(self, data, title):
         """ Print the dictionary with data and modifiers. """
@@ -95,7 +95,7 @@ class TextPrinter:
 
             self.bolded(f"{title}:")
             for key, value in sorted_data.items():
-                print(f" - {key}: {value} ({self.print_modifiers(Character.find_modifier_value(value))})")
+                self.update_text_to_print(f" - {key}: {value} ({self.print_modifiers(Character.find_modifier_value(value))})")
 
     def print_modifiers(self, value):
         """ Print the modifiers of the value. """
@@ -108,8 +108,6 @@ class TextPrinter:
 
     def print_character(self, character):
         """ Print the character. """
-        buffer.truncate(0)
-
         self.header(f"Character Generator")
         self.print_single_value(character.name, "Name")
         self.print_single_value(character.race, "Race")
@@ -117,16 +115,15 @@ class TextPrinter:
         self.print_single_value(character.hit_die, "Hit Die")
         self.print_single_value(character.speed, "Speed")
         self.print_data(character.languages, "Languages")
-        self.print_data(character.traits, "Traist")
+        self.print_data(character.traits, "Traits")
         self.print_data(character.proficiencies, "Proficiencies")
         self.print_dict_with_data_and_modifiers(character.stats, "Stats")
         self.print_dict_with_modifiers(character.all_skills, "Skills")
         self.print_dict_with_modifiers(character.saving_throws, "Saving Throws")
-        return self.split_string(buffer.getvalue())
+        return self.split_string(self.text_to_print)
 
     def print_races(self):
         """ Print the list of races. """
-        buffer.truncate(0)
         race_list = Race.get_all_races()
 
         self.header("Race List:")
@@ -138,12 +135,10 @@ class TextPrinter:
             self.print_data(current_race.languages, "Languages")
             self.print_single_value(current_race.speed, "Speed")
 
-        return self.split_string(buffer.getvalue())
+        return self.split_string(self.text_to_print)
 
     def print_classes(self):
         """ Print the list of classes. """
-        buffer.truncate(0)
-
         self.header("Class List:")
         for class_name in CharacterClass.get_all_classes():
             current_class = CharacterClass(class_name)
@@ -153,4 +148,4 @@ class TextPrinter:
             self.print_data(current_class.skill_proficiencies, "Skill Proficiencies")
             self.print_data(current_class.saving_throws_proficiencies, "Saving Throw Proficiencies")
 
-        return self.split_string(buffer.getvalue())
+        return self.split_string(self.text_to_print)
