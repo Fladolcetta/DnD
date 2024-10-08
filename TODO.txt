@@ -6,7 +6,6 @@
     - HP
     - Passive Perception
 - Use Character Sheet
-    - fix death saves?
 
 
 #Repo TODOS
