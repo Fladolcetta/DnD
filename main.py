@@ -14,7 +14,6 @@ app = Flask(__name__)
 #TODO: Generate Documentation
 #TODO: Update README with generated documentation
 #TODO: Add Code Coverage
-#TODO: Add Containerization
 #TODO: Add Kubernetes
 #TODO: Update branch rules to require PRs
 
