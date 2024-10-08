@@ -1,0 +1,19 @@
+#Character TODOs
+- Add values:
+    - Level
+    - AC
+    - Initiative
+    - HP
+    - Passive Perception
+- Use Character Sheet
+    - fix death saves?
+
+
+#Repo TODOS
+#TODO: Add Unit Tests
+#TODO: Add Linting
+#TODO: Generate Documentation
+#TODO: Update README with generated documentation
+#TODO: Add Code Coverage
+#TODO: Add Kubernetes
+#TODO: Update branch rules to require PRs

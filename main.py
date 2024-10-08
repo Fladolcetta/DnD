@@ -5,18 +5,6 @@ from src.text_printer import TextPrinter
 
 app = Flask(__name__)
 
-#Character TODOs
-#TODO: Make selectable classes and races
-
-#Repo TODOS
-#TODO: Add Unit Tests
-#TODO: Add Linting
-#TODO: Generate Documentation
-#TODO: Update README with generated documentation
-#TODO: Add Code Coverage
-#TODO: Add Kubernetes
-#TODO: Update branch rules to require PRs
-
 @app.route('/')
 def main():
     """ Main function. """
@@ -25,7 +13,8 @@ def main():
         "Roll": "/roll",
         "Character": "/character",
         "Race List": "/races",
-        "Class List": "/classes"
+        "Class List": "/classes",
+        "Character Sheet": "/sheet"
     }
 
     content = text_printer.print_home(links)
@@ -100,6 +89,13 @@ def classes():
 
     content = text_printer.print_classes()
     return render_template('blank.html', subtitle="Class List", content=content)
+
+@app.route('/sheet')
+def sheet():
+    """ Character Sheet """
+    text_printer = TextPrinter()
+
+    return render_template('character_sheet.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
