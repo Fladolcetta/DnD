@@ -1,7 +1,8 @@
 #Character TODOs
-- Add dropdown in character.html for race and clas
 - Use Character Sheet
 
+#Dice TODOs
+- Display Dice
 
 #Repo TODOS
 #TODO: Add Unit Tests

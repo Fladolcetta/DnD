@@ -57,7 +57,8 @@ def character():
     name = ""
     race = ""
     character_class = ""
-
+    race_list = Race.get_all_races()
+    class_list = CharacterClass.get_all_classes()
 
     try:
         if "Create" in request.args.get("create"):
@@ -74,6 +75,8 @@ def character():
                             name=name,
                             race=race,
                             character_class=character_class,
+                            race_list=race_list,
+                            class_list=class_list,
                             content=content)
 
 @app.route('/races')
