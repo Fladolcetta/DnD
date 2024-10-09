@@ -2,6 +2,8 @@
 from flask import Flask, render_template, request
 from src.character import Character
 from src.text_printer import TextPrinter
+from src.race import Race
+from src.character_class import CharacterClass
 
 app = Flask(__name__)
 
@@ -78,17 +80,27 @@ def character():
 def races():
     """ List Races """
     text_printer = TextPrinter()
-
-    content = text_printer.print_races()
-    return render_template('blank.html', subtitle="Race List", content=content)
+    race_list = Race.get_all_races()
+    content=""
+    try:
+        if "Show" in request.args.get("show"):
+            content = text_printer.print_race_info(request.args.get("race"))
+    except TypeError:
+        pass
+    return render_template('race.html', subtitle="Race List", content=content, race_list=race_list)
 
 @app.route('/classes')
 def classes():
     """ List Classes """
     text_printer = TextPrinter()
-
-    content = text_printer.print_classes()
-    return render_template('blank.html', subtitle="Class List", content=content)
+    class_list = CharacterClass.get_all_classes()
+    content=""
+    try:
+        if "Show" in request.args.get("show"):
+            content = text_printer.print_class_info(request.args.get("class"))
+    except TypeError:
+        pass
+    return render_template('class.html', subtitle="Class List", content=content, class_list=class_list)
 
 @app.route('/sheet')
 def sheet():

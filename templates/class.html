@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Frank's Dnd Tool - {{ subtitle }}</title>
+</head>
+<body>
+    <a href="/">Home</a>
+    <h1> DnD Class Details</h1>
+    <form>
+        <p>
+            <label for="class">Class:</label><br>
+            <select id="class" name="class">
+                {% for item in class_list %}
+                    <option value="{{ item }}">{{ item }}</option>
+                {% endfor %}
+            </select>
+        </p>
+        <p>
+            <label for="create">Show Class Details:</label><br>
+            <input type="submit" name="show" value="Show">
+        </p>
+    </form>
+
+    {{ content|safe }}
+</body>
+</html>

@@ -113,29 +113,24 @@ class TextPrinter:
         self.print_dict_with_modifiers(character.saving_throws, "Saving Throws")
         return self.split_string(self.text_to_print)
 
-    def print_races(self):
+    def print_race_info(self, race_name):
         """ Print the list of races. """
-        race_list = Race.get_all_races()
-        self.header("Race List:")
-        for race_name in race_list:
-            current_race = Race(race_name)
-            self.subheader(f"{current_race.name}")
-            self.print_dict_with_modifiers(current_race.stats, "Stats")
-            self.print_data(current_race.traits, "Traits")
-            self.print_data(current_race.languages, "Languages")
-            self.print_single_value(current_race.speed, "Speed")
+        current_race = Race(race_name)
+        self.subheader(f"{current_race.name}")
+        self.print_dict_with_modifiers(current_race.stats, "Stats")
+        self.print_data(current_race.traits, "Traits")
+        self.print_data(current_race.languages, "Languages")
+        self.print_single_value(current_race.speed, "Speed")
         return self.split_string(self.text_to_print)
 
-    def print_classes(self):
+    def print_class_info(self, class_name):
         """ Print the list of classes. """
-        self.header("Class List:")
-        for class_name in CharacterClass.get_all_classes():
-            current_class = CharacterClass(class_name)
-            self.subheader(f"{current_class.name}")
-            self.print_data(current_class.primary_stat, "Primary Stat")
-            self.print_single_value(current_class.hit_die, "Hit Die")
-            self.print_data(current_class.skill_proficiencies, "Skill Proficiencies")
-            self.print_data(current_class.saving_throws_proficiencies, "Saving Throw Proficiencies")
+        current_class = CharacterClass(class_name)
+        self.subheader(f"{current_class.name}")
+        self.print_data(current_class.primary_stat, "Primary Stat")
+        #self.print_single_value(current_class.hit_die, "Hit Die")
+        self.print_data(current_class.skill_proficiencies, "Skill Proficiencies")
+        self.print_data(current_class.saving_throws_proficiencies, "Saving Throw Proficiencies")
         return self.split_string(self.text_to_print)
 
     def print_roll(self, num_dice, num_sides, modifier):
