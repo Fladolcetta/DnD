@@ -9,11 +9,16 @@ class Character:
         self.name = name
         self.race = desired_race
         self.dnd_class = desired_class
+        self.level = 1
+        self.ac = 10
+        self.initiative = 0
+        self.hp = 0
+        self.passive_perception = 10
         self.primary_stat = []
         self.worst_stat = []
         self.speed = 0
         self.proficiency_bonus = 2
-        self.hit_die = 0
+        self.hit_die = "0d0"
         self.proficiencies = dict()
         self.saving_throws = dict()
         self.all_skills = dict()
@@ -64,6 +69,10 @@ class Character:
         self.update_race_details()
         self.update_skills()
         self.update_class_details()
+        self.update_ac()
+        self.update_initiative()
+        self.update_hp()
+        self.update_passive_perception()
 
     def find_modifier_stat(self, stat):
         """ Find the modifier for a given stat. """
@@ -91,7 +100,7 @@ class Character:
     def update_class_details(self):
         """ Update the character based on the class. """
         class_object = CharacterClass(self.dnd_class)
-        self.hit_die = class_object.hit_die
+        self.hit_die = str(self.level) + "d" + str(class_object.hit_die)
         self.proficiencies = class_object.get_skill_proficiencies()
         for skill in self.all_skills:
             if skill in self.proficiencies:
@@ -134,6 +143,30 @@ class Character:
         self.all_skills.update(self.charisma_skills)
         self.all_skills = dict(sorted(self.all_skills.items()))
 
+    def update_ac(self):
+        """ Update the AC based on the stats. """
+        self.ac = 10 + self.find_modifier_stat("Dexterity")
+
+    def update_initiative(self):
+        """ Update the initiative based on the stats. """
+        self.initiative = self.find_modifier_stat("Dexterity")
+
+    def update_hp(self):
+        """ Update the HP based on the stats. """
+        hit_die_array = self.hit_die.split("d")
+        hit_die_count = int(hit_die_array[0])
+        hit_die_sides = int(hit_die_array[1])
+        die = Dice(hit_die_count, hit_die_sides, self.find_modifier_stat("Constitution"))
+        self.hp = die.roll()[0]
+
+    def update_passive_perception(self):
+        """ Update the passive perception based on the stats. """
+        base_perception = 10
+        wisdom_modifier = self.find_modifier_stat("Wisdom")
+        perception_proficiency = 0
+        if "Perception" in self.proficiencies:
+            perception_proficiency = self.proficiency_bonus
+        self.passive_perception = base_perception + wisdom_modifier + perception_proficiency
 
     def roll_stats(self):
         """ Roll the stats for the character. """

@@ -1,10 +1,5 @@
 #Character TODOs
-- Add values:
-    - Level
-    - AC
-    - Initiative
-    - HP
-    - Passive Perception
+- Add dropdown in character.html for race and clas
 - Use Character Sheet
 
 
