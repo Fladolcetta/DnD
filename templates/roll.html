@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <title>Frank's Dnd Tool - {{ subtitle }}</title>
 </head>
+<style>
+    select {
+        width: 40px;
+    }
+    input[type="number"] {
+        width: 40px;
+    }
+</style>
 <body>
     <a href="/">Home</a>
 
@@ -11,7 +19,15 @@
     <form>
         <p>
             <label for="num_sides">Number of Sides:</label><br>
-            <input type="number" name="num_sides" value={{num_sides}} min="0" style="width:40px">
+            <select id="num_sides" name="num_sides">
+                <option value="4">4</option>
+                <option value="6">6</option>
+                <option value="8">8</option>
+                <option value="10">10</option>
+                <option value="12">12</option>
+                <option value="20">20</option>
+                <option value="100">100</option>
+            </select>
         </p>
         <p>
             <label for="num_dice">Number of Dice:</label><br>
