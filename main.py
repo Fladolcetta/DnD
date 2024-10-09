@@ -97,7 +97,7 @@ def classes():
     content=""
     try:
         if "Show" in request.args.get("show"):
-            content = text_printer.print_class_info(request.args.get("class"))
+            content = text_printer.print_class_info(request.args.get("character_class"))
     except TypeError:
         pass
     return render_template('class.html', subtitle="Class List", content=content, class_list=class_list)

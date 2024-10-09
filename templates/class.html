@@ -9,8 +9,8 @@
     <h1> DnD Class Details</h1>
     <form>
         <p>
-            <label for="class">Class:</label><br>
-            <select id="class" name="class">
+            <label for="character_class">Class:</label><br>
+            <select id="character_class" name="character_class">
                 {% for item in class_list %}
                     <option value="{{ item }}">{{ item }}</option>
                 {% endfor %}
