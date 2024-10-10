@@ -91,8 +91,7 @@ class TextPrinter:
 
     def print_character(self, character):
         """ Print the character. """
-        self.subheader(f"Creating a new character: {character.name}")
-
+        self.text_to_print = ""
         self.print_single_value(character.name, "Name")
         self.print_single_value(character.race, "Race")
         self.print_single_value(character.dnd_class, "Class")
@@ -112,8 +111,17 @@ class TextPrinter:
         self.print_dict_with_modifiers(character.saving_throws, "Saving Throws")
         return self.split_string(self.text_to_print)
 
+    def print_basic_stats(self, character):
+        """ Print the basic stats. """
+        self.text_to_print = ""
+        self.print_single_value(character.race, "Race")
+        self.print_single_value(character.dnd_class, "Class")
+        self.print_data(character.stats, "Stats")
+        return self.split_string(self.text_to_print)
+
     def print_race_info(self, race_name):
         """ Print the list of races. """
+        self.text_to_print = ""
         current_race = Race(race_name)
         self.subheader(f"{current_race.name}")
         self.print_dict_with_modifiers(current_race.stats, "Stats")
@@ -124,6 +132,7 @@ class TextPrinter:
 
     def print_class_info(self, class_name):
         """ Print the list of classes. """
+        self.text_to_print = ""
         current_class = CharacterClass(class_name)
         self.subheader(f"{current_class.name}")
         self.print_data(current_class.primary_stat, "Primary Stat")
@@ -134,6 +143,7 @@ class TextPrinter:
 
     def print_roll(self, num_dice, num_sides, modifier):
         """ Print the roll of the dice. """
+        self.text_to_print = ""
         die = Dice(num_dice, num_sides, modifier)
         if modifier >= 0:
             modifier_string = f" + {modifier}"
@@ -150,6 +160,7 @@ class TextPrinter:
 
     def print_home(self, links):
         """ Print the home page. """
+        self.text_to_print = ""
         self.header("Frank's DnD Tool!")
         self.print_links(links)
         return self.split_string(self.text_to_print)

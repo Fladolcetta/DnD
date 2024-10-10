@@ -54,10 +54,6 @@ def character():
     """ Character function. """
     text_printer = TextPrinter()
 
-    content = ""
-    name = ""
-    race = ""
-    character_class = ""
     race_list = Race.get_all_races()
     class_list = CharacterClass.get_all_classes()
 
@@ -68,21 +64,20 @@ def character():
             character_class = str(request.args.get("character_class"))
             new_char = Character(name, race, character_class)
 
-            content = text_printer.print_character(new_char)
             key_pairs = SheetGenerator(new_char).generate_key_pairs()
+            details = text_printer.print_character(new_char)
+            basic_info = text_printer.print_basic_stats(new_char)
             return render_template('character_sheet.html',
                                     subtitle="Character Sheet",
-                                    key_pairs=key_pairs)
+                                    key_pairs=key_pairs,
+                                    details=details,
+                                    basic_info=basic_info,
+                                    )
     except TypeError:
-        pass
-    return render_template('character.html',
-                            subtitle="Character Generator",
-                            name=name,
-                            race=race,
-                            character_class=character_class,
-                            race_list=race_list,
-                            class_list=class_list,
-                            content=content)
+        return render_template('character.html',
+                                subtitle="Character Generator",
+                                race_list=race_list,
+                                class_list=class_list)
 
 @app.route('/races')
 def races():
