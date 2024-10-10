@@ -4,7 +4,7 @@ import random
 
 class Dice:
     """ A class to represent a dice roll. """
-    def __init__(self, num_dice, num_sides, modifier):
+    def __init__(self, num_dice, num_sides, modifier) -> None:
         self.num_dice = num_dice
         self.num_sides = num_sides
         self.modifier = modifier
@@ -15,7 +15,7 @@ class Dice:
         self.critical_fail = False
         self.roll()
 
-    def roll(self):
+    def roll(self) -> None:
         """ Roll the dice and return the total. """
         for i in range(self.num_dice):
             self.rolls.append(random.randint(1, self.num_sides))

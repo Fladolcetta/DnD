@@ -2,14 +2,14 @@
 
 class CharacterClass:
     """ A class to represent a class in Dungeons and Dragons. """
-    def __init__(self, name):
+    def __init__(self, name: str) -> None:
         self.name = name
         self.hit_die = self.get_hit_die()
         self.primary_stat = self.get_primary_stat()
         self.saving_throws_proficiencies = self.get_saving_throw_proficiencies()
         self.skill_proficiencies = self.get_skill_proficiencies()
 
-    def get_hit_die(self):
+    def get_hit_die(self) -> dict:
         """ Get the hit die of the class. """
         hit_die = {
             "Barbarian": 12,
@@ -27,7 +27,7 @@ class CharacterClass:
         }
         return hit_die[self.name]
 
-    def get_primary_stat(self):
+    def get_primary_stat(self) -> dict:
         """ Get the primary stat of the class. """
         primary_stat = {
             "Barbarian": ["Strength"],
@@ -45,7 +45,7 @@ class CharacterClass:
         }
         return primary_stat[self.name]
 
-    def get_worst_stat(self):
+    def get_worst_stat(self) -> dict:
         """ Get the worst stat of the class. """
         worst_stat = {
             "Barbarian": ["Intelligence"],
@@ -64,7 +64,7 @@ class CharacterClass:
 
         return worst_stat[self.name]
 
-    def get_saving_throw_proficiencies(self):
+    def get_saving_throw_proficiencies(self) -> dict:
         """ Get the saving throws of the class. """
         saving_throws = {
             "Barbarian": ["Strength", "Constitution"],
@@ -82,7 +82,7 @@ class CharacterClass:
         }
         return saving_throws[self.name]
 
-    def get_skill_proficiencies(self):
+    def get_skill_proficiencies(self) -> dict:
         """ Get the skills of the class. """
         skills = {
             "Barbarian": ["Animal Handling", "Athletics", "Intimidation", "Nature", "Perception", "Survival"],
@@ -101,7 +101,7 @@ class CharacterClass:
         return skills[self.name]
 
     @staticmethod
-    def get_all_classes():
+    def get_all_classes() -> list:
         """ Get all classes. """
         return [
             "Barbarian",

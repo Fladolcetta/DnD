@@ -5,7 +5,7 @@ from src.character_class import CharacterClass
 
 class Character:
     """ A class to represent a character in Dungeons and Dragons. """
-    def __init__(self, name, desired_race="Human", desired_class="Fighter"):
+    def __init__(self, name, desired_race="Human", desired_class="Fighter") -> None:
         self.name = name
         self.race = desired_race
         self.dnd_class = desired_class
@@ -74,16 +74,16 @@ class Character:
         self.update_hp()
         self.update_passive_perception()
 
-    def find_modifier_stat(self, stat):
+    def find_modifier_stat(self, stat: str) -> int:
         """ Find the modifier for a given stat. """
         return Character.find_modifier_value(self.stats[stat])
 
     @staticmethod
-    def find_modifier_value(value):
+    def find_modifier_value(value: int) -> int:
         """ Find the modifier for a given value. """
         return (value - 10) // 2
 
-    def update_race_details(self):
+    def update_race_details(self) -> None:
         """ Update the character based on the race. """
         race_object = Race(self.race)
         self.speed = race_object.speed
@@ -97,7 +97,7 @@ class Character:
         self.stats = dict(sorted(self.stats.items()))
 
 
-    def update_class_details(self):
+    def update_class_details(self) -> None:
         """ Update the character based on the class. """
         class_object = CharacterClass(self.dnd_class)
         self.hit_die = str(self.level) + "d" + str(class_object.hit_die)
@@ -113,7 +113,7 @@ class Character:
         for saving_throw in class_object.get_saving_throw_proficiencies():
             self.saving_throws[saving_throw] = self.saving_throws[saving_throw] + self.proficiency_bonus
 
-    def update_skills(self):
+    def update_skills(self) -> None:
         """ Update the skills based on the stats. """
         # pylint: disable=too-many-branches
         for stat in self.stats:
@@ -144,15 +144,15 @@ class Character:
         self.all_skills.update(self.charisma_skills)
         self.all_skills = dict(sorted(self.all_skills.items()))
 
-    def update_ac(self):
+    def update_ac(self) -> None:
         """ Update the AC based on the stats. """
         self.ac = 10 + self.find_modifier_stat("Dexterity")
 
-    def update_initiative(self):
+    def update_initiative(self) -> None:
         """ Update the initiative based on the stats. """
         self.initiative = self.find_modifier_stat("Dexterity")
 
-    def update_hp(self):
+    def update_hp(self) -> None:
         """ Update the HP based on the stats. """
         hit_die_array = self.hit_die.split("d")
         hit_die_count = int(hit_die_array[0])
@@ -160,7 +160,7 @@ class Character:
         die = Dice(hit_die_count, hit_die_sides, self.find_modifier_stat("Constitution"))
         self.hp = die.total
 
-    def update_passive_perception(self):
+    def update_passive_perception(self) -> None:
         """ Update the passive perception based on the stats. """
         base_perception = 10
         wisdom_modifier = self.find_modifier_stat("Wisdom")
@@ -169,7 +169,7 @@ class Character:
             perception_proficiency = self.proficiency_bonus
         self.passive_perception = base_perception + wisdom_modifier + perception_proficiency
 
-    def roll_stats(self):
+    def roll_stats(self) -> None:
         """ Roll the stats for the character. """
         stat_array = []
         for _ in self.stats:

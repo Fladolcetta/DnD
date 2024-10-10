@@ -1,14 +1,11 @@
 #Character TODOs
-- Use Character Sheet
-
-#Dice TODOs
-- Display Dice
+- Fill out Character Sheet Code to populate page
 
 #Repo TODOS
 #TODO: Add Unit Tests
-#TODO: Add Linting
 #TODO: Generate Documentation
 #TODO: Update README with generated documentation
 #TODO: Add Code Coverage
 #TODO: Add Kubernetes
+#TODO: Add Github Actions
 #TODO: Update branch rules to require PRs

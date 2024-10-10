@@ -9,7 +9,7 @@ from src.sheet_generator import SheetGenerator
 app = Flask(__name__)
 
 @app.route('/')
-def main():
+def main() -> str:
     """ Main function. """
     text_printer = TextPrinter()
     links = {
@@ -24,7 +24,7 @@ def main():
     return render_template('blank.html', subtitle="Home", content=content)
 
 @app.route('/roll')
-def roll():
+def roll() -> str:
     """ Roll function. """
     text_printer = TextPrinter()
 
@@ -50,7 +50,7 @@ def roll():
                             content=content)
 
 @app.route('/character')
-def character():
+def character() -> str:
     """ Character function. """
     text_printer = TextPrinter()
 
@@ -81,7 +81,7 @@ def character():
                             class_list=class_list)
 
 @app.route('/races')
-def races():
+def races() -> str:
     """ List Races """
     text_printer = TextPrinter()
     race_list = Race.get_all_races()
@@ -97,7 +97,7 @@ def races():
                            race_list=race_list)
 
 @app.route('/classes')
-def classes():
+def classes() -> str:
     """ List Classes """
     text_printer = TextPrinter()
     class_list = CharacterClass.get_all_classes()
@@ -113,7 +113,7 @@ def classes():
                            class_list=class_list)
 
 @app.route('/sheet')
-def sheet():
+def sheet() -> str:
     """ Character Sheet """
     text_printer = TextPrinter()
     frank = Character("Frank", "Human", "Fighter")

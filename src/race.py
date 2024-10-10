@@ -2,14 +2,14 @@
 
 class Race:
     """ A class to represent a race in Dungeons and Dragons. """
-    def __init__(self, name):
+    def __init__(self, name: str) -> None:
         self.name = name
         self.stats = self.get_race_bonus_stat()
         self.speed = self.get_race_speed()
         self.languages = self.get_race_languages()
         self.traits = self.get_race_traits()
 
-    def get_race_bonus_stat(self):
+    def get_race_bonus_stat(self) -> dict:
         """ Get the bonus stats of the Race."""
         race_bonus_stat = {
             "Human": {
@@ -56,7 +56,7 @@ class Race:
         }
         return race_bonus_stat[self.name]
 
-    def get_race_speed(self):
+    def get_race_speed(self) -> int:
         """ Get the speed of the Race."""
         race_speed = {
             "Human": 30,
@@ -71,7 +71,7 @@ class Race:
         }
         return race_speed[self.name]
 
-    def get_race_languages(self):
+    def get_race_languages(self) -> list:
         """ Get the languages of the Race."""
         race_languages = {
             "Human": ["Common"],
@@ -87,7 +87,7 @@ class Race:
 
         return race_languages[self.name]
 
-    def get_race_traits(self):
+    def get_race_traits(self) -> list:
         """ Get the traits of the Race. """
         race_traits = {
             "Human": ["None"],
@@ -104,7 +104,7 @@ class Race:
         return race_traits[self.name]
 
     @staticmethod
-    def get_all_races():
+    def get_all_races() -> list:
         """ Get a list of all the Dungeons and Dragons races """
         return [
             "Human",

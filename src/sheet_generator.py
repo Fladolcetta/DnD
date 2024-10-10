@@ -4,12 +4,12 @@ from src.text_printer import TextPrinter
 
 class SheetGenerator:
     """ A class to generate a character sheet. """
-    def __init__(self, character: Character):
+    def __init__(self, character: Character) -> None:
         """ Initialize the SheetGenerator. """
         self.character = character
         self.key_pairs = {}
 
-    def generate_key_pairs(self):
+    def generate_key_pairs(self) -> dict:
         """ Generate key pairs for the character sheet. """
         text_printer = TextPrinter()
         key_pairs = {
