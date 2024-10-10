@@ -9,8 +9,11 @@ class Dice:
         self.num_sides = num_sides
         self.modifier = modifier
         self.rolls = []
+        self.total = 0
+        self.rolls = []
         self.critical_success = False
         self.critical_fail = False
+        self.roll()
 
     def roll(self):
         """ Roll the dice and return the total. """
@@ -21,4 +24,5 @@ class Dice:
             if self.rolls[i] == 1:
                 self.critical_fail = True
         total = sum(self.rolls) + self.modifier
-        return total, self.rolls
+        self.total = total
+        self.rolls = self.rolls

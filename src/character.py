@@ -19,9 +19,9 @@ class Character:
         self.speed = 0
         self.proficiency_bonus = 2
         self.hit_die = "0d0"
-        self.proficiencies = dict()
-        self.saving_throws = dict()
-        self.all_skills = dict()
+        self.proficiencies = {}
+        self.saving_throws = {}
+        self.all_skills = {}
         self.traits = []
         self.languages = []
         self.stats = {
@@ -115,6 +115,7 @@ class Character:
 
     def update_skills(self):
         """ Update the skills based on the stats. """
+        # pylint: disable=too-many-branches
         for stat in self.stats:
             if stat == "Strength":
                 for skill in self.strength_skills:
@@ -157,7 +158,7 @@ class Character:
         hit_die_count = int(hit_die_array[0])
         hit_die_sides = int(hit_die_array[1])
         die = Dice(hit_die_count, hit_die_sides, self.find_modifier_stat("Constitution"))
-        self.hp = die.roll()[0]
+        self.hp = die.total
 
     def update_passive_perception(self):
         """ Update the passive perception based on the stats. """
@@ -173,8 +174,7 @@ class Character:
         stat_array = []
         for _ in self.stats:
             die = Dice(4, 6, 0)
-            total, rolls = die.roll()
-            stat_array.append(total - min(rolls))
+            stat_array.append(die.total - min(die.rolls))
         stat_array.sort(reverse=True)
         for primary_stat in self.primary_stat:
             self.stats[primary_stat] = stat_array.pop(0)

@@ -17,9 +17,8 @@ class TextPrinter:
     def split_string(self, string):
         """ Split the string. """
         string_array = string.split("\n")
-        html_string = ""
-        for string in string_array:
-            html_string += f"<p>{string}</p>"
+        join_string = "</p><p>"
+        html_string = "<p>" + join_string.join(string_array) + "</p>"
         return html_string
 
     def header(self, title):
@@ -136,13 +135,12 @@ class TextPrinter:
     def print_roll(self, num_dice, num_sides, modifier):
         """ Print the roll of the dice. """
         die = Dice(num_dice, num_sides, modifier)
-        total_dice, rolls = die.roll()
         if modifier >= 0:
             modifier_string = f" + {modifier}"
-        elif modifier < 0:
+        else:
             modifier_string = f" - {abs(modifier)}"
         self.subheader(f"Rolling {num_dice}d{num_sides}{modifier_string}")
-        self.print_single_value(total_dice, "Result")
+        self.print_single_value(die.total, "Total Roll with Modifier")
         self.print_data(die.rolls, "Individual Rolls")
         if die.critical_success:
             self.update_text_to_print("Critical Success!")
