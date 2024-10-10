@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="keywords" content="blank, empty">
-    <meta name="description" content="A blank template">
-    <title>Frank's Dnd Tool - {{ subtitle }}</title>
-</head>
-<body>
-    {% if subtitle != "Home" %}
+    <head>
+        <meta charset="UTF-8">
+        <meta name="keywords" content="blank, empty">
+        <meta name="description" content="A blank template">
+        <title>Frank's Dnd Tool - {{ subtitle }}</title>
+    </head>
+    <body>
+        {% if subtitle != "Home" %}
         <a href="/">Home</a>
-    {% endif %}
-
-    {{ content|safe }}
-</body>
+        {% endif %}
+        {{ content|safe }}
+    </body>
 </html>

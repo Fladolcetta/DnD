@@ -1,29 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="keywords" content="dnd, d&d, dungeons and dragons, race, info">
-    <meta name="description" content="A simple page to get information on races for Dungeons and Dragons">
-    <title>Frank's Dnd Tool - {{ subtitle }}</title>
-</head>
-<body>
-    <a href="/">Home</a>
-    <h1> DnD Race Details</h1>
-    <form>
-        <p>
-            <label for="race">Race:</label><br>
-            <select id="race" name="race">
-                {% for item in race_list %}
+    <head>
+        <meta charset="UTF-8">
+        <meta name="keywords" content="dnd, d&d, dungeons and dragons, race, info">
+        <meta name="description" content="A simple page to get information on races for Dungeons and Dragons">
+        <title>Frank's Dnd Tool - {{ subtitle }}</title>
+    </head>
+    <body>
+        <a href="/">Home</a>
+        <h1> DnD Race Details</h1>
+        <form>
+            <p>
+                <label for="race">Race:</label><br>
+                <select id="race" name="race">
+                    {% for item in race_list %}
                     <option value="{{ item }}">{{ item }}</option>
-                {% endfor %}
-            </select>
-        </p>
-        <p>
-            <label for="create">Show Race Details:</label><br>
-            <input type="submit" name="show" value="Show">
-        </p>
-    </form>
-
-    {{ content|safe }}
-</body>
+                    {% endfor %}
+                </select>
+            </p>
+            <p>
+                <label for="create">Show Race Details:</label><br>
+                <input type="submit" name="show" value="Show">
+            </p>
+        </form>
+        {{ content|safe }}
+    </body>
 </html>
