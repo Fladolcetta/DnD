@@ -26,7 +26,13 @@
       padding: 0 18px;
       display: none;
       overflow: hidden;
-      background-color: #f1f1f1;
+      background-color: white;
+    }
+    .content_shown {
+      padding: 0 18px;
+      display: block;
+      overflow: hidden;
+      background-color: white;
     }
 .red {
   background: red;
@@ -660,6 +666,8 @@ form.charsheet main section.features div textarea {
 
 <body>
     <a href="/">Home</a>
+    <button type="button" class="collapsible">Character Sheet</button>
+    <div class="content_shown">
     <form class="charsheet">
     <header>
       <section class="charname">
@@ -1023,13 +1031,13 @@ form.charsheet main section.features div textarea {
       </section>
     </main>
   </form>
-  <button type="button" class="collapsible">See Rolls</button>
+  </div>
+  <button type="button" class="collapsible">Basic Info</button>
   <div class="content">
     {{ basic_info | safe }}
-    <p>Test</p>
   </div>
 
-  <button type="button" class="collapsible">See all details</button>
+  <button type="button" class="collapsible">All Details</button>
   <div class="content">
     {{ details | safe }}
   </div>

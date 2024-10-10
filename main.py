@@ -74,10 +74,11 @@ def character():
                                     basic_info=basic_info,
                                     )
     except TypeError:
-        return render_template('character.html',
-                                subtitle="Character Generator",
-                                race_list=race_list,
-                                class_list=class_list)
+        pass
+    return render_template('character.html',
+                            subtitle="Character Generator",
+                            race_list=race_list,
+                            class_list=class_list)
 
 @app.route('/races')
 def races():
@@ -114,12 +115,18 @@ def classes():
 @app.route('/sheet')
 def sheet():
     """ Character Sheet """
+    text_printer = TextPrinter()
     frank = Character("Frank", "Human", "Fighter")
     key_pairs = SheetGenerator(frank).generate_key_pairs()
+    details = text_printer.print_character(frank)
+    basic_info = text_printer.print_basic_stats(frank)
 
     return render_template('character_sheet.html',
-                           subtitle="Character Sheet",
-                           key_pairs=key_pairs)
+                            subtitle="Character Sheet",
+                            key_pairs=key_pairs,
+                            details=details,
+                            basic_info=basic_info,
+                            )
 
 if __name__ == '__main__':
     app.run(debug=True)

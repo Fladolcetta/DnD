@@ -116,7 +116,7 @@ class TextPrinter:
         self.text_to_print = ""
         self.print_single_value(character.race, "Race")
         self.print_single_value(character.dnd_class, "Class")
-        self.print_data(character.stats, "Stats")
+        self.print_dict_with_data_and_modifiers(character.stats, "Stats")
         return self.split_string(self.text_to_print)
 
     def print_race_info(self, race_name):
@@ -136,7 +136,7 @@ class TextPrinter:
         current_class = CharacterClass(class_name)
         self.subheader(f"{current_class.name}")
         self.print_data(current_class.primary_stat, "Primary Stat")
-        #self.print_single_value(current_class.hit_die, "Hit Die")
+        self.print_single_value(current_class.hit_die, "Hit Die")
         self.print_data(current_class.skill_proficiencies, "Skill Proficiencies")
         self.print_data(current_class.saving_throws_proficiencies, "Saving Throw Proficiencies")
         return self.split_string(self.text_to_print)
