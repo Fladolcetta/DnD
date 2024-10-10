@@ -41,7 +41,6 @@ class Character:
             "Sleight of Hand": 0,
             "Stealth": 0
         }
-        self.constitution_skills = {}
         self.intelligence_skills = {
             "Arcana": 0,
             "History": 0,
@@ -124,8 +123,7 @@ class Character:
                 for skill in self.dexterity_skills:
                     self.dexterity_skills[skill] = self.find_modifier_stat(stat)
             if stat == "Constitution":
-                for skill in self.constitution_skills:
-                    self.constitution_skills[skill] = self.find_modifier_stat(stat)
+                pass
             if stat == "Intelligence":
                 for skill in self.intelligence_skills:
                     self.intelligence_skills[skill] = self.find_modifier_stat(stat)
@@ -138,7 +136,6 @@ class Character:
 
         self.all_skills.update(self.strength_skills)
         self.all_skills.update(self.dexterity_skills)
-        self.all_skills.update(self.constitution_skills)
         self.all_skills.update(self.intelligence_skills)
         self.all_skills.update(self.wisdom_skills)
         self.all_skills.update(self.charisma_skills)

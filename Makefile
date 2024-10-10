@@ -16,10 +16,11 @@ down:
 	docker stop dnd-container
 
 test:
-	pylint ./src ./main.py --rcfile ./.pylintrc
+	pylint ./src ./main.py ./tests --rcfile ./.pylintrc
 	djlint ./templates
 	flake8 --ignore E501
 	write-good README.md
+	pytest --cov=src tests
 
 docs:
 	pydoc-markdown -I src --render-toc > ./docs/code.md

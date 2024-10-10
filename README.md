@@ -28,6 +28,8 @@ A fun little project to experiment with different technologies to learn web deve
 - gunicorn: Python Web Server Gateway Interface HTTP server
 - Docker: Containerization Technology
 - Docker Desktop: Containerization Visualization
+- pytest: Unit Testing tool
+- pytest-cov: Code Coverage Tool
 - pydoc-markdown: Document generation
 - pylint: Python linting
 - djlint: HTML Template linting
@@ -47,7 +49,6 @@ A fun little project to experiment with different technologies to learn web deve
 
 ### Repo TODOS
 - Add Unit Tests
-- Add Code Coverage
 - Add Kubernetes
 - Add Github Actions
 - Update branch rules to require PRs
