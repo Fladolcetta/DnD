@@ -1,3 +1,5 @@
+.PHONY: build up down test docs
+
 build:
 	sudo docker build -t dnd .
 up:
@@ -17,3 +19,7 @@ test:
 	pylint ./src ./main.py --rcfile ./.pylintrc
 	djlint ./templates
 	flake8 --ignore E501
+	write-good README.md
+
+docs:
+	pydoc-markdown -I src --render-toc > ./docs/code.md
