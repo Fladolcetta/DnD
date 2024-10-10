@@ -2,6 +2,7 @@
 from src.character import Character
 from src.text_printer import TextPrinter
 
+
 class SheetGenerator:
     """ A class to generate a character sheet. """
     def __init__(self, character: Character) -> None:

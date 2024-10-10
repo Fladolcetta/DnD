@@ -3,6 +3,7 @@ from src.dice import Dice
 from src.race import Race
 from src.character_class import CharacterClass
 
+
 class Character:
     """ A class to represent a character in Dungeons and Dragons. """
     def __init__(self, name, desired_race="Human", desired_class="Fighter") -> None:
@@ -95,7 +96,6 @@ class Character:
             except KeyError:
                 pass
         self.stats = dict(sorted(self.stats.items()))
-
 
     def update_class_details(self) -> None:
         """ Update the character based on the class. """

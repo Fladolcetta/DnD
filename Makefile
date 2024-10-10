@@ -16,3 +16,4 @@ down:
 test:
 	pylint ./src ./main.py --rcfile ./.pylintrc
 	djlint ./templates
+	flake8 --ignore E501

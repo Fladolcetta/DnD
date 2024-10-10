@@ -1,5 +1,6 @@
 """ A module to represent a class in Dungeons and Dragons. """
 
+
 class CharacterClass:
     """ A class to represent a class in Dungeons and Dragons. """
     def __init__(self, name: str) -> None:

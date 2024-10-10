@@ -8,6 +8,7 @@ from src.sheet_generator import SheetGenerator
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def main() -> str:
     """ Main function. """
@@ -22,6 +23,7 @@ def main() -> str:
 
     content = text_printer.print_home(links)
     return render_template('blank.html', subtitle="Home", content=content)
+
 
 @app.route('/roll')
 def roll() -> str:
@@ -43,11 +45,12 @@ def roll() -> str:
         pass
 
     return render_template('roll.html',
-                            subtitle="Dice Roller",
-                            num_sides=num_sides,
-                            num_dice=num_dice,
-                            modifier=modifier,
-                            content=content)
+                           subtitle="Dice Roller",
+                           num_sides=num_sides,
+                           num_dice=num_dice,
+                           modifier=modifier,
+                           content=content)
+
 
 @app.route('/character')
 def character() -> str:
@@ -68,24 +71,24 @@ def character() -> str:
             details = text_printer.print_character(new_char)
             basic_info = text_printer.print_basic_stats(new_char)
             return render_template('character_sheet.html',
-                                    subtitle="Character Sheet",
-                                    key_pairs=key_pairs,
-                                    details=details,
-                                    basic_info=basic_info,
-                                    )
+                                   subtitle="Character Sheet",
+                                   key_pairs=key_pairs,
+                                   details=details,
+                                   basic_info=basic_info)
     except TypeError:
         pass
     return render_template('character.html',
-                            subtitle="Character Generator",
-                            race_list=race_list,
-                            class_list=class_list)
+                           subtitle="Character Generator",
+                           race_list=race_list,
+                           class_list=class_list)
+
 
 @app.route('/races')
 def races() -> str:
     """ List Races """
     text_printer = TextPrinter()
     race_list = Race.get_all_races()
-    content=""
+    content = ""
     try:
         if "Show" in request.args.get("show"):
             content = text_printer.print_race_info(request.args.get("race"))
@@ -96,12 +99,13 @@ def races() -> str:
                            content=content,
                            race_list=race_list)
 
+
 @app.route('/classes')
 def classes() -> str:
     """ List Classes """
     text_printer = TextPrinter()
     class_list = CharacterClass.get_all_classes()
-    content=""
+    content = ""
     try:
         if "Show" in request.args.get("show"):
             content = text_printer.print_class_info(request.args.get("character_class"))
@@ -111,6 +115,7 @@ def classes() -> str:
                            subtitle="Class List",
                            content=content,
                            class_list=class_list)
+
 
 @app.route('/sheet')
 def sheet() -> str:
@@ -122,11 +127,11 @@ def sheet() -> str:
     basic_info = text_printer.print_basic_stats(frank)
 
     return render_template('character_sheet.html',
-                            subtitle="Character Sheet",
-                            key_pairs=key_pairs,
-                            details=details,
-                            basic_info=basic_info,
-                            )
+                           subtitle="Character Sheet",
+                           key_pairs=key_pairs,
+                           details=details,
+                           basic_info=basic_info)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

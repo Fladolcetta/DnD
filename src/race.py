@@ -1,5 +1,6 @@
 """ A module for representing a race in Dungeons and Dragons. """
 
+
 class Race:
     """ A class to represent a race in Dungeons and Dragons. """
     def __init__(self, name: str) -> None:
@@ -106,14 +107,12 @@ class Race:
     @staticmethod
     def get_all_races() -> list:
         """ Get a list of all the Dungeons and Dragons races """
-        return [
-            "Human",
-            "Elf",
-            "Dwarf",
-            "Halfling",
-            "Half-Orc",
-            "Gnome",
-            "Half-Elf",
-            "Dragonborn",
-            "Tiefling"
-            ]
+        return ["Human",
+                "Elf",
+                "Dwarf",
+                "Halfling",
+                "Half-Orc",
+                "Gnome",
+                "Half-Elf",
+                "Dragonborn",
+                "Tiefling"]
