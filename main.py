@@ -108,9 +108,17 @@ def classes():
 @app.route('/sheet')
 def sheet():
     """ Character Sheet """
+    frank = Character("Frank", "Human", "Fighter")
     text_printer = TextPrinter()
 
-    return render_template('character_sheet.html')
+    key_pairs = {
+        "charname": frank.name,
+        "race": frank.race,
+        "classlevel": frank.dnd_class + " " + str(frank.level),
+        "Strengthscore": frank.stats["Strength"],
+        "Strengthmod": text_printer.print_modifiers(frank.find_modifier_stat("Strength")),
+    }
+    return render_template('character_sheet.html', key_pairs=key_pairs)
 
 if __name__ == '__main__':
     app.run(debug=True)
