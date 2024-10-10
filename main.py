@@ -90,7 +90,10 @@ def races():
             content = text_printer.print_race_info(request.args.get("race"))
     except TypeError:
         pass
-    return render_template('race.html', subtitle="Race List", content=content, race_list=race_list)
+    return render_template('race.html',
+                           subtitle="Race List",
+                           content=content,
+                           race_list=race_list)
 
 @app.route('/classes')
 def classes():
@@ -103,7 +106,10 @@ def classes():
             content = text_printer.print_class_info(request.args.get("character_class"))
     except TypeError:
         pass
-    return render_template('class.html', subtitle="Class List", content=content, class_list=class_list)
+    return render_template('class.html',
+                           subtitle="Class List",
+                           content=content,
+                           class_list=class_list)
 
 @app.route('/sheet')
 def sheet():
@@ -118,7 +124,9 @@ def sheet():
         "Strengthscore": frank.stats["Strength"],
         "Strengthmod": text_printer.print_modifiers(frank.find_modifier_stat("Strength")),
     }
-    return render_template('character_sheet.html', key_pairs=key_pairs)
+    return render_template('character_sheet.html',
+                           subtitle="Character Sheet",
+                           key_pairs=key_pairs)
 
 if __name__ == '__main__':
     app.run(debug=True)

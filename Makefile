@@ -12,3 +12,7 @@ up:
 
 down:
 	docker stop dnd-container
+
+test:
+	pylint ./src ./main.py --rcfile ./.pylintrc
+	djlint ./templates
