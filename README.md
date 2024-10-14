@@ -46,7 +46,6 @@ A fun little project to experiment with different technologies to learn web deve
 ## TODO
 
 ### Repo TODOS
-- Add Unit Tests
 - Add Kubernetes
 - Add Github Actions
 - Update branch rules to require PRs

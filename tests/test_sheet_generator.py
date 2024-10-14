@@ -92,8 +92,8 @@ def test_generate_basic_key_pairs(_sheet_generator):
         "temphp": 0,
         "totalhd": "5d10",
         "remaininghd": "5",
-        "otherprofs": "['Common', 'Elvish']",
-        "features": "['Brave', 'Strong']"
+        "otherprofs": "- Common\n- Elvish",
+        "features": "- Brave\n- Strong"
     }
     assert _sheet_generator.generate_basic_key_pairs() == expected_keys
 
@@ -203,3 +203,18 @@ def test_generate_key_pairs(_sheet_generator):
     assert "Acrobatics" in key_pairs
     assert "Acrobaticsprof" in key_pairs
     assert "Strengthsaveprof" in key_pairs
+
+
+def test_list_to_textarea_string(_sheet_generator):
+    """ Test the list_to_textarea_string method """
+    test_list = ["Item 1", "Item 2"]
+    expected_output = "- Item 1\n- Item 2"
+    assert _sheet_generator.list_to_textarea_string(test_list) == expected_output
+
+    test_empty_list = []
+    expected_output = ""
+    assert _sheet_generator.list_to_textarea_string(test_empty_list) == expected_output
+
+    test_single_item_list = ["Item 1"]
+    expected_output = "- Item 1"
+    assert _sheet_generator.list_to_textarea_string(test_single_item_list) == expected_output

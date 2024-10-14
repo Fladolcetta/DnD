@@ -33,6 +33,18 @@
   * [SheetGenerator](#sheet_generator.SheetGenerator)
     * [\_\_init\_\_](#sheet_generator.SheetGenerator.__init__)
     * [generate\_key\_pairs](#sheet_generator.SheetGenerator.generate_key_pairs)
+    * [generate\_basic\_key\_pairs](#sheet_generator.SheetGenerator.generate_basic_key_pairs)
+    * [generate\_stat\_key\_pairs](#sheet_generator.SheetGenerator.generate_stat_key_pairs)
+    * [generate\_saving\_throw\_key\_pairs](#sheet_generator.SheetGenerator.generate_saving_throw_key_pairs)
+    * [generate\_skill\_key\_pairs](#sheet_generator.SheetGenerator.generate_skill_key_pairs)
+    * [generate\_skill\_prof\_key\_pairs](#sheet_generator.SheetGenerator.generate_skill_prof_key_pairs)
+    * [generate\_saving\_throw\_prof\_key\_pairs](#sheet_generator.SheetGenerator.generate_saving_throw_prof_key_pairs)
+    * [get\_stat\_modifier](#sheet_generator.SheetGenerator.get_stat_modifier)
+    * [get\_skill\_modifier](#sheet_generator.SheetGenerator.get_skill_modifier)
+    * [get\_saving\_throw\_modifier](#sheet_generator.SheetGenerator.get_saving_throw_modifier)
+    * [check\_skill\_proficiency](#sheet_generator.SheetGenerator.check_skill_proficiency)
+    * [check\_save\_proficiency](#sheet_generator.SheetGenerator.check_save_proficiency)
+    * [list\_to\_textarea\_string](#sheet_generator.SheetGenerator.list_to_textarea_string)
 * [race](#race)
   * [Race](#race.Race)
     * [get\_race\_bonus\_stat](#race.Race.get_race_bonus_stat)
@@ -374,7 +386,127 @@ Initialize the SheetGenerator.
 def generate_key_pairs() -> dict
 ```
 
+Generate all key pairs for the character sheet.
+
+<a id="sheet_generator.SheetGenerator.generate_basic_key_pairs"></a>
+
+#### generate\_basic\_key\_pairs
+
+```python
+def generate_basic_key_pairs() -> dict
+```
+
+Generate basic key pairs for the character sheet.
+
+<a id="sheet_generator.SheetGenerator.generate_stat_key_pairs"></a>
+
+#### generate\_stat\_key\_pairs
+
+```python
+def generate_stat_key_pairs() -> dict
+```
+
+Generate stat key pairs for the character sheet.
+
+<a id="sheet_generator.SheetGenerator.generate_saving_throw_key_pairs"></a>
+
+#### generate\_saving\_throw\_key\_pairs
+
+```python
+def generate_saving_throw_key_pairs() -> dict
+```
+
+Generate saving throw key pairs for the character sheet.
+
+<a id="sheet_generator.SheetGenerator.generate_skill_key_pairs"></a>
+
+#### generate\_skill\_key\_pairs
+
+```python
+def generate_skill_key_pairs() -> dict
+```
+
+Generate skill key pairs for the character sheet.
+
+<a id="sheet_generator.SheetGenerator.generate_skill_prof_key_pairs"></a>
+
+#### generate\_skill\_prof\_key\_pairs
+
+```python
+def generate_skill_prof_key_pairs() -> dict
+```
+
 Generate key pairs for the character sheet.
+
+<a id="sheet_generator.SheetGenerator.generate_saving_throw_prof_key_pairs"></a>
+
+#### generate\_saving\_throw\_prof\_key\_pairs
+
+```python
+def generate_saving_throw_prof_key_pairs() -> dict
+```
+
+Generate key pairs for the character sheet.
+
+<a id="sheet_generator.SheetGenerator.get_stat_modifier"></a>
+
+#### get\_stat\_modifier
+
+```python
+def get_stat_modifier(stat: str) -> int
+```
+
+Get the modifier of the stat.
+
+<a id="sheet_generator.SheetGenerator.get_skill_modifier"></a>
+
+#### get\_skill\_modifier
+
+```python
+def get_skill_modifier(skill: str) -> int
+```
+
+Get the modifier of the skill.
+
+<a id="sheet_generator.SheetGenerator.get_saving_throw_modifier"></a>
+
+#### get\_saving\_throw\_modifier
+
+```python
+def get_saving_throw_modifier(save: str) -> int
+```
+
+Get the modifier of the saving throw.
+
+<a id="sheet_generator.SheetGenerator.check_skill_proficiency"></a>
+
+#### check\_skill\_proficiency
+
+```python
+def check_skill_proficiency(skill: str) -> bool
+```
+
+Check if the character is proficient in the skill.
+
+<a id="sheet_generator.SheetGenerator.check_save_proficiency"></a>
+
+#### check\_save\_proficiency
+
+```python
+def check_save_proficiency(save: str) -> bool
+```
+
+Check if the character is proficient in the save.
+
+<a id="sheet_generator.SheetGenerator.list_to_textarea_string"></a>
+
+#### list\_to\_textarea\_string
+
+```python
+def list_to_textarea_string(data: list) -> str
+```
+
+Convert a list to a string.
 
 <a id="race"></a>
 

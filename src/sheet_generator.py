@@ -36,8 +36,8 @@ class SheetGenerator:
             "temphp": 0,
             "totalhd": self.character.hit_die,
             "remaininghd": self.character.hit_die.split("d")[0],
-            "otherprofs": str(self.character.languages),
-            "features": str(self.character.traits)
+            "otherprofs": self.list_to_textarea_string(self.character.languages),
+            "features": self.list_to_textarea_string(self.character.traits)
         }
 
     def generate_stat_key_pairs(self) -> dict:
@@ -148,3 +148,9 @@ class SheetGenerator:
         if save in self.character.save_proficiencies:
             return "checked"
         return ""
+
+    def list_to_textarea_string(self, data: list) -> str:
+        """ Convert a list to a string. """
+        if not data:
+            return ""
+        return "- " + "\n- ".join(data)
