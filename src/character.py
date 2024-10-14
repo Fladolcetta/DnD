@@ -20,7 +20,7 @@ class Character:
         self.speed = 0
         self.proficiency_bonus = 2
         self.hit_die = "0d0"
-        self.proficiencies = {}
+        self.skill_proficiencies = {}
         self.saving_throws = {}
         self.all_skills = {}
         self.traits = []
@@ -100,9 +100,9 @@ class Character:
         """ Update the character based on the class. """
         class_object = CharacterClass(self.dnd_class)
         self.hit_die = str(self.level) + "d" + str(class_object.hit_die)
-        self.proficiencies = class_object.get_skill_proficiencies()
+        self.skill_proficiencies = class_object.get_skill_proficiencies()
         for skill in self.all_skills:
-            if skill in self.proficiencies:
+            if skill in self.skill_proficiencies:
                 self.all_skills[skill] = self.all_skills[skill] + self.proficiency_bonus
 
         saving_throws_stats = self.stats.copy()
@@ -162,7 +162,7 @@ class Character:
         base_perception = 10
         wisdom_modifier = self.find_modifier_stat("Wisdom")
         perception_proficiency = 0
-        if "Perception" in self.proficiencies:
+        if "Perception" in self.skill_proficiencies:
             perception_proficiency = self.proficiency_bonus
         self.passive_perception = base_perception + wisdom_modifier + perception_proficiency
 

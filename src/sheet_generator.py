@@ -10,7 +10,6 @@ class SheetGenerator:
         self.character = character
         self.key_pairs = {}
 
-
     def unused_key_pairs(self) -> dict:
         """ Generate key pairs for the character sheet. """
         return {
@@ -34,18 +33,18 @@ class SheetGenerator:
             "pp": "Test"
         }
 
-
     def generate_key_pairs(self) -> dict:
-        """ Generate key pairs for the character sheet. """
+        """ Generate all key pairs for the character sheet. """
         self.key_pairs = self.generate_basic_key_pairs()
         self.key_pairs.update(self.generate_stat_key_pairs())
         self.key_pairs.update(self.generate_saving_throw_key_pairs())
         self.key_pairs.update(self.generate_skill_key_pairs())
+        self.key_pairs.update(self.generate_skill_prof_key_pairs())
 
         return self.key_pairs
 
     def generate_basic_key_pairs(self) -> dict:
-        """ Generate key pairs for the character sheet. """
+        """ Generate basic key pairs for the character sheet. """
         key_pairs = {
             "charname": self.character.name,
             "race": self.character.race,
@@ -66,7 +65,7 @@ class SheetGenerator:
         return key_pairs
 
     def generate_stat_key_pairs(self) -> dict:
-        """ Generate key pairs for the character sheet. """
+        """ Generate stat key pairs for the character sheet. """
         text_printer = TextPrinter()
         key_pairs = {
             "Strengthscore": self.character.stats["Strength"],
@@ -85,7 +84,7 @@ class SheetGenerator:
         return key_pairs
 
     def generate_saving_throw_key_pairs(self) -> dict:
-        """ Generate key pairs for the character sheet. """
+        """ Generate saving throw key pairs for the character sheet. """
         text_printer = TextPrinter()
         key_pairs = {
             "Strengthsave": text_printer.print_modifiers(self.character.saving_throws["Strength"]),
@@ -98,7 +97,7 @@ class SheetGenerator:
         return key_pairs
 
     def generate_skill_key_pairs(self) -> dict:
-        """ Generate key pairs for the character sheet. """
+        """ Generate skill key pairs for the character sheet. """
         text_printer = TextPrinter()
         key_pairs = {
             "Acrobatics": text_printer.print_modifiers(self.character.all_skills["Acrobatics"]),
@@ -121,3 +120,34 @@ class SheetGenerator:
             "Survival": text_printer.print_modifiers(self.character.all_skills["Survival"])
         }
         return key_pairs
+
+    def generate_skill_prof_key_pairs(self) -> dict:
+        """ Generate key pairs for the character sheet. """
+        key_pairs = {
+            "Acrobaticsprof": self.check_proficiency("Acrobatics"),
+            "AnimalHandlingprof": self.check_proficiency("Animal Handling"),
+            "Arcanaprof": self.check_proficiency("Arcana"),
+            "Athleticsprof": self.check_proficiency("Athletics"),
+            "Deceptionprof": self.check_proficiency("Deception"),
+            "Historyprof": self.check_proficiency("History"),
+            "Insightprof": self.check_proficiency("Insight"),
+            "Intimidationprof": self.check_proficiency("Intimidation"),
+            "Investigationprof": self.check_proficiency("Investigation"),
+            "Medicineprof": self.check_proficiency("Medicine"),
+            "Natureprof": self.check_proficiency("Nature"),
+            "Perceptionprof": self.check_proficiency("Perception"),
+            "Performanceprof": self.check_proficiency("Performance"),
+            "Persuasionprof": self.check_proficiency("Persuasion"),
+            "Religionprof": self.check_proficiency("Religion"),
+            "SleightofHandprof": self.check_proficiency("Sleight of Hand"),
+            "Stealthprof": self.check_proficiency("Stealth"),
+            "Survivalprof": self.check_proficiency("Survival")
+        }
+
+        return key_pairs
+
+    def check_proficiency(self, skill: str) -> bool:
+        """ Check if the character is proficient in the skill. """
+        if skill in self.character.skill_proficiencies:
+            return "checked"
+        return ""

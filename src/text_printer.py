@@ -107,7 +107,7 @@ class TextPrinter:
         self.print_single_value(character.speed, "Speed")
         self.print_data(character.languages, "Languages")
         self.print_data(character.traits, "Traits")
-        self.print_data(character.proficiencies, "Proficiencies")
+        self.print_data(character.skill_proficiencies, "Proficiencies")
         self.print_dict_with_data_and_modifiers(character.stats, "Stats")
         self.print_dict_with_modifiers(character.all_skills, "Skills")
         self.print_dict_with_modifiers(character.saving_throws, "Saving Throws")

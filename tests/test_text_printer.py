@@ -100,7 +100,7 @@ def test_print_character():
     mock_character.speed = 25
     mock_character.languages = ["Common", "Elvish"]
     mock_character.traits = ["Bravery", "Lucky"]
-    mock_character.proficiencies = ["Stealth", "Perception"]
+    mock_character.skill_proficiencies = ["Stealth", "Perception"]
     mock_character.stats = {"Strength": 8, "Dexterity": 16}
     mock_character.all_skills = {"Stealth": 5, "Perception": 2}
     mock_character.saving_throws = {"Dexterity": 5, "Strength": -1}
