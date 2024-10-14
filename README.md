@@ -44,8 +44,6 @@ A fun little project to experiment with different technologies to learn web deve
 - ChatGPT
 
 ## TODO
-### Character TODOs
-- Fill out Character Sheet Code to populate page
 
 ### Repo TODOS
 - Add Unit Tests

@@ -10,29 +10,6 @@ class SheetGenerator:
         self.character = character
         self.key_pairs = {}
 
-    def unused_key_pairs(self) -> dict:
-        """ Generate key pairs for the character sheet. """
-        return {
-            "background": "Test",
-            "playername": "Test",
-            "alignment": "Test",
-            "experiencepoints": "Test",
-            "atkname1": "Test",
-            "atkbonus1": "Test",
-            "atkdamage1": "Test",
-            "atkname2": "Test",
-            "atkbonus2": "Test",
-            "atkdamage2": "Test",
-            "atkname3": "Test",
-            "atkbonus3": "Test",
-            "atkdamage3": "Test",
-            "cp": "Test",
-            "sp": "Test",
-            "ep": "Test",
-            "gp": "Test",
-            "pp": "Test"
-        }
-
     def generate_key_pairs(self) -> dict:
         """ Generate all key pairs for the character sheet. """
         self.key_pairs = self.generate_basic_key_pairs()
