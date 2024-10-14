@@ -17,8 +17,7 @@ def main() -> str:
         "Roll": "/roll",
         "Character": "/character",
         "Race List": "/races",
-        "Class List": "/classes",
-        "Character Sheet": "/sheet"
+        "Class List": "/classes"
     }
 
     content = text_printer.print_home(links)
@@ -115,22 +114,6 @@ def classes() -> str:
                            subtitle="Class List",
                            content=content,
                            class_list=class_list)
-
-
-@app.route('/sheet')
-def sheet() -> str:
-    """ Character Sheet """
-    text_printer = TextPrinter()
-    frank = Character("Frank", "Human", "Fighter")
-    key_pairs = SheetGenerator(frank).generate_key_pairs()
-    details = text_printer.print_character(frank)
-    basic_info = text_printer.print_basic_stats(frank)
-
-    return render_template('character_sheet.html',
-                           subtitle="Character Sheet",
-                           key_pairs=key_pairs,
-                           details=details,
-                           basic_info=basic_info)
 
 
 if __name__ == '__main__':

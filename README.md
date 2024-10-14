@@ -49,3 +49,25 @@ A fun little project to experiment with different technologies to learn web deve
 - Add Kubernetes
 - Add Github Actions
 - Update branch rules to require PRs
+
+## Future Enhancements
+- Improve style of pages
+  - Headers for home button
+  - Move generated data into a text area to the side with a scroll bar.
+    - Dice
+    - Class info
+    - Race info
+  - Improve Styles for Submit buttons / Selectors / Free text fields
+  - Shared Styles / Home buttons
+  - Nicer backgrounds
+  - Icons for options in Home with labels
+  - Dice with icons
+- Add missing Character Info as selectable
+  - Background
+  - Alignment
+  - Player name
+  - Experience Points
+  - Personality / Ideals / Bonds / Flaws
+  - Starting Equipment
+  - Attacks and Spells
+  - Selectable Class Proficiencies
