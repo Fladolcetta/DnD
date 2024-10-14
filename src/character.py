@@ -21,6 +21,7 @@ class Character:
         self.proficiency_bonus = 2
         self.hit_die = "0d0"
         self.skill_proficiencies = {}
+        self.save_proficiencies = {}
         self.saving_throws = {}
         self.all_skills = {}
         self.traits = []
@@ -109,7 +110,8 @@ class Character:
         for stat in saving_throws_stats:
             modifier = Character.find_modifier_value(saving_throws_stats[stat])
             self.saving_throws[stat] = modifier
-        for saving_throw in class_object.get_saving_throw_proficiencies():
+        self.save_proficiencies = class_object.get_saving_throw_proficiencies()
+        for saving_throw in self.save_proficiencies:
             self.saving_throws[saving_throw] = self.saving_throws[saving_throw] + self.proficiency_bonus
 
     def update_skills(self) -> None:

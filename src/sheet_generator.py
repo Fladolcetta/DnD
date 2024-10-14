@@ -40,12 +40,12 @@ class SheetGenerator:
         self.key_pairs.update(self.generate_saving_throw_key_pairs())
         self.key_pairs.update(self.generate_skill_key_pairs())
         self.key_pairs.update(self.generate_skill_prof_key_pairs())
-
+        self.key_pairs.update(self.generate_saving_throw_prof_key_pairs())
         return self.key_pairs
 
     def generate_basic_key_pairs(self) -> dict:
         """ Generate basic key pairs for the character sheet. """
-        key_pairs = {
+        return {
             "charname": self.character.name,
             "race": self.character.race,
             "classlevel": self.character.dnd_class + " " + str(self.character.level),
@@ -62,92 +62,112 @@ class SheetGenerator:
             "otherprofs": str(self.character.languages),
             "features": str(self.character.traits)
         }
-        return key_pairs
 
     def generate_stat_key_pairs(self) -> dict:
         """ Generate stat key pairs for the character sheet. """
-        text_printer = TextPrinter()
-        key_pairs = {
+        return {
             "Strengthscore": self.character.stats["Strength"],
-            "Strengthmod": text_printer.print_modifiers(self.character.find_modifier_stat("Strength")),
             "Dexterityscore": self.character.stats["Dexterity"],
-            "Dexteritymod": text_printer.print_modifiers(self.character.find_modifier_stat("Dexterity")),
             "Constitutionscore": self.character.stats["Constitution"],
-            "Constitutionmod": text_printer.print_modifiers(self.character.find_modifier_stat("Constitution")),
             "Wisdomscore": self.character.stats["Wisdom"],
-            "Wisdommod": text_printer.print_modifiers(self.character.find_modifier_stat("Wisdom")),
             "Intelligencescore": self.character.stats["Intelligence"],
-            "Intelligencemod": text_printer.print_modifiers(self.character.find_modifier_stat("Intelligence")),
             "Charismascore": self.character.stats["Charisma"],
-            "Charismamod": text_printer.print_modifiers(self.character.find_modifier_stat("Charisma"))
+            "Strengthmod": self.get_stat_modifier("Strength"),
+            "Dexteritymod": self.get_stat_modifier("Dexterity"),
+            "Constitutionmod": self.get_stat_modifier("Constitution"),
+            "Wisdommod": self.get_stat_modifier("Wisdom"),
+            "Intelligencemod": self.get_stat_modifier("Intelligence"),
+            "Charismamod": self.get_stat_modifier("Charisma")
         }
-        return key_pairs
 
     def generate_saving_throw_key_pairs(self) -> dict:
         """ Generate saving throw key pairs for the character sheet. """
-        text_printer = TextPrinter()
-        key_pairs = {
-            "Strengthsave": text_printer.print_modifiers(self.character.saving_throws["Strength"]),
-            "Dexteritysave": text_printer.print_modifiers(self.character.saving_throws["Dexterity"]),
-            "Constitutionsave": text_printer.print_modifiers(self.character.saving_throws["Constitution"]),
-            "Wisdomsave": text_printer.print_modifiers(self.character.saving_throws["Wisdom"]),
-            "Intelligencesave": text_printer.print_modifiers(self.character.saving_throws["Intelligence"]),
-            "Charismasave": text_printer.print_modifiers(self.character.saving_throws["Charisma"])
+        return {
+            "Strengthsave": self.get_saving_throw_modifier("Strength"),
+            "Dexteritysave": self.get_saving_throw_modifier("Dexterity"),
+            "Constitutionsave": self.get_saving_throw_modifier("Constitution"),
+            "Wisdomsave": self.get_saving_throw_modifier("Wisdom"),
+            "Intelligencesave": self.get_saving_throw_modifier("Intelligence"),
+            "Charismasave": self.get_saving_throw_modifier("Charisma")
         }
-        return key_pairs
 
     def generate_skill_key_pairs(self) -> dict:
         """ Generate skill key pairs for the character sheet. """
-        text_printer = TextPrinter()
-        key_pairs = {
-            "Acrobatics": text_printer.print_modifiers(self.character.all_skills["Acrobatics"]),
-            "AnimalHandling": text_printer.print_modifiers(self.character.all_skills["Animal Handling"]),
-            "Arcana": text_printer.print_modifiers(self.character.all_skills["Arcana"]),
-            "Athletics": text_printer.print_modifiers(self.character.all_skills["Athletics"]),
-            "Deception": text_printer.print_modifiers(self.character.all_skills["Deception"]),
-            "History": text_printer.print_modifiers(self.character.all_skills["History"]),
-            "Insight": text_printer.print_modifiers(self.character.all_skills["Insight"]),
-            "Intimidation": text_printer.print_modifiers(self.character.all_skills["Intimidation"]),
-            "Investigation": text_printer.print_modifiers(self.character.all_skills["Investigation"]),
-            "Medicine": text_printer.print_modifiers(self.character.all_skills["Medicine"]),
-            "Nature": text_printer.print_modifiers(self.character.all_skills["Nature"]),
-            "Perception": text_printer.print_modifiers(self.character.all_skills["Perception"]),
-            "Performance": text_printer.print_modifiers(self.character.all_skills["Performance"]),
-            "Persuasion": text_printer.print_modifiers(self.character.all_skills["Persuasion"]),
-            "Religion": text_printer.print_modifiers(self.character.all_skills["Religion"]),
-            "SleightofHand": text_printer.print_modifiers(self.character.all_skills["Sleight of Hand"]),
-            "Stealth": text_printer.print_modifiers(self.character.all_skills["Stealth"]),
-            "Survival": text_printer.print_modifiers(self.character.all_skills["Survival"])
+        return {
+            "Acrobatics": self.get_skill_modifier("Acrobatics"),
+            "AnimalHandling": self.get_skill_modifier("Animal Handling"),
+            "Arcana": self.get_skill_modifier("Arcana"),
+            "Athletics": self.get_skill_modifier("Athletics"),
+            "Deception": self.get_skill_modifier("Deception"),
+            "History": self.get_skill_modifier("History"),
+            "Insight": self.get_skill_modifier("Insight"),
+            "Intimidation": self.get_skill_modifier("Intimidation"),
+            "Investigation": self.get_skill_modifier("Investigation"),
+            "Medicine": self.get_skill_modifier("Medicine"),
+            "Nature": self.get_skill_modifier("Nature"),
+            "Perception": self.get_skill_modifier("Perception"),
+            "Performance": self.get_skill_modifier("Performance"),
+            "Persuasion": self.get_skill_modifier("Persuasion"),
+            "Religion": self.get_skill_modifier("Religion"),
+            "SleightofHand": self.get_skill_modifier("Sleight of Hand"),
+            "Stealth": self.get_skill_modifier("Stealth"),
+            "Survival": self.get_skill_modifier("Survival")
         }
-        return key_pairs
 
     def generate_skill_prof_key_pairs(self) -> dict:
         """ Generate key pairs for the character sheet. """
-        key_pairs = {
-            "Acrobaticsprof": self.check_proficiency("Acrobatics"),
-            "AnimalHandlingprof": self.check_proficiency("Animal Handling"),
-            "Arcanaprof": self.check_proficiency("Arcana"),
-            "Athleticsprof": self.check_proficiency("Athletics"),
-            "Deceptionprof": self.check_proficiency("Deception"),
-            "Historyprof": self.check_proficiency("History"),
-            "Insightprof": self.check_proficiency("Insight"),
-            "Intimidationprof": self.check_proficiency("Intimidation"),
-            "Investigationprof": self.check_proficiency("Investigation"),
-            "Medicineprof": self.check_proficiency("Medicine"),
-            "Natureprof": self.check_proficiency("Nature"),
-            "Perceptionprof": self.check_proficiency("Perception"),
-            "Performanceprof": self.check_proficiency("Performance"),
-            "Persuasionprof": self.check_proficiency("Persuasion"),
-            "Religionprof": self.check_proficiency("Religion"),
-            "SleightofHandprof": self.check_proficiency("Sleight of Hand"),
-            "Stealthprof": self.check_proficiency("Stealth"),
-            "Survivalprof": self.check_proficiency("Survival")
+        return {
+            "Acrobaticsprof": self.check_skill_proficiency("Acrobatics"),
+            "AnimalHandlingprof": self.check_skill_proficiency("Animal Handling"),
+            "Arcanaprof": self.check_skill_proficiency("Arcana"),
+            "Athleticsprof": self.check_skill_proficiency("Athletics"),
+            "Deceptionprof": self.check_skill_proficiency("Deception"),
+            "Historyprof": self.check_skill_proficiency("History"),
+            "Insightprof": self.check_skill_proficiency("Insight"),
+            "Intimidationprof": self.check_skill_proficiency("Intimidation"),
+            "Investigationprof": self.check_skill_proficiency("Investigation"),
+            "Medicineprof": self.check_skill_proficiency("Medicine"),
+            "Natureprof": self.check_skill_proficiency("Nature"),
+            "Perceptionprof": self.check_skill_proficiency("Perception"),
+            "Performanceprof": self.check_skill_proficiency("Performance"),
+            "Persuasionprof": self.check_skill_proficiency("Persuasion"),
+            "Religionprof": self.check_skill_proficiency("Religion"),
+            "SleightofHandprof": self.check_skill_proficiency("Sleight of Hand"),
+            "Stealthprof": self.check_skill_proficiency("Stealth"),
+            "Survivalprof": self.check_skill_proficiency("Survival")
         }
 
-        return key_pairs
+    def generate_saving_throw_prof_key_pairs(self) -> dict:
+        """ Generate key pairs for the character sheet. """
+        return {
+            "Strengthsaveprof": self.check_save_proficiency("Strength"),
+            "Dexteritysaveprof": self.check_save_proficiency("Dexterity"),
+            "Constitutionsaveprof": self.check_save_proficiency("Constitution"),
+            "Wisdomsaveprof": self.check_save_proficiency("Wisdom"),
+            "Intelligencesaveprof": self.check_save_proficiency("Intelligence"),
+            "Charismasaveprof": self.check_save_proficiency("Charisma")
+        }
 
-    def check_proficiency(self, skill: str) -> bool:
+    def get_stat_modifier(self, stat: str) -> int:
+        """ Get the modifier of the stat. """
+        return TextPrinter().print_modifiers(self.character.find_modifier_stat(stat))
+
+    def get_skill_modifier(self, skill: str) -> int:
+        """ Get the modifier of the skill. """
+        return TextPrinter().print_modifiers(self.character.all_skills[skill])
+
+    def get_saving_throw_modifier(self, save: str) -> int:
+        """ Get the modifier of the saving throw. """
+        return TextPrinter().print_modifiers(self.character.saving_throws[save])
+
+    def check_skill_proficiency(self, skill: str) -> bool:
         """ Check if the character is proficient in the skill. """
         if skill in self.character.skill_proficiencies:
+            return "checked"
+        return ""
+
+    def check_save_proficiency(self, save: str) -> bool:
+        """ Check if the character is proficient in the save. """
+        if save in self.character.save_proficiencies:
             return "checked"
         return ""
