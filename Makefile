@@ -1,7 +1,9 @@
 .PHONY: build up down test docs
 
 build:
-	sudo docker build -t dnd .
+	sudo docker build . -t dnd_app -f ./docker/dnd/Dockerfile
+	sudo docker build . -t dnd_sql -f ./docker/mysql/Dockerfile
+
 up:
 	docker run --rm \
 				-d \
