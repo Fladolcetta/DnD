@@ -35,6 +35,7 @@ A fun little project to experiment with different technologies to learn web deve
 - djlint: HTML Template linting
 - Flake8: Python Style linting
 - write-good: Markdown linting
+- mysql: Database
 
 ## Acknowledgements
 - Gary Gygax
