@@ -68,6 +68,7 @@
     * [update\_hp](#character.Character.update_hp)
     * [update\_passive\_perception](#character.Character.update_passive_perception)
     * [roll\_stats](#character.Character.roll_stats)
+    * [update\_skill\_for\_stat](#character.Character.update_skill_for_stat)
 
 <a id="text_printer"></a>
 
@@ -721,4 +722,14 @@ def roll_stats() -> None
 ```
 
 Roll the stats for the character.
+
+<a id="character.Character.update_skill_for_stat"></a>
+
+#### update\_skill\_for\_stat
+
+```python
+def update_skill_for_stat(stat: str, skill_list: list) -> None
+```
+
+Update the skill based on the stat.
 

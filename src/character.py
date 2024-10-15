@@ -34,34 +34,6 @@ class Character:
             "Intelligence": 0,
             "Charisma": 0
         }
-        self.strength_skills = {
-            "Athletics": 0
-        }
-        self.dexterity_skills = {
-            "Acrobatics": 0,
-            "Sleight of Hand": 0,
-            "Stealth": 0
-        }
-        self.intelligence_skills = {
-            "Arcana": 0,
-            "History": 0,
-            "Investigation": 0,
-            "Nature": 0,
-            "Religion": 0
-        }
-        self.wisdom_skills = {
-            "Animal Handling": 0,
-            "Insight": 0,
-            "Medicine": 0,
-            "Perception": 0,
-            "Survival": 0
-        }
-        self.charisma_skills = {
-            "Deception": 0,
-            "Intimidation": 0,
-            "Performance": 0,
-            "Persuasion": 0
-        }
 
         # Roll stats and update values
         self.primary_stat = CharacterClass(self.dnd_class).get_primary_stat()
@@ -116,31 +88,16 @@ class Character:
 
     def update_skills(self) -> None:
         """ Update the skills based on the stats. """
-        # pylint: disable=too-many-branches
-        for stat in self.stats:
-            if stat == "Strength":
-                for skill in self.strength_skills:
-                    self.strength_skills[skill] = self.find_modifier_stat(stat)
-            if stat == "Dexterity":
-                for skill in self.dexterity_skills:
-                    self.dexterity_skills[skill] = self.find_modifier_stat(stat)
-            if stat == "Constitution":
-                pass
-            if stat == "Intelligence":
-                for skill in self.intelligence_skills:
-                    self.intelligence_skills[skill] = self.find_modifier_stat(stat)
-            if stat == "Wisdom":
-                for skill in self.wisdom_skills:
-                    self.wisdom_skills[skill] = self.find_modifier_stat(stat)
-            if stat == "Charisma":
-                for skill in self.charisma_skills:
-                    self.charisma_skills[skill] = self.find_modifier_stat(stat)
-
-        self.all_skills.update(self.strength_skills)
-        self.all_skills.update(self.dexterity_skills)
-        self.all_skills.update(self.intelligence_skills)
-        self.all_skills.update(self.wisdom_skills)
-        self.all_skills.update(self.charisma_skills)
+        strength_skills = ["Athletics"]
+        dexterity_skills = ["Acrobatics", "Sleight of Hand", "Stealth"]
+        intelligence_skills = ["Arcana", "History", "Investigation", "Nature", "Religion"]
+        wisdom_skills = ["Animal Handling", "Insight", "Medicine", "Perception", "Survival"]
+        charisma_skills = ["Deception", "Intimidation", "Performance", "Persuasion"]
+        self.update_skill_for_stat("Strength", strength_skills)
+        self.update_skill_for_stat("Dexterity", dexterity_skills)
+        self.update_skill_for_stat("Intelligence", intelligence_skills)
+        self.update_skill_for_stat("Wisdom", wisdom_skills)
+        self.update_skill_for_stat("Charisma", charisma_skills)
         self.all_skills = dict(sorted(self.all_skills.items()))
 
     def update_ac(self) -> None:
@@ -182,3 +139,8 @@ class Character:
         for key, value in self.stats.items():
             if value == 0:
                 self.stats[key] = stat_array.pop(0)
+
+    def update_skill_for_stat(self, stat: str, skill_list: list) -> None:
+        """ Update the skill based on the stat. """
+        for skill in skill_list:
+            self.all_skills[skill] = self.find_modifier_stat(stat)
