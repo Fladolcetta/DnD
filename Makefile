@@ -13,7 +13,7 @@ setup:
 build:
 	sudo docker build . -t dnd_app:latest -f ./Dockerfile
 
-up: build
+up:
 	sudo docker compose up -d
 	open http://localhost:8080
 
