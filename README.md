@@ -18,6 +18,7 @@ A fun little project to experiment with different technologies to learn web deve
 - Kubernetes
 - Pytest
 - Code Coverage
+- mySQL
 
 ## Code Documentation
 [Generated Documentation](./docs/code.md)
