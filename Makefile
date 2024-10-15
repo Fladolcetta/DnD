@@ -11,7 +11,7 @@ setup:
 	brew services start mysql
 
 build:
-	sudo docker build . -t dnd_app:latest -f ./Dockerfile --no-cache
+	sudo docker build . -t dnd_app:latest -f ./Dockerfile
 
 up: build
 	sudo docker compose up -d

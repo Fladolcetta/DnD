@@ -18,6 +18,8 @@ services:
       context: ./
       dockerfile: Dockerfile
     image: dnd_app:latest
+    volumes:
+      - .:/dnd
     env_file: .env
     ports:
       - "8080:5000"
