@@ -11,21 +11,14 @@ setup:
 	brew services start mysql
 
 build:
-	sudo docker build . -t dnd_app -f ./docker/dnd/Dockerfile
-	sudo docker build . -t dnd_sql -f ./docker/mysql/Dockerfile
+	sudo docker build . -t dnd_app:latest -f ./Dockerfile
 
 up:
-	docker run --rm \
-				-d \
-				-it \
-				-p 8080:5000 \
-				-v .:/dnd \
-				--name dnd-container \
-				dnd
+	sudo docker compose up -d
 	open http://localhost:8080
 
 down:
-	docker stop dnd-container
+	sudo docker compose down
 
 test:
 	pylint ./src ./main.py ./tests --rcfile ./.pylintrc
