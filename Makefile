@@ -1,5 +1,15 @@
 .PHONY: build up down test docs
 
+setup:
+	brew install python3
+	pip3 install -r requirements.txt --break-system-packages
+	brew install --cask docker
+	brew install write-good
+	brew install flake8
+	brew install djlint
+	brew install mysql
+	brew services start mysql
+
 build:
 	sudo docker build . -t dnd_app -f ./docker/dnd/Dockerfile
 	sudo docker build . -t dnd_sql -f ./docker/mysql/Dockerfile
