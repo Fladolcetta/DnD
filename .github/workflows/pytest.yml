@@ -19,4 +19,4 @@ jobs:
     - name: Test with pytest
       run: |
         pip install pytest pytest-cov
-        pytest tests --cov=src --fail-under=100
+        pytest tests --cov=src --cov-fail-under=100
