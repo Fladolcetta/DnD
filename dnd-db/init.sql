@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS `stats` (
     `charisma` int DEFAULT NULL,
     PRIMARY KEY (`id`) );
 USE characters;
-CREATE TABLE IF NOT EXISTS `character` (
+CREATE TABLE IF NOT EXISTS `character_data` (
     `id` int NOT NULL AUTO_INCREMENT,
     `char_name` varchar(255),
     `dnd_class` varchar(255),

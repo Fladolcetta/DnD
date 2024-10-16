@@ -3,18 +3,17 @@ import os
 import mysql.connector
 from src.character import Character
 
+
 class DB:
     """ A class to represent a database connection. """
     def __init__(self):
         self.host = "dnd-db"
         self.user = os.environ["MYSQL_USER"]
         self.password = os.environ["MYSQL_PASSWORD"]
-        self.db = mysql.connector.connect(
-            host = self.host,
-            port = 3306,
-            user = self.user,
-            password = self.password)
-
+        self.db = mysql.connector.connect(host=self.host,
+                                          port=3306,
+                                          user=self.user,
+                                          password=self.password)
 
     def insert_character(self, character: Character) -> int:
         """ Insert a character into the database. """
@@ -39,7 +38,7 @@ class DB:
                     """
         stat_id = self.insert_into_table(stats_sql)
         character_sql = f"""
-                            INSERT INTO `character` (
+                            INSERT INTO character_data (
                                 char_name,
                                 dnd_class,
                                 dnd_race,
