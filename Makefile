@@ -28,6 +28,7 @@ test:
 	write-good README.md
 	pytest --cov=src tests
 	hadolint Dockerfile
+	docker compose config --quiet
 
 docs:
 	pydoc-markdown -I src --render-toc > ./docs/code.md
