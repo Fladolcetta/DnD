@@ -1,4 +1,4 @@
-name: flake8 Lint
+name: lint
 
 on: [push]
 
@@ -24,3 +24,13 @@ jobs:
       - name: Analysing the code with pylint
         run: |
           pylint $(git ls-files '*.py')
+      - name: Run write-good on readme
+        id: write-good
+        uses: tomwhross/write-good-action@v1.6
+        with:
+          directory: './README.md'
+      - name: write-good output
+        if: contains(steps.write-good.outputs.result, 'README')
+        run: |
+          echo '${{ steps.write-good.outputs.result }}'
+          exit 1
