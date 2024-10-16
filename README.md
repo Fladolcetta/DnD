@@ -49,8 +49,6 @@ A fun little project to experiment with different technologies to learn web deve
 
 ### Repo TODOS
 - Add Kubernetes
-- Add Github Actions
-- Update branch rules to require PRs
 
 ## Future Enhancements
 - Improve style of pages
