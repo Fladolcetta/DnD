@@ -8,6 +8,7 @@ setup:
 	brew install flake8
 	brew install djlint
 	brew install mysql
+	brew install hadolint
 	brew services start mysql
 
 build:
@@ -26,6 +27,8 @@ test:
 	flake8 --ignore E501
 	write-good README.md
 	pytest --cov=src tests
+	hadolint Dockerfile
+	docker compose config --quiet
 
 docs:
 	pydoc-markdown -I src --render-toc > ./docs/code.md
