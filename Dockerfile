@@ -10,7 +10,7 @@ COPY templates/ /dnd/templates/
 COPY .env main.py requirements.txt  /dnd/
 
 # Upgrade pip and install Python dependencies
-RUN pip3 install --upgrade pip && pip install --no-cache-dir -r requirements.txt
+RUN pip3 install --no-cache-dir --upgrade --requirement requirements.txt
 
 # Expose port 5000 for the Flask application
 EXPOSE 5000
