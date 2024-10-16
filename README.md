@@ -37,6 +37,7 @@ A fun little project to experiment with different technologies to learn web deve
 - Flake8: Python Style linting
 - write-good: Markdown linting
 - mysql: Database
+- hadolint: Dockerfile linting
 
 ## Acknowledgements
 - Gary Gygax
