@@ -1,0 +1,36 @@
+name: lint
+
+on: [push]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    name: lint
+    steps:
+      - name: Check out source repository
+        uses: actions/checkout@v4
+      - name: Set up Python environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: flake8 Lint
+        uses: py-actions/flake8@v2
+        with:
+          ignore: "E501"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Analysing the code with pylint
+        run: |
+          pylint $(git ls-files '*.py')
+      - name: Run write-good on readme
+        id: write-good
+        uses: tomwhross/write-good-action@v1.6
+        with:
+          directory: './README.md'
+      - name: write-good output
+        if: contains(steps.write-good.outputs.result, 'README')
+        run: |
+          echo '${{ steps.write-good.outputs.result }}'
+          exit 1
