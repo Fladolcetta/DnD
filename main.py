@@ -5,6 +5,7 @@ from src.text_printer import TextPrinter
 from src.race import Race
 from src.character_class import CharacterClass
 from src.sheet_generator import SheetGenerator
+from src.db import DB
 
 app = Flask(__name__)
 
@@ -65,12 +66,14 @@ def character() -> str:
             race = str(request.args.get("race"))
             character_class = str(request.args.get("character_class"))
             new_char = Character(name, race, character_class)
-
+            db = DB()
+            char_id = db.insert_character(new_char)
             key_pairs = SheetGenerator(new_char).generate_key_pairs()
             details = text_printer.print_character(new_char)
             basic_info = text_printer.print_basic_stats(new_char)
             return render_template('character_sheet.html',
                                    subtitle="Character Sheet",
+                                   char_id=char_id,
                                    key_pairs=key_pairs,
                                    details=details,
                                    basic_info=basic_info)

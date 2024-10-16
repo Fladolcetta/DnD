@@ -1,19 +1,24 @@
 .PHONY: build up down test docs
 
+setup:
+	brew install python3
+	pip3 install -r requirements.txt --break-system-packages
+	brew install --cask docker
+	brew install write-good
+	brew install flake8
+	brew install djlint
+	brew install mysql
+	brew services start mysql
+
 build:
-	sudo docker build -t dnd .
+	sudo docker build . -t dnd_app:latest -f ./Dockerfile
+
 up:
-	docker run --rm \
-				-d \
-				-it \
-				-p 8080:5000 \
-				-v .:/dnd \
-				--name dnd-container \
-				dnd
+	sudo docker compose up -d
 	open http://localhost:8080
 
 down:
-	docker stop dnd-container
+	sudo docker compose down
 
 test:
 	pylint ./src ./main.py ./tests --rcfile ./.pylintrc

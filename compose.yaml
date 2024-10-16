@@ -1,0 +1,27 @@
+services:
+  dnd-db:
+    container_name: dnd-db
+    platform: linux/x86_64
+    image: mysql:latest
+    expose:
+      - "3306"
+    volumes:
+      - ./dnd-db:/docker-entrypoint-initdb.d
+    ports:
+      - "3406:3306"
+    env_file: .env
+    restart: always
+  dnd-python:
+    container_name: dnd-python
+    platform: linux/x86_64
+    build: ./Dockerfile
+    image: dnd_app:latest
+    volumes:
+      - .:/dnd
+    env_file: .env
+    ports:
+      - "8080:5000"
+    depends_on:
+      - dnd-db
+    restart: always
+    command: ["gunicorn", "main:app", "-b", "0.0.0.0:5000", "-w", "4", "--reload"]

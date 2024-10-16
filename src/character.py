@@ -6,8 +6,8 @@ from src.character_class import CharacterClass
 
 class Character:
     """ A class to represent a character in Dungeons and Dragons. """
-    def __init__(self, name, desired_race="Human", desired_class="Fighter") -> None:
-        self.name = name
+    def __init__(self, name: str, desired_race="Human", desired_class="Fighter") -> None:
+        self.name = name if name != "" else "Unnamed"
         self.race = desired_race
         self.dnd_class = desired_class
         self.level = 1

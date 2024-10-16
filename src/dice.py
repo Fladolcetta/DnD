@@ -4,7 +4,7 @@ import random
 
 class Dice:
     """ A class to represent a dice roll. """
-    def __init__(self, num_dice, num_sides, modifier) -> None:
+    def __init__(self, num_dice: int, num_sides: int, modifier: int) -> None:
         self.num_dice = num_dice
         self.num_sides = num_sides
         self.modifier = modifier
