@@ -75,6 +75,5 @@ A fun little project to experiment with different technologies to learn web deve
   - Selectable Class Proficiencies
 - Features
   - Roll button based on selected stat / save / skill
-  - Database storage of generated characters
-    - Retrieval of generated characters from storage
+  - Retrieval of generated characters from storage
   - Generate character based on input stats

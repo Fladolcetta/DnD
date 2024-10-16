@@ -1,6 +1,6 @@
 """Tests for the Dice class."""
 from unittest.mock import patch
-from src.dice import Dice  # Assuming the class is in 'dice_module.py'
+from src.dice import Dice
 
 
 def test_dice_initialization():
