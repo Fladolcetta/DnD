@@ -49,8 +49,9 @@ spec:
                 configMapKeyRef:
                   key: PREFIX
                   name: env
-          image: dnd-python
+          image: dnd-python:latest
           name: dnd-python
+          imagePullPolicy: Never
           ports:
             - containerPort: 5000
               protocol: TCP
