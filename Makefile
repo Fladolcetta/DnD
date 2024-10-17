@@ -9,10 +9,17 @@ setup:
 	brew install djlint
 	brew install mysql
 	brew install hadolint
+	brew install minikube
 	brew services start mysql
 
 build:
 	sudo docker build . -t dnd-python:latest -f ./Dockerfile
+
+upk8s:
+	minikube start
+	kubectl config use-context docker-desktop
+	kubectl apply -f kubernetes
+	minikube service python
 
 up: build
 	sudo docker compose up -d

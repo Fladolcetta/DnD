@@ -1,6 +1,14 @@
 # Dungeons and Dragons Character Helper
 A fun little project to experiment with different technologies to learn web development. Using Dungeons and Dragons as a mechanism to show off the different technologies.
 
+## Setup
+ 1. Open you Mac.
+ 2. Pull this repo.
+ 3. Open a terminal.
+ 4. Type `make setup`
+ 5. Open Docker Desktop
+ 6. Go to "Settings>>Kubernetes>>Enable Kubernetes>>Apply and Restart"
+
 ## Features
  - Dice Roller
  - Character Generator
@@ -38,6 +46,7 @@ A fun little project to experiment with different technologies to learn web deve
 - write-good: Markdown linting
 - mysql: Database
 - hadolint: Dockerfile linting
+- minikube: Local instance of Kubernetes
 
 ## Acknowledgements
 - Gary Gygax

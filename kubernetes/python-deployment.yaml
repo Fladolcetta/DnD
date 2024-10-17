@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: python
+  name: python
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python
+  template:
+    metadata:
+      labels:
+        app: python
+    spec:
+      containers:
+        - args:
+            - gunicorn
+            - main:app
+            - -b
+            - 0.0.0.0:5000
+            - -w
+            - "4"
+            - --reload
+          env:
+            - name: DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  key: DOMAIN
+                  name: env
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: MYSQL_PASSWORD
+                  name: env
+            - name: MYSQL_USER
+              valueFrom:
+                configMapKeyRef:
+                  key: MYSQL_USER
+                  name: env
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: PORT
+                  name: env
+            - name: PREFIX
+              valueFrom:
+                configMapKeyRef:
+                  key: PREFIX
+                  name: env
+          image: dnd-python
+          name: dnd-python
+          ports:
+            - containerPort: 5000
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /dnd
+              name: python-configmap
+      volumes:
+        - configMap:
+            name: python-configmap
+          name: python-configmap
