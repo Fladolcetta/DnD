@@ -12,9 +12,9 @@ setup:
 	brew services start mysql
 
 build:
-	sudo docker build . -t dnd_app:latest -f ./Dockerfile
+	sudo docker build . -t dnd-python:latest -f ./Dockerfile
 
-up:
+up: build
 	sudo docker compose up -d
 	open http://localhost:8080
 

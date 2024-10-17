@@ -1,5 +1,5 @@
 services:
-  dnd-db:
+  db:
     container_name: dnd-db
     platform: linux/x86_64
     image: mysql:latest
@@ -11,17 +11,18 @@ services:
       - "3406:3306"
     env_file: .env
     restart: always
-  dnd-python:
+  python:
     container_name: dnd-python
     platform: linux/x86_64
-    build: ./Dockerfile
-    image: dnd_app:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     volumes:
       - .:/dnd
     env_file: .env
     ports:
       - "8080:5000"
     depends_on:
-      - dnd-db
+      - db
     restart: always
     command: ["gunicorn", "main:app", "-b", "0.0.0.0:5000", "-w", "4", "--reload"]
