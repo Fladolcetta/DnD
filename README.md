@@ -8,8 +8,7 @@ A fun little project to experiment with different technologies to learn web deve
  4. Type `minikube mount .:/dnd`
  5. Open another terminal.
  6. Type `make setup`
- 7. Type `make refresh`
- 8. Type `make upk8s`
+ 7. Type `make up`
 
 ## Features
  - Dice Roller
