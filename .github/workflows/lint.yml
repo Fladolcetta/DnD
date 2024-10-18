@@ -29,8 +29,14 @@ jobs:
         uses: tomwhross/write-good-action@v1.6
         with:
           directory: './README.md'
-      - name: write-good output
+      - name: Output write-good results
         if: contains(steps.write-good.outputs.result, 'README')
         run: |
           echo '${{ steps.write-good.outputs.result }}'
           exit 1
+      - name: Kubernetes Linting
+        id: kube-lint-scan
+        uses: stackrox/kube-linter-action@v1
+        with:
+          directory: kubernetes
+          config: .kube-linter.yaml

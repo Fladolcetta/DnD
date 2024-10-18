@@ -1,6 +1,16 @@
 # Dungeons and Dragons Character Helper
 A fun little project to experiment with different technologies to learn web development. Using Dungeons and Dragons as a mechanism to show off the different technologies.
 
+## Setup
+ 1. Open you mac laptop.
+ 2. Pull this repo.
+ 3. (If wanting to edit code)
+    - Open a terminal in the repo directory.
+    - Type `minikube mount .:/dnd`
+ 4. Open another terminal in the repo directory.
+ 5. Type `make setup`
+ 6. Type `make up`
+
 ## Features
  - Dice Roller
  - Character Generator
@@ -38,6 +48,8 @@ A fun little project to experiment with different technologies to learn web deve
 - write-good: Markdown linting
 - mysql: Database
 - hadolint: Dockerfile linting
+- minikube: Local instance of Kubernetes
+- kube-linter: Kubernetes yaml file linting
 
 ## Acknowledgements
 - Gary Gygax
@@ -47,9 +59,6 @@ A fun little project to experiment with different technologies to learn web deve
 - ChatGPT
 
 ## TODO
-
-### Repo TODOS
-- Add Kubernetes
 
 ## Future Enhancements
 - Improve style of pages

@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python
+  labels:
+    app: python
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python
+  template:
+    metadata:
+      labels:
+        app: python
+    spec:
+      volumes:
+        - name: python-volume
+          hostPath:
+            path: /dnd
+      containers:
+        - name: dnd-python
+          args:
+            - gunicorn
+            - main:app
+            - -b
+            - 0.0.0.0:5000
+            - -w
+            - "4"
+            - --reload
+          env:
+            - name: DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: env
+                  key: DOMAIN
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: env
+                  key: MYSQL_PASSWORD
+            - name: MYSQL_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: env
+                  key: MYSQL_USER
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: env
+                  key: PORT
+            - name: PREFIX
+              valueFrom:
+                configMapKeyRef:
+                  name: env
+                  key: PREFIX
+          image: dnd-python:1.0
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5000
+              protocol: TCP
+          volumeMounts:
+            - name: python-volume
+              mountPath: /dnd
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+      restartPolicy: Always
