@@ -69,7 +69,4 @@ spec:
             limits:
               memory: "512Mi"
               cpu: "500m"
-          securityContext:
-            readOnlyRootFilesystem: True
-            runAsNonRoot: True
       restartPolicy: Always

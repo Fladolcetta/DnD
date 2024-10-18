@@ -37,7 +37,7 @@ spec:
                 configMapKeyRef:
                   name: env
                   key: MYSQL_USER
-          image: mysql:latest
+          image: mysql:9.1.0
           ports:
             - containerPort: 3306
               protocol: TCP
@@ -53,9 +53,6 @@ spec:
             limits:
               memory: "1024Mi"
               cpu: "500m"
-          securityContext:
-            readOnlyRootFilesystem: True
-            runAsNonRoot: True
       restartPolicy: Always
       volumes:
         - name: db-configmap

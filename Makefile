@@ -11,6 +11,7 @@ setup:
 	brew install hadolint
 	brew install minikube
 	brew install kube-linter
+	docker image pull mysql:9.1.0
 	sudo chmod -R g+rw "$HOME/.docker"
 	brew services start mysql
 	minikube start
@@ -20,7 +21,7 @@ build:
 	eval $(minikube -p minikube docker-env)
 	docker build . -t dnd-python:latest -f ./Dockerfile
 
-refresh: k8sDelete build k8sApply
+refresh: k8sDelete build k8sApply k8sup
 
 k8sApply:
 	kubectl apply -f kubernetes
@@ -28,7 +29,7 @@ k8sApply:
 k8sDelete:
 	kubectl delete -f kubernetes
 
-upk8s: k8sApply
+k8sup:
 	minikube service python
 
 up:	build
