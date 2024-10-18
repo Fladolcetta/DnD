@@ -61,6 +61,7 @@ A fun little project to experiment with different technologies to learn web deve
 
 ### Repo TODOS
 - Add Kubernetes
+  - Switch to k3d
 
 ## Future Enhancements
 - Improve style of pages

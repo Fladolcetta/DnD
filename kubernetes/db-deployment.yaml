@@ -53,4 +53,4 @@ spec:
             name: db-configmap
         - name: db-data
           persistentVolumeClaim:
-            claimName: db-data
+            claimName: db-pv-claim
