@@ -53,6 +53,9 @@ spec:
             limits:
               memory: "1024Mi"
               cpu: "500m"
+          securityContext:
+            readOnlyRootFilesystem: True
+            runAsNonRoot: True
       restartPolicy: Always
       volumes:
         - name: db-configmap
