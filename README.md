@@ -5,9 +5,9 @@ A fun little project to experiment with different technologies to learn web deve
  1. Open you mac laptop.
  2. Pull this repo.
  3. (If wanting to edit code)
-    - Open a terminal where the repo is stored.
+    - Open a terminal in the repo directory.
     - Type `minikube mount .:/dnd`
- 4. Open another terminal where the repo is stored.
+ 4. Open another terminal in the repo directory.
  5. Type `make setup`
  6. Type `make up`
 
