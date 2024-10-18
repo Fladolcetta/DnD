@@ -18,8 +18,8 @@ setup:
 	kubectl config use-context docker-desktop
 
 build:
-	eval $(minikube -p minikube docker-env)
-	docker build . -t dnd-python:latest -f ./Dockerfile
+	@eval $$(minikube -p minikube docker-env);\
+	docker build . -t dnd-python:1.0 -f ./Dockerfile
 
 refresh: k8sDelete build k8sApply k8sup
 

@@ -54,7 +54,7 @@ spec:
                 configMapKeyRef:
                   name: env
                   key: PREFIX
-          image: dnd-python:latest
+          image: dnd-python:1.0
           imagePullPolicy: Never
           ports:
             - containerPort: 5000
