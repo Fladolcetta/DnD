@@ -2,12 +2,14 @@
 A fun little project to experiment with different technologies to learn web development. Using Dungeons and Dragons as a mechanism to show off the different technologies.
 
 ## Setup
- 1. Open you Mac.
+ 1. Open you mac laptop.
  2. Pull this repo.
  3. Open a terminal.
- 4. Type `make setup`
- 5. Open Docker Desktop
- 6. Go to "Settings>>Kubernetes>>Enable Kubernetes>>Apply and Restart"
+ 4. Type `minikube mount .:/dnd`
+ 5. Open another terminal.
+ 6. Type `make setup`
+ 7. Type `make refresh`
+ 8. Type `make upk8s`
 
 ## Features
  - Dice Roller

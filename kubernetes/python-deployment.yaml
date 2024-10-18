@@ -9,13 +9,15 @@ spec:
   selector:
     matchLabels:
       app: python
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
         app: python
     spec:
+      volumes:
+        - name: python-volume
+          hostPath:
+            path: /dnd
       containers:
         - name: dnd-python
           args:
@@ -61,8 +63,3 @@ spec:
             - name: python-volume
               mountPath: /dnd
       restartPolicy: Always
-      volumes:
-        - name: python-volume
-          image:
-            reference: dnd-python:latest
-            pullPolicy: IfNotPresent
