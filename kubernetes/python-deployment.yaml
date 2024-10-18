@@ -9,6 +9,8 @@ spec:
   selector:
     matchLabels:
       app: python
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
@@ -57,8 +59,10 @@ spec:
               protocol: TCP
           volumeMounts:
             - mountPath: /dnd
-              name: python-configmap
+              name: python-volume
+      restartPolicy: Always
       volumes:
-        - configMap:
-            name: python-configmap
-          name: python-configmap
+        - name: python-volume
+          image:
+            reference: dnd-python:latest
+            pullPolicy: IfNotPresent
