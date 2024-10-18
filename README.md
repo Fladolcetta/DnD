@@ -49,6 +49,7 @@ A fun little project to experiment with different technologies to learn web deve
 - mysql: Database
 - hadolint: Dockerfile linting
 - minikube: Local instance of Kubernetes
+- kube-linter: Kubernetes yaml file linting
 
 ## Acknowledgements
 - Gary Gygax
@@ -62,6 +63,9 @@ A fun little project to experiment with different technologies to learn web deve
 ### Repo TODOS
 - Add Kubernetes
   - Switch to k3d
+  - Linter
+  - GH Action for linting
+  - makefile
 
 ## Future Enhancements
 - Improve style of pages

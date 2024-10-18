@@ -46,6 +46,13 @@ spec:
               mountPath: /docker-entrypoint-initdb.d
             - name: db-data
               mountPath: /var/lib/mysql
+          resources:
+            requests:
+              memory: "768Mi"
+              cpu: "250m"
+            limits:
+              memory: "1024Mi"
+              cpu: "500m"
       restartPolicy: Always
       volumes:
         - name: db-configmap

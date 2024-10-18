@@ -10,6 +10,8 @@ setup:
 	brew install mysql
 	brew install hadolint
 	brew install minikube
+	brew install kube-linter
+	sudo chmod -R g+rw "$HOME/.docker"
 	brew services start mysql
 	minikube start
 	kubectl config use-context docker-desktop
@@ -44,6 +46,7 @@ test:
 	pytest --cov=src tests
 	hadolint Dockerfile
 	docker compose config --quiet
+	kube-linter lint ./kubernetes
 
 docs:
 	pydoc-markdown -I src --render-toc > ./docs/code.md
