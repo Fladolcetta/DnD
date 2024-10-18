@@ -23,6 +23,10 @@ build:
 
 refresh: k8sDelete build k8sApply k8sup
 
+up: build k8sApply k8sup
+
+down: k8sDelete
+
 k8sApply:
 	kubectl apply -f kubernetes
 
@@ -32,11 +36,11 @@ k8sDelete:
 k8sup:
 	minikube service python
 
-up:	build
+dockerup:	build
 	sudo docker compose up -d
 	open http://localhost:8080
 
-down:
+dockerdown:
 	sudo docker compose down
 
 test:

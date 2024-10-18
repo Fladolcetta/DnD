@@ -1,0 +1,4 @@
+checks:
+  exclude:
+    - run-as-non-root # Needed for local development
+    - no-read-only-root-fs # Needed for local development

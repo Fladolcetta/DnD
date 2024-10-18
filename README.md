@@ -63,9 +63,6 @@ A fun little project to experiment with different technologies to learn web deve
 ### Repo TODOS
 - Add Kubernetes
   - Switch to k3d
-  - Linter
-  - GH Action for linting
-  - makefile
 
 ## Future Enhancements
 - Improve style of pages
