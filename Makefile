@@ -18,11 +18,18 @@ build:
 	eval $(minikube -p minikube docker-env)
 	docker build . -t dnd-python:latest -f ./Dockerfile
 
-upk8s:
+refresh: k8sDelete build k8sApply
+
+k8sApply:
 	kubectl apply -f kubernetes
+
+k8sDelete:
+	kubectl delete -f kubernetes
+
+upk8s: k8sApply
 	minikube service python
 
-up: build
+up:	build
 	sudo docker compose up -d
 	open http://localhost:8080
 
