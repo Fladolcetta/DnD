@@ -4,11 +4,12 @@ A fun little project to experiment with different technologies to learn web deve
 ## Setup
  1. Open you mac laptop.
  2. Pull this repo.
- 3. Open a terminal.
- 4. Type `minikube mount .:/dnd`
- 5. Open another terminal.
- 6. Type `make setup`
- 7. Type `make up`
+ 3. (If wanting to edit code)
+    - Open a terminal where the repo is stored.
+    - Type `minikube mount .:/dnd`
+ 4. Open another terminal where the repo is stored.
+ 5. Type `make setup`
+ 6. Type `make up`
 
 ## Features
  - Dice Roller
@@ -58,10 +59,6 @@ A fun little project to experiment with different technologies to learn web deve
 - ChatGPT
 
 ## TODO
-
-### Repo TODOS
-- Add Kubernetes
-  - Switch to k3d
 
 ## Future Enhancements
 - Improve style of pages
