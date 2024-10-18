@@ -15,37 +15,37 @@ spec:
         app: db
     spec:
       containers:
-        - env:
+        - name: dnd-db
+          env:
             - name: MYSQL_DATABASE
               valueFrom:
                 configMapKeyRef:
-                  key: MYSQL_DATABASE
                   name: env
+                  key: MYSQL_DATABASE
             - name: MYSQL_PASSWORD
               valueFrom:
                 configMapKeyRef:
-                  key: MYSQL_PASSWORD
                   name: env
+                  key: MYSQL_PASSWORD
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 configMapKeyRef:
-                  key: MYSQL_ROOT_PASSWORD
                   name: env
+                  key: MYSQL_ROOT_PASSWORD
             - name: MYSQL_USER
               valueFrom:
                 configMapKeyRef:
-                  key: MYSQL_USER
                   name: env
+                  key: MYSQL_USER
           image: mysql:latest
-          name: dnd-db
           ports:
             - containerPort: 3306
               protocol: TCP
           volumeMounts:
-            - mountPath: /docker-entrypoint-initdb.d
-              name: db-configmap
-            - mountPath: /var/lib/mysql
-              name: db-data
+            - name: db-configmap
+              mountPath: /docker-entrypoint-initdb.d
+            - name: db-data
+              mountPath: /var/lib/mysql
       restartPolicy: Always
       volumes:
         - name: db-configmap
