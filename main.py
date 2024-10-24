@@ -1,5 +1,5 @@
 """ Main file for the Dungeons and Dragons character generator. """
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from src.text_printer import TextPrinter
 from src.race import Race
 from src.character_class import CharacterClass
@@ -11,32 +11,14 @@ app = Flask(__name__)
 @app.route('/')
 def main() -> str:
     """ Main function. """
-    return roll()
+    return redirect('roll')
 
 
 @app.route('/roll')
 def roll() -> str:
     """ Roll function. """
-    text_printer = TextPrinter()
     page_loader = PageLoader()
-    num_sides = 6
-    num_dice = 1
-    modifier = 0
-    left_content = render_template('roll.html',
-                                   num_sides=num_sides,
-                                   num_dice=num_dice,
-                                   modifier=modifier)
-    right_content = ""
-    try:
-        if "submit" in request.args.get("submit"):
-            num_dice = int(request.args.get("num_dice"))
-            num_sides = int(request.args.get("num_sides"))
-            modifier = int(request.args.get("modifier"))
-            right_content = text_printer.print_roll(num_dice, num_sides, modifier)
-            return page_loader.load_left_right_page(left_content, right_content, "Dice Roller")
-    except TypeError:
-        pass
-    return page_loader.load_left_only_page(left_content, "Dice Roller")
+    return page_loader.load_roll(request.args.to_dict())
 
 
 @app.route('/character')
@@ -64,18 +46,7 @@ def character() -> str:
 def races() -> str:
     """ List Races """
     page_loader = PageLoader()
-    text_printer = TextPrinter()
-    race_list = Race.get_all_races()
-    left_content = render_template('race.html',
-                                   race_list=race_list)
-    right_content = ""
-    try:
-        if "submit" in request.args.get("submit"):
-            right_content = text_printer.print_race_info(request.args.get("race"))
-            return page_loader.load_left_right_page(left_content, right_content, "Race Info")
-    except TypeError:
-        pass
-    return page_loader.load_left_only_page(left_content, "Race Info")
+    return page_loader.load_races(request.args.to_dict())
 
 
 @app.route('/classes')

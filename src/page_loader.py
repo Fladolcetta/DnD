@@ -1,9 +1,11 @@
 """ A module to load html pages. """
+from typing import Union
 from flask import render_template
-from src.character import Character
-from src.sheet_generator import SheetGenerator
 from src.db import DB
+from src.race import Race
+from src.character import Character
 from src.text_printer import TextPrinter
+from src.sheet_generator import SheetGenerator
 
 
 class PageLoader:
@@ -54,3 +56,37 @@ class PageLoader:
                                content=content,
                                other_styles=other_styles,
                                other_scripts=other_scripts)
+
+    def load_roll(self, args: dict) -> str:
+        """ Load the roll page. """
+        text_printer = TextPrinter()
+        num_sides = int(args.get("num_sides") or 6)
+        num_dice = int(args.get("num_dice") or 1)
+        modifier = int(args.get("modifier") or 0)
+        left_content = render_template('roll.html',
+                                       num_sides=num_sides,
+                                       num_dice=num_dice,
+                                       modifier=modifier)
+        right_content = text_printer.print_roll(num_dice, num_sides, modifier)
+        submit = args.get("submit")
+        return self.left_right_dance(submit, left_content, right_content, "Dice Roller")
+
+    def load_races(self, args: dict) -> str:
+        """ Load the races page. """
+        text_printer = TextPrinter()
+        race_list = Race.get_all_races()
+        race = args.get("race") or "Human"
+        left_content = render_template('race.html',
+                                    race_list=race_list)
+        right_content = text_printer.print_race_info(race)
+        submit = args.get("submit")
+        return self.left_right_dance(submit, left_content, right_content, "Race Info")
+
+    def left_right_dance(self, submit: Union[None, str], left_content: str, right_content: str, subtitle: str) -> str:
+        """ Load the left right page. """
+        try:
+            if "submit" in submit:
+                return self.load_left_right_page(left_content, right_content, subtitle)
+        except TypeError:
+            pass
+        return self.load_left_only_page(left_content, subtitle)
