@@ -15,9 +15,10 @@
             <a id="/races" href="/races">Race Info</a>
             <a id ="/character" href="/character">Character Generator</a>
         </div>
+        <script type="text/javascript" src="/static/topnav.js"></script>
+        {{ other_scripts|safe }}
         <p></p>
         <p></p>
         {{ content|safe }}
     </body>
-    {{ script_content|safe }}
 </html>
