@@ -34,9 +34,10 @@ def roll() -> str:
             num_sides = int(request.args.get("num_sides"))
             modifier = int(request.args.get("modifier"))
             right_content = text_printer.print_roll(num_dice, num_sides, modifier)
+            return load_left_right_page(left_content, right_content, "Dice Roller")
     except TypeError:
         pass
-    return load_left_right_page(left_content, right_content, "Dice Roller")
+    return load_left_only_page(left_content, "Dice Roller")
 
 
 @app.route('/character')
@@ -69,7 +70,7 @@ def character() -> str:
                                    basic_info=basic_info)
     except TypeError:
         pass
-    return load_left_right_page(left_content, "", "Character Generator")
+    return load_left_only_page(left_content, "Character Generator")
 
 
 @app.route('/races')
@@ -83,9 +84,10 @@ def races() -> str:
     try:
         if "Show" in request.args.get("show"):
             right_content = text_printer.print_race_info(request.args.get("race"))
+            return load_left_right_page(left_content, right_content, "Race Info")
     except TypeError:
         pass
-    return load_left_right_page(left_content, right_content, "Race Info")
+    return load_left_only_page(left_content, "Race Info")
 
 
 @app.route('/classes')
@@ -99,19 +101,31 @@ def classes() -> str:
     try:
         if "Show" in request.args.get("show"):
             right_content = text_printer.print_class_info(request.args.get("character_class"))
+            return load_left_right_page(left_content, right_content, "Class Info")
     except TypeError:
         pass
-    return load_left_right_page(left_content, right_content, "Class Info")
+    return load_left_only_page(left_content, "Class Info")
 
 
-def load_left_right_page(left_content: str = "", right_content: str = "", title: str = "") -> str:
+def load_left_right_page(left_content: str = "", right_content: str = "", subtitle: str = "") -> str:
     """ Load the page. """
     other_styles = "<link rel='stylesheet' type='text/css' href= '/static/left_right_split.css'>"
     content = render_template('left_right_split_body.html',
                               left_content=left_content,
                               right_content=right_content)
     return render_template('base.html',
-                           subtitle=title,
+                           subtitle=subtitle,
+                           content=content,
+                           other_styles=other_styles)
+
+
+def load_left_only_page(left_content: str = "", subtitle: str = "") -> str:
+    """ Load the page. """
+    other_styles = "<link rel='stylesheet' type='text/css' href= '/static/left_only.css'>"
+    content = render_template('left_only_body.html',
+                              left_content=left_content)
+    return render_template('base.html',
+                           subtitle=subtitle,
                            content=content,
                            other_styles=other_styles)
 
