@@ -13,16 +13,7 @@ app = Flask(__name__)
 @app.route('/')
 def main() -> str:
     """ Main function. """
-    text_printer = TextPrinter()
-    links = {
-        "Roll": "/roll",
-        "Character": "/character",
-        "Race List": "/races",
-        "Class List": "/classes"
-    }
-
-    content = text_printer.print_home(links)
-    return render_template('blank.html', subtitle="Home", title="Home", content=content)
+    return roll()
 
 
 @app.route('/roll')
@@ -120,7 +111,6 @@ def load_left_right_page(left_content: str = "", right_content: str = "", title:
                               left_content=left_content,
                               right_content=right_content)
     return render_template('blank.html',
-                           title=title,
                            subtitle=title,
                            content=content,
                            style_content=style_content)

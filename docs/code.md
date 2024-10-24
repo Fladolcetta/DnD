@@ -20,7 +20,10 @@
     * [print\_race\_info](#text_printer.TextPrinter.print_race_info)
     * [print\_class\_info](#text_printer.TextPrinter.print_class_info)
     * [print\_roll](#text_printer.TextPrinter.print_roll)
-    * [print\_home](#text_printer.TextPrinter.print_home)
+* [db](#db)
+  * [DB](#db.DB)
+    * [insert\_character](#db.DB.insert_character)
+    * [insert\_into\_table](#db.DB.insert_into_table)
 * [character\_class](#character_class)
   * [CharacterClass](#character_class.CharacterClass)
     * [get\_hit\_die](#character_class.CharacterClass.get_hit_die)
@@ -266,15 +269,41 @@ def print_roll(num_dice: int, num_sides: int, modifier: int) -> str
 
 Print the roll of the dice.
 
-<a id="text_printer.TextPrinter.print_home"></a>
+<a id="db"></a>
 
-#### print\_home
+# db
+
+A module for the database connection.
+
+<a id="db.DB"></a>
+
+## DB Objects
 
 ```python
-def print_home(links: dict) -> str
+class DB()
 ```
 
-Print the home page.
+A class to represent a database connection.
+
+<a id="db.DB.insert_character"></a>
+
+#### insert\_character
+
+```python
+def insert_character(character: Character) -> int
+```
+
+Insert a character into the database.
+
+<a id="db.DB.insert_into_table"></a>
+
+#### insert\_into\_table
+
+```python
+def insert_into_table(sql: str, data: list) -> int
+```
+
+Insert into a table.
 
 <a id="character_class"></a>
 

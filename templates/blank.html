@@ -8,10 +8,14 @@
 </head>
     {{ style_content|safe }}
     <body>
-        {% if subtitle != "Home" %}
-        <a href="/">Home</a>
-        {% endif %}
-        <h1>{{ title|safe }}</h1>
+        <div class="topnav">
+            <a class="active" href="/roll">Dice Roller</a>
+            <a href="/classes">Class Info</a>
+            <a href="/races">Race Info</a>
+            <a href="/character">Character Generator</a>
+        </div>
+        <p></p>
+        <p></p>
         {{ content|safe }}
     </body>
 </html>

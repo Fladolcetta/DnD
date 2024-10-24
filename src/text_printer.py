@@ -56,11 +56,6 @@ class TextPrinter:
             for _, value in sorted_data.items():
                 self.update_text_to_print(f" - {value}")
 
-    def print_links(self, links: dict) -> None:
-        """ Print the links. """
-        for key, value in links.items():
-            self.update_text_to_print(f"<a href='{value}'>{key}</a>")
-
     def print_single_value(self, value: Union[int, str], title: str) -> None:
         """ Print a single value. """
         self.update_text_to_print(f"<b>{title}</b>: {value}")
@@ -158,10 +153,4 @@ class TextPrinter:
             self.update_text_to_print("Critical Success!")
         if die.critical_fail:
             self.update_text_to_print("Critical Fail!")
-        return self.split_string(self.text_to_print)
-
-    def print_home(self, links: dict) -> str:
-        """ Print the home page. """
-        self.text_to_print = ""
-        self.print_links(links)
         return self.split_string(self.text_to_print)
