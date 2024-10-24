@@ -1,6 +1,5 @@
 """ Main file for the Dungeons and Dragons character generator. """
 from flask import Flask, render_template, request, redirect
-from src.text_printer import TextPrinter
 from src.race import Race
 from src.character_class import CharacterClass
 from src.page_loader import PageLoader
@@ -53,18 +52,7 @@ def races() -> str:
 def classes() -> str:
     """ List Classes """
     page_loader = PageLoader()
-    text_printer = TextPrinter()
-    class_list = CharacterClass.get_all_classes()
-    left_content = render_template('class.html',
-                                   class_list=class_list)
-    right_content = ""
-    try:
-        if "submit" in request.args.get("submit"):
-            right_content = text_printer.print_class_info(request.args.get("character_class"))
-            return page_loader.load_left_right_page(left_content, right_content, "Class Info")
-    except TypeError:
-        pass
-    return page_loader.load_left_only_page(left_content, "Class Info")
+    return page_loader.load_classes(request.args.to_dict())
 
 
 if __name__ == '__main__':

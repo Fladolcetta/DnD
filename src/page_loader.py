@@ -6,6 +6,7 @@ from src.race import Race
 from src.character import Character
 from src.text_printer import TextPrinter
 from src.sheet_generator import SheetGenerator
+from src.character_class import CharacterClass
 
 
 class PageLoader:
@@ -81,6 +82,17 @@ class PageLoader:
         right_content = text_printer.print_race_info(race)
         submit = args.get("submit")
         return self.left_right_dance(submit, left_content, right_content, "Race Info")
+
+    def load_classes(self, args: dict) -> str:
+        """ Load the classes page. """
+        text_printer = TextPrinter()
+        class_list = CharacterClass.get_all_classes()
+        character_class = args.get("character_class") or "Barbarian"
+        left_content = render_template('class.html',
+                                    class_list=class_list)
+        right_content = text_printer.print_class_info(character_class)
+        submit = args.get("submit")
+        return self.left_right_dance(submit, left_content, right_content, "Class Info")
 
     def left_right_dance(self, submit: Union[None, str], left_content: str, right_content: str, subtitle: str) -> str:
         """ Load the left right page. """
