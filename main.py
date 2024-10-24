@@ -29,12 +29,9 @@ def main() -> str:
 def roll() -> str:
     """ Roll function. """
     text_printer = TextPrinter()
-
-    content = ""
     num_sides = 6
     num_dice = 1
     modifier = 0
-    style_content = render_template('left_right_split_style.html')
     left_content = render_template('roll.html')
     right_content = ""
     try:
@@ -45,16 +42,7 @@ def roll() -> str:
             right_content = text_printer.print_roll(num_dice, num_sides, modifier)
     except TypeError:
         pass
-    content = render_template('left_right_split_body.html',
-                              left_content=left_content,
-                              right_content=right_content)
-    return render_template('blank.html',
-                           subtitle="Dice Roller",
-                           num_sides=num_sides,
-                           num_dice=num_dice,
-                           modifier=modifier,
-                           content=content,
-                           style_content=style_content)
+    return load_left_right_page(left_content, right_content, "Dice Roller")
 
 
 @app.route('/character')
@@ -112,7 +100,6 @@ def classes() -> str:
     """ List Classes """
     text_printer = TextPrinter()
     class_list = CharacterClass.get_all_classes()
-    style_content = render_template('left_right_split_style.html')
     left_content = render_template('class.html',
                                    class_list=class_list)
     right_content = ""
@@ -121,14 +108,19 @@ def classes() -> str:
             right_content = text_printer.print_class_info(request.args.get("character_class"))
     except TypeError:
         pass
+    return load_left_right_page(left_content, right_content, "Class List")
+
+def load_left_right_page(left_content: str="", right_content: str="", title: str="") -> str:
+    """ Load the page. """
+    style_content = render_template('left_right_split_style.html')
     content = render_template('left_right_split_body.html',
                               left_content=left_content,
                               right_content=right_content)
     return render_template('blank.html',
-                           subtitle="Class List",
+                           title=title,
+                           subtitle=title,
                            content=content,
                            style_content=style_content)
-
 
 if __name__ == '__main__':
     app.run(debug=True)
