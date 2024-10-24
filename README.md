@@ -63,13 +63,7 @@ A fun little project to experiment with different technologies to learn web deve
 
 ## Future Enhancements
 - Improve style of pages
-  - Headers for home button
-  - Move generated data into a text area to the side with a scroll bar.
-    - Dice
-    - Class info
-    - Race info
   - Improve Styles for Submit buttons / Selectors / Free text fields
-  - Shared Styles / Home buttons
   - Nicer backgrounds
   - Icons for options in Home with labels
   - Dice with icons
