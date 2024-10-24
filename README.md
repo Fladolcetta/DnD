@@ -4,12 +4,13 @@ A fun little project to experiment with different technologies to learn web deve
 ## Setup
  1. Open you mac laptop.
  2. Pull this repo.
- 3. (If wanting to edit code)
-    - Open a terminal in the repo directory.
+ 3. Open a terminal in the repo directory.
+ 4. Type `make setup`
+ 5. (If wanting to edit code)
+    - Open another terminal in the repo directory.
     - Type `minikube mount .:/dnd`
- 4. Open another terminal in the repo directory.
- 5. Type `make setup`
- 6. Type `make up`
+ 6. Open another terminal in the repo directory.
+ 7. Type `make up`
 
 ## Features
  - Dice Roller
