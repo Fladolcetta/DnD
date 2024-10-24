@@ -86,16 +86,15 @@ def races() -> str:
     """ List Races """
     text_printer = TextPrinter()
     race_list = Race.get_all_races()
-    content = ""
+    left_content = render_template('race.html',
+                                   race_list=race_list)
+    right_content = ""
     try:
         if "Show" in request.args.get("show"):
-            content = text_printer.print_race_info(request.args.get("race"))
+            right_content = text_printer.print_race_info(request.args.get("race"))
     except TypeError:
         pass
-    return render_template('race.html',
-                           subtitle="Race List",
-                           content=content,
-                           race_list=race_list)
+    return load_left_right_page(left_content, right_content, "Race List")
 
 
 @app.route('/classes')
@@ -113,7 +112,8 @@ def classes() -> str:
         pass
     return load_left_right_page(left_content, right_content, "Class List")
 
-def load_left_right_page(left_content: str="", right_content: str="", title: str="") -> str:
+
+def load_left_right_page(left_content: str = "", right_content: str = "", title: str = "") -> str:
     """ Load the page. """
     style_content = render_template('left_right_split_style.html')
     content = render_template('left_right_split_body.html',
@@ -124,6 +124,7 @@ def load_left_right_page(left_content: str="", right_content: str="", title: str
                            subtitle=title,
                            content=content,
                            style_content=style_content)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
