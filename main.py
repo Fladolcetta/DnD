@@ -62,12 +62,19 @@ def character() -> str:
             key_pairs = SheetGenerator(new_char).generate_key_pairs()
             details = text_printer.print_character(new_char)
             basic_info = text_printer.print_basic_stats(new_char)
-            return render_template('character_sheet.html',
-                                   subtitle="Character Sheet",
-                                   char_id=char_id,
-                                   key_pairs=key_pairs,
-                                   details=details,
-                                   basic_info=basic_info)
+            content = render_template('character_sheet.html',
+                                      subtitle="Character Sheet",
+                                      char_id=char_id,
+                                      key_pairs=key_pairs,
+                                      details=details,
+                                      basic_info=basic_info)
+            other_styles = "<link rel='stylesheet' type='text/css' href= '/static/sheet.css'>"
+            other_scripts = "<script  type='text/javascript' src='/static/sheet.js'></script>"
+            return render_template('base.html',
+                                    subtitle="Character Sheet",
+                                    content=content,
+                                    other_styles=other_styles,
+                                    other_scripts=other_scripts)
     except TypeError:
         pass
     return load_left_only_page(left_content, "Character Generator")
