@@ -195,5 +195,4 @@ def test_print_home():
     """ Test the print_home method """
     printer = TextPrinter()
     result = printer.print_home({"Link": "URL"})
-    assert "<h1>Frank's DnD Tool!</h1>" in result
     assert "<a href='URL'>Link</a>" in result

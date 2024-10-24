@@ -163,6 +163,5 @@ class TextPrinter:
     def print_home(self, links: dict) -> str:
         """ Print the home page. """
         self.text_to_print = ""
-        self.header("Frank's DnD Tool!")
         self.print_links(links)
         return self.split_string(self.text_to_print)

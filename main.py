@@ -22,7 +22,7 @@ def main() -> str:
     }
 
     content = text_printer.print_home(links)
-    return render_template('blank.html', subtitle="Home", content=content)
+    return render_template('blank.html', subtitle="Home", title="Home", content=content)
 
 
 @app.route('/roll')
@@ -107,16 +107,22 @@ def classes() -> str:
     """ List Classes """
     text_printer = TextPrinter()
     class_list = CharacterClass.get_all_classes()
-    content = ""
+    style_content = render_template('left_right_split_style.html')
+    left_content = render_template('class.html',
+                                   class_list=class_list)
+    right_content = ""
     try:
         if "Show" in request.args.get("show"):
-            content = text_printer.print_class_info(request.args.get("character_class"))
+            right_content = text_printer.print_class_info(request.args.get("character_class"))
     except TypeError:
         pass
-    return render_template('class.html',
+    content = render_template('left_right_split_body.html',
+                              left_content=left_content,
+                              right_content=right_content)
+    return render_template('blank.html',
                            subtitle="Class List",
                            content=content,
-                           class_list=class_list)
+                           style_content=style_content)
 
 
 if __name__ == '__main__':
