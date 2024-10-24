@@ -32,7 +32,10 @@ def roll() -> str:
     num_sides = 6
     num_dice = 1
     modifier = 0
-    left_content = render_template('roll.html')
+    left_content = render_template('roll.html',
+                                   num_sides=num_sides,
+                                   num_dice=num_dice,
+                                   modifier=modifier)
     right_content = ""
     try:
         if "Roll" in request.args.get("roll"):
