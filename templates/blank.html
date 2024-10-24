@@ -5,8 +5,8 @@
         <meta name="keywords" content="dnd, d&d, dungeons and dragons">
         <meta name="description" content="A simple tool for Dungeons and Dragons">
     <title>Frank's Dnd Tool - {{ subtitle }}</title>
+    <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='style.css') }}">
 </head>
-    {{ style_content|safe }}
     <body>
         <div class="topnav">
             <a id="/roll" href="/roll">Dice Roller</a>
