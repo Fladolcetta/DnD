@@ -46,7 +46,10 @@ def character() -> str:
 
     race_list = Race.get_all_races()
     class_list = CharacterClass.get_all_classes()
-
+    left_content = render_template('character.html',
+                           subtitle="Character Generator",
+                           race_list=race_list,
+                           class_list=class_list)
     try:
         if "Create" in request.args.get("create"):
             name = str(request.args.get("name"))
@@ -66,10 +69,7 @@ def character() -> str:
                                    basic_info=basic_info)
     except TypeError:
         pass
-    return render_template('character.html',
-                           subtitle="Character Generator",
-                           race_list=race_list,
-                           class_list=class_list)
+    return load_left_right_page(left_content, "", "Character Generator")
 
 
 @app.route('/races')
@@ -85,7 +85,7 @@ def races() -> str:
             right_content = text_printer.print_race_info(request.args.get("race"))
     except TypeError:
         pass
-    return load_left_right_page(left_content, right_content, "Race List")
+    return load_left_right_page(left_content, right_content, "Race Info")
 
 
 @app.route('/classes')
@@ -101,7 +101,7 @@ def classes() -> str:
             right_content = text_printer.print_class_info(request.args.get("character_class"))
     except TypeError:
         pass
-    return load_left_right_page(left_content, right_content, "Class List")
+    return load_left_right_page(left_content, right_content, "Class Info")
 
 
 def load_left_right_page(left_content: str = "", right_content: str = "", title: str = "") -> str:
