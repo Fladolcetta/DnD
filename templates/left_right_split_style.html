@@ -1,12 +1,27 @@
 <style>
     .container{
+        width: 800px;
+        height: 400px;
+        border-radius: 25px;
+        border: 2px solid black;
+        overflow: hidden;
         display: flex;
     }
-    .fixed{
-        width: 200px;
+    .left{
+        width: 50%;
+        float: left;
+        padding-left: 10px;
     }
-    .flex-item{
-        flex-grow: 1;
+    .right{
+        width: 50%;
+        float: right;
+        padding-left: 10px;
+        border: 2px solid black;
+        border-top-style: none;
+        border-right-style: none;
+        border-bottom-style: none;
+        border-left-style: solid ;
+        overflow-y: auto;
     }
     select[type="number"] {
         width: 40px;
