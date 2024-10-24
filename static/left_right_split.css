@@ -6,6 +6,7 @@
     border: 2px solid black;
     overflow: hidden;
     display: flex;
+    margin: 10px;
 }
 .left{
     width: 50%;

@@ -47,9 +47,9 @@ def character() -> str:
     race_list = Race.get_all_races()
     class_list = CharacterClass.get_all_classes()
     left_content = render_template('character.html',
-                           subtitle="Character Generator",
-                           race_list=race_list,
-                           class_list=class_list)
+                                   subtitle="Character Generator",
+                                   race_list=race_list,
+                                   class_list=class_list)
     try:
         if "Create" in request.args.get("create"):
             name = str(request.args.get("name"))

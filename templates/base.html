@@ -5,7 +5,7 @@
         <meta name="keywords" content="dnd, d&d, dungeons and dragons">
         <meta name="description" content="A simple tool for Dungeons and Dragons">
     <title>Frank's Dnd Tool - {{ subtitle }}</title>
-    <link rel="stylesheet" type="text/css" href= "/static/topnav.css">
+    <link rel="stylesheet" type="text/css" href="/static/topnav.css">
     {{ other_styles|safe }}
 </head>
     <body>
@@ -13,12 +13,10 @@
             <a id="/roll" href="/roll">Dice Roller</a>
             <a id="/classes" href="/classes">Class Info</a>
             <a id="/races" href="/races">Race Info</a>
-            <a id ="/character" href="/character">Character Generator</a>
+            <a id="/character" href="/character">Character Generator</a>
         </div>
         <script type="text/javascript" src="/static/topnav.js"></script>
         {{ other_scripts|safe }}
-        <p></p>
-        <p></p>
         {{ content|safe }}
     </body>
 </html>
