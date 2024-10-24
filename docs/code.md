@@ -10,7 +10,6 @@
     * [list\_to\_dict](#text_printer.TextPrinter.list_to_dict)
     * [sort\_dict](#text_printer.TextPrinter.sort_dict)
     * [print\_data](#text_printer.TextPrinter.print_data)
-    * [print\_links](#text_printer.TextPrinter.print_links)
     * [print\_single\_value](#text_printer.TextPrinter.print_single_value)
     * [print\_dict\_with\_modifiers](#text_printer.TextPrinter.print_dict_with_modifiers)
     * [print\_dict\_with\_data\_and\_modifiers](#text_printer.TextPrinter.print_dict_with_data_and_modifiers)
@@ -168,16 +167,6 @@ def print_data(data: Union[list, dict], title: str) -> None
 ```
 
 Print the dictionary.
-
-<a id="text_printer.TextPrinter.print_links"></a>
-
-#### print\_links
-
-```python
-def print_links(links: dict) -> None
-```
-
-Print the links.
 
 <a id="text_printer.TextPrinter.print_single_value"></a>
 

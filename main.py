@@ -43,8 +43,6 @@ def roll() -> str:
 @app.route('/character')
 def character() -> str:
     """ Character function. """
-    text_printer = TextPrinter()
-
     race_list = Race.get_all_races()
     class_list = CharacterClass.get_all_classes()
     left_content = render_template('character.html',
@@ -56,25 +54,7 @@ def character() -> str:
             name = str(request.args.get("name"))
             race = str(request.args.get("race"))
             character_class = str(request.args.get("character_class"))
-            new_char = Character(name, race, character_class)
-            db = DB()
-            char_id = db.insert_character(new_char)
-            key_pairs = SheetGenerator(new_char).generate_key_pairs()
-            details = text_printer.print_character(new_char)
-            basic_info = text_printer.print_basic_stats(new_char)
-            content = render_template('character_sheet.html',
-                                      subtitle="Character Sheet",
-                                      char_id=char_id,
-                                      key_pairs=key_pairs,
-                                      details=details,
-                                      basic_info=basic_info)
-            other_styles = "<link rel='stylesheet' type='text/css' href= '/static/sheet.css'>"
-            other_scripts = "<script  type='text/javascript' src='/static/sheet.js'></script>"
-            return render_template('base.html',
-                                    subtitle="Character Sheet",
-                                    content=content,
-                                    other_styles=other_styles,
-                                    other_scripts=other_scripts)
+            return load_sheet(name, race, character_class)
     except TypeError:
         pass
     return load_left_only_page(left_content, "Character Generator")
@@ -135,6 +115,30 @@ def load_left_only_page(left_content: str = "", subtitle: str = "") -> str:
                            subtitle=subtitle,
                            content=content,
                            other_styles=other_styles)
+
+
+def load_sheet(name: str, race: str, character_class: str) -> str:
+    """ Load the character sheet. """
+    text_printer = TextPrinter()
+    new_char = Character(name, race, character_class)
+    db = DB()
+    char_id = db.insert_character(new_char)
+    key_pairs = SheetGenerator(new_char).generate_key_pairs()
+    details = text_printer.print_character(new_char)
+    basic_info = text_printer.print_basic_stats(new_char)
+    content = render_template('character_sheet.html',
+                              subtitle="Character Sheet",
+                              char_id=char_id,
+                              key_pairs=key_pairs,
+                              details=details,
+                              basic_info=basic_info)
+    other_styles = "<link rel='stylesheet' type='text/css' href= '/static/sheet.css'>"
+    other_scripts = "<script  type='text/javascript' src='/static/sheet.js'></script>"
+    return render_template('base.html',
+                           subtitle="Character Sheet",
+                           content=content,
+                           other_styles=other_styles,
+                           other_scripts=other_scripts)
 
 
 if __name__ == '__main__':
