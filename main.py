@@ -34,22 +34,27 @@ def roll() -> str:
     num_sides = 6
     num_dice = 1
     modifier = 0
-
+    style_content = render_template('left_right_split_style.html')
+    left_content = render_template('roll.html')
+    right_content = ""
     try:
         if "Roll" in request.args.get("roll"):
             num_dice = int(request.args.get("num_dice"))
             num_sides = int(request.args.get("num_sides"))
             modifier = int(request.args.get("modifier"))
-            content = text_printer.print_roll(num_dice, num_sides, modifier)
+            right_content = text_printer.print_roll(num_dice, num_sides, modifier)
     except TypeError:
         pass
-
-    return render_template('roll.html',
+    content = render_template('left_right_split_body.html',
+                              left_content=left_content,
+                              right_content=right_content)
+    return render_template('blank.html',
                            subtitle="Dice Roller",
                            num_sides=num_sides,
                            num_dice=num_dice,
                            modifier=modifier,
-                           content=content)
+                           content=content,
+                           style_content=style_content)
 
 
 @app.route('/character')
