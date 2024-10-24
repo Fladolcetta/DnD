@@ -107,13 +107,15 @@ def classes() -> str:
 def load_left_right_page(left_content: str = "", right_content: str = "", title: str = "") -> str:
     """ Load the page. """
     style_content = render_template('left_right_split_style.html')
+    script_content = render_template('left_right_split_script.html')
     content = render_template('left_right_split_body.html',
                               left_content=left_content,
                               right_content=right_content)
     return render_template('blank.html',
                            subtitle=title,
                            content=content,
-                           style_content=style_content)
+                           style_content=style_content,
+                           script_content=script_content)
 
 
 if __name__ == '__main__':
