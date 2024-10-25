@@ -1,7 +1,7 @@
 <form>
     <p>
         <label for="character_class">Class:</label><br>
-        <select id="character_class" name="character_class">
+        <select type="text" id="character_class" name="character_class">
             {% for item in class_list %}
             <option value="{{ item }}">{{ item }}</option>
             {% endfor %}
