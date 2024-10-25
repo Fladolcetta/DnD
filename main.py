@@ -39,5 +39,12 @@ def classes() -> str:
     return page_loader.load_classes(request.args.to_dict())
 
 
+@app.route('/table')
+def table() -> str:
+    """ Display characters function. """
+    page_loader = PageLoader()
+    return page_loader.load_table(request.args.to_dict())
+
+
 if __name__ == '__main__':
     app.run(debug=True)

@@ -17,7 +17,6 @@ class DB:
 
     def insert_character(self, character: Character) -> int:
         """ Insert a character into the database. """
-
         stats_sql = "INSERT INTO character_stats (dexterity, strength, constitution, intelligence, wisdom, charisma) VALUES ( %s, %s, %s, %s, %s, %s);"
         stats_data = (character.stats["Dexterity"],
                       character.stats["Strength"],
@@ -42,3 +41,10 @@ class DB:
         cursor.execute(last_id)
         self.db.commit()
         return cursor.fetchone()[0]
+
+    def load_character_list(self) -> list:
+        """ Load the character list"""
+        fake = [["1", "Frank", "Human", "Barbarian", "1", "2", "3", "4", "5", "6"],
+                ["2", "Steve", "Human", "Barbarian", "1", "2", "3", "4", "5", "6"],
+                ["3", "Jimmy", "Human", "Barbarian", "1", "2", "3", "4", "5", "6"]]
+        return fake
