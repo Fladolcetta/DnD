@@ -8,7 +8,7 @@ A fun little project to experiment with different technologies to learn web deve
  4. Type `make setup`
  5. (If wanting to edit code)
     - Open another terminal in the repo directory.
-    - Type `minikube mount .:/dnd`
+    - Type `make mount`
  6. Open another terminal in the repo directory.
  7. Type `make up`
 
@@ -63,8 +63,6 @@ A fun little project to experiment with different technologies to learn web deve
 
 ## Future Enhancements
 - Improve style of pages
-  - Improve Styles for Submit buttons / Selectors / Free text fields
-  - Nicer backgrounds
   - Dice with icons
 - Add missing Character Info as selectable
   - Background

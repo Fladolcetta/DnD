@@ -7,6 +7,7 @@ WORKDIR /dnd
 # Copy the necessary files and directories into the container
 COPY src/ /dnd/src/
 COPY templates/ /dnd/templates/
+COPY static/ /dnd/static/
 COPY .env main.py requirements.txt  /dnd/
 
 # Upgrade pip and install Python dependencies

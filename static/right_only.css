@@ -1,0 +1,12 @@
+/* For left_right_split_body.html */
+.right{
+    width: 50%;
+    float: right;
+    padding-left: 10px;
+    border: 2px solid black;
+    border-top-style: none;
+    border-right-style: none;
+    border-bottom-style: none;
+    border-left-style: solid ;
+    overflow-y: auto;
+}

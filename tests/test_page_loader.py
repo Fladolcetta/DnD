@@ -1,5 +1,5 @@
 """ Tests for the PageLoader class. """
-from unittest.mock import patch
+from unittest.mock import patch, call
 from src.page_loader import PageLoader
 
 
@@ -11,8 +11,9 @@ def test_load_left_right_page(mock_render_template):
 
     result = page_loader.load_left_right_page("left", "right", "Subtitle")
 
-    mock_render_template.assert_any_call('left_right_split_body.html', left_content="left", right_content="right")
-    mock_render_template.assert_any_call('base.html', subtitle="Subtitle", content="<html>Mocked HTML</html>", other_styles="<link rel='stylesheet' type='text/css' href= '/static/left_right_split.css'>")
+    calls = [call('left_right_split_body.html', left_content="left", right_content="right"),
+             call('base.html', subtitle="Subtitle", content="<html>Mocked HTML</html>", other_styles="    <link rel='stylesheet' type='text/css' href='/static/left_and_container.css'>\n    <link rel='stylesheet' type='text/css' href='/static/right_only.css'>\n    <link rel='stylesheet' type='text/css' href='/static/inputs.css'>\n")]
+    mock_render_template.assert_has_calls(calls)
     assert result == "<html>Mocked HTML</html>"
 
 
@@ -24,8 +25,9 @@ def test_load_left_only_page(mock_render_template):
 
     result = page_loader.load_left_only_page("left", "Subtitle")
 
-    mock_render_template.assert_any_call('left_only_body.html', left_content="left")
-    mock_render_template.assert_any_call('base.html', subtitle="Subtitle", content="<html>Mocked HTML</html>", other_styles="<link rel='stylesheet' type='text/css' href= '/static/left_only.css'>")
+    calls = [call('left_only_body.html', left_content="left"),
+             call('base.html', subtitle="Subtitle", content="<html>Mocked HTML</html>", other_styles="    <link rel='stylesheet' type='text/css' href='/static/left_and_container.css'>\n    <link rel='stylesheet' type='text/css' href='/static/inputs.css'>\n")]
+    mock_render_template.assert_has_calls(calls)
     assert result == "<html>Mocked HTML</html>"
 
 
@@ -45,8 +47,10 @@ def test_load_sheet(mock_sheet_generator, mock_text_printer, mock_db, mock_rende
 
     result = page_loader.load_sheet("Name", "Human", "Bard")
 
-    mock_render_template.assert_any_call('character_sheet.html', subtitle="Character Sheet", char_id=1, key_pairs={}, details="Character Details", basic_info="Basic Stats")
-    mock_render_template.assert_any_call('base.html', subtitle="Character Sheet", content="<html>Mocked HTML</html>", other_styles="<link rel='stylesheet' type='text/css' href= '/static/sheet.css'>", other_scripts="<script  type='text/javascript' src='/static/sheet.js'></script>")
+    calls = [call('character_sheet.html', subtitle="Character Sheet", char_id=1, key_pairs={}, details="Character Details", basic_info="Basic Stats"),
+             call('base.html', subtitle="Character Sheet", content="<html>Mocked HTML</html>", other_styles="    <link rel='stylesheet' type='text/css' href='/static/sheet.css'>\n", other_scripts="        <script type='text/javascript' src='/static/sheet.js'></script>\n")]
+    mock_render_template.assert_has_calls(calls)
+
     assert result == "<html>Mocked HTML</html>"
 
 

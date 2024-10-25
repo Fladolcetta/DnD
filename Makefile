@@ -14,6 +14,7 @@ setup:
 	docker image pull mysql:9.1.0
 	sudo chmod -R g+rw "$HOME/.docker"
 	brew services start mysql
+	sudo minikube delete
 	minikube start
 	kubectl config use-context docker-desktop
 
@@ -21,11 +22,14 @@ build:
 	@eval $$(minikube -p minikube docker-env);\
 	docker build . -t dnd-python:1.0 -f ./Dockerfile
 
-refresh: k8sDelete build k8sApply k8sup
+refresh: k8sDelete minikubeRefresh build k8sApply k8sup
 
 up: build k8sApply k8sup
 
 down: k8sDelete
+
+mount:
+	minikube mount .:/dnd
 
 k8sApply:
 	kubectl apply -f kubernetes
@@ -35,6 +39,10 @@ k8sDelete:
 
 k8sup:
 	minikube service python
+
+minikubeRefresh:
+	sudo minikube delete
+	minikube start
 
 dockerup:	build
 	sudo docker compose up -d

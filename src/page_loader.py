@@ -16,7 +16,7 @@ class PageLoader:
 
     def load_left_right_page(self, left_content: str = "", right_content: str = "", subtitle: str = "") -> str:
         """ Load the page. """
-        other_styles = "<link rel='stylesheet' type='text/css' href= '/static/left_right_split.css'>"
+        other_styles = self.build_styles_string(['left_and_container', 'right_only', 'inputs'])
         content = render_template('left_right_split_body.html',
                                   left_content=left_content,
                                   right_content=right_content)
@@ -27,7 +27,7 @@ class PageLoader:
 
     def load_left_only_page(self, left_content: str = "", subtitle: str = "") -> str:
         """ Load the page. """
-        other_styles = "<link rel='stylesheet' type='text/css' href= '/static/left_only.css'>"
+        other_styles = self.build_styles_string(['left_and_container', 'inputs'])
         content = render_template('left_only_body.html',
                                   left_content=left_content)
         return render_template('base.html',
@@ -50,8 +50,8 @@ class PageLoader:
                                   key_pairs=key_pairs,
                                   details=details,
                                   basic_info=basic_info)
-        other_styles = "<link rel='stylesheet' type='text/css' href= '/static/sheet.css'>"
-        other_scripts = "<script  type='text/javascript' src='/static/sheet.js'></script>"
+        other_styles = self.build_styles_string(['sheet'])
+        other_scripts = self.build_script_string(['sheet'])
         return render_template('base.html',
                                subtitle="Character Sheet",
                                content=content,
@@ -120,3 +120,19 @@ class PageLoader:
         except TypeError:
             pass
         return self.load_left_only_page(left_content, "Character Generator")
+
+    def build_script_string(self, script_list: list) -> str:
+        """ Build a string of script tags. """
+        script_string = "\n".join(
+            f"        <script type='text/javascript' src='/static/{script}.js'></script>"
+            for script in script_list
+        )
+        return script_string + "\n" if script_list else ""
+
+    def build_styles_string(self, styles_list: list) -> str:
+        """ Build a string of style tags. """
+        styles_string = "\n".join(
+            f"    <link rel='stylesheet' type='text/css' href='/static/{style}.css'>"
+            for style in styles_list
+        )
+        return styles_string + "\n" if styles_list else ""
