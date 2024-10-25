@@ -123,14 +123,16 @@ class PageLoader:
 
     def build_script_string(self, script_list: list) -> str:
         """ Build a string of script tags. """
-        script_string = ""
-        for script in script_list:
-            script_string += f"        <script  type='text/javascript' src='/static/{script}.js'></script>\n"
-        return script_string
+        script_string = "\n".join(
+            f"        <script type='text/javascript' src='/static/{script}.js'></script>"
+            for script in script_list
+        )
+        return script_string + "\n" if script_list else ""
 
     def build_styles_string(self, styles_list: list) -> str:
         """ Build a string of style tags. """
-        styles_string = ""
-        for style in styles_list:
-            styles_string += f"        <link rel='stylesheet' type='text/css' href='/static/{style}.css'>\n"
-        return styles_string
+        styles_string = "\n".join(
+            f"        <link rel='stylesheet' type='text/css' href='/static/{style}.css'>"
+            for style in styles_list
+        )
+        return styles_string + "\n" if styles_list else ""
