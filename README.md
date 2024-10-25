@@ -4,12 +4,13 @@ A fun little project to experiment with different technologies to learn web deve
 ## Setup
  1. Open you mac laptop.
  2. Pull this repo.
- 3. (If wanting to edit code)
-    - Open a terminal in the repo directory.
+ 3. Open a terminal in the repo directory.
+ 4. Type `make setup`
+ 5. (If wanting to edit code)
+    - Open another terminal in the repo directory.
     - Type `minikube mount .:/dnd`
- 4. Open another terminal in the repo directory.
- 5. Type `make setup`
- 6. Type `make up`
+ 6. Open another terminal in the repo directory.
+ 7. Type `make up`
 
 ## Features
  - Dice Roller
@@ -62,15 +63,8 @@ A fun little project to experiment with different technologies to learn web deve
 
 ## Future Enhancements
 - Improve style of pages
-  - Headers for home button
-  - Move generated data into a text area to the side with a scroll bar.
-    - Dice
-    - Class info
-    - Race info
   - Improve Styles for Submit buttons / Selectors / Free text fields
-  - Shared Styles / Home buttons
   - Nicer backgrounds
-  - Icons for options in Home with labels
   - Dice with icons
 - Add missing Character Info as selectable
   - Background

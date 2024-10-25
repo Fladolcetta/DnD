@@ -154,13 +154,6 @@ def test_print_race_info():
     assert "<p><b>Stats:</b></p><p> - Dexterity: +2</p>" in result
 
 
-def test_print_links():
-    """ Test the print_links method """
-    printer = TextPrinter()
-    printer.print_links({"Link": "URL"})
-    assert "<a href='URL'>Link</a>\n" in printer.text_to_print
-
-
 def test_print_basic_stats():
     """ Test the print_basic_stats method """
     mock_character = Mock(spec=Character)
@@ -189,11 +182,3 @@ def test_print_class_info():
 
     assert "<p><h2>Wizard</h2></p>" in result
     assert "<p><b>Hit Die</b>: 6</p>" in result
-
-
-def test_print_home():
-    """ Test the print_home method """
-    printer = TextPrinter()
-    result = printer.print_home({"Link": "URL"})
-    assert "<h1>Frank's DnD Tool!</h1>" in result
-    assert "<a href='URL'>Link</a>" in result

@@ -10,7 +10,6 @@
     * [list\_to\_dict](#text_printer.TextPrinter.list_to_dict)
     * [sort\_dict](#text_printer.TextPrinter.sort_dict)
     * [print\_data](#text_printer.TextPrinter.print_data)
-    * [print\_links](#text_printer.TextPrinter.print_links)
     * [print\_single\_value](#text_printer.TextPrinter.print_single_value)
     * [print\_dict\_with\_modifiers](#text_printer.TextPrinter.print_dict_with_modifiers)
     * [print\_dict\_with\_data\_and\_modifiers](#text_printer.TextPrinter.print_dict_with_data_and_modifiers)
@@ -20,7 +19,10 @@
     * [print\_race\_info](#text_printer.TextPrinter.print_race_info)
     * [print\_class\_info](#text_printer.TextPrinter.print_class_info)
     * [print\_roll](#text_printer.TextPrinter.print_roll)
-    * [print\_home](#text_printer.TextPrinter.print_home)
+* [db](#db)
+  * [DB](#db.DB)
+    * [insert\_character](#db.DB.insert_character)
+    * [insert\_into\_table](#db.DB.insert_into_table)
 * [character\_class](#character_class)
   * [CharacterClass](#character_class.CharacterClass)
     * [get\_hit\_die](#character_class.CharacterClass.get_hit_die)
@@ -56,6 +58,16 @@
 * [dice](#dice)
   * [Dice](#dice.Dice)
     * [roll](#dice.Dice.roll)
+* [page\_loader](#page_loader)
+  * [PageLoader](#page_loader.PageLoader)
+    * [load\_left\_right\_page](#page_loader.PageLoader.load_left_right_page)
+    * [load\_left\_only\_page](#page_loader.PageLoader.load_left_only_page)
+    * [load\_sheet](#page_loader.PageLoader.load_sheet)
+    * [load\_roll](#page_loader.PageLoader.load_roll)
+    * [load\_races](#page_loader.PageLoader.load_races)
+    * [load\_classes](#page_loader.PageLoader.load_classes)
+    * [left\_right\_dance](#page_loader.PageLoader.left_right_dance)
+    * [load\_character](#page_loader.PageLoader.load_character)
 * [character](#character)
   * [Character](#character.Character)
     * [find\_modifier\_stat](#character.Character.find_modifier_stat)
@@ -166,16 +178,6 @@ def print_data(data: Union[list, dict], title: str) -> None
 
 Print the dictionary.
 
-<a id="text_printer.TextPrinter.print_links"></a>
-
-#### print\_links
-
-```python
-def print_links(links: dict) -> None
-```
-
-Print the links.
-
 <a id="text_printer.TextPrinter.print_single_value"></a>
 
 #### print\_single\_value
@@ -266,15 +268,41 @@ def print_roll(num_dice: int, num_sides: int, modifier: int) -> str
 
 Print the roll of the dice.
 
-<a id="text_printer.TextPrinter.print_home"></a>
+<a id="db"></a>
 
-#### print\_home
+# db
+
+A module for the database connection.
+
+<a id="db.DB"></a>
+
+## DB Objects
 
 ```python
-def print_home(links: dict) -> str
+class DB()
 ```
 
-Print the home page.
+A class to represent a database connection.
+
+<a id="db.DB.insert_character"></a>
+
+#### insert\_character
+
+```python
+def insert_character(character: Character) -> int
+```
+
+Insert a character into the database.
+
+<a id="db.DB.insert_into_table"></a>
+
+#### insert\_into\_table
+
+```python
+def insert_into_table(sql: str, data: list) -> int
+```
+
+Insert into a table.
 
 <a id="character_class"></a>
 
@@ -605,6 +633,105 @@ def roll() -> None
 ```
 
 Roll the dice and return the total.
+
+<a id="page_loader"></a>
+
+# page\_loader
+
+A module to load html pages.
+
+<a id="page_loader.PageLoader"></a>
+
+## PageLoader Objects
+
+```python
+class PageLoader()
+```
+
+A class to load html pages.
+
+<a id="page_loader.PageLoader.load_left_right_page"></a>
+
+#### load\_left\_right\_page
+
+```python
+def load_left_right_page(left_content: str = "",
+                         right_content: str = "",
+                         subtitle: str = "") -> str
+```
+
+Load the page.
+
+<a id="page_loader.PageLoader.load_left_only_page"></a>
+
+#### load\_left\_only\_page
+
+```python
+def load_left_only_page(left_content: str = "", subtitle: str = "") -> str
+```
+
+Load the page.
+
+<a id="page_loader.PageLoader.load_sheet"></a>
+
+#### load\_sheet
+
+```python
+def load_sheet(name: str, race: str, character_class: str) -> str
+```
+
+Load the character sheet.
+
+<a id="page_loader.PageLoader.load_roll"></a>
+
+#### load\_roll
+
+```python
+def load_roll(args: dict) -> str
+```
+
+Load the roll page.
+
+<a id="page_loader.PageLoader.load_races"></a>
+
+#### load\_races
+
+```python
+def load_races(args: dict) -> str
+```
+
+Load the races page.
+
+<a id="page_loader.PageLoader.load_classes"></a>
+
+#### load\_classes
+
+```python
+def load_classes(args: dict) -> str
+```
+
+Load the classes page.
+
+<a id="page_loader.PageLoader.left_right_dance"></a>
+
+#### left\_right\_dance
+
+```python
+def left_right_dance(submit: Union[None, str], left_content: str,
+                     right_content: str, subtitle: str) -> str
+```
+
+Load the left right page.
+
+<a id="page_loader.PageLoader.load_character"></a>
+
+#### load\_character
+
+```python
+def load_character(args: dict) -> str
+```
+
+Load the sheet page.
 
 <a id="character"></a>
 
