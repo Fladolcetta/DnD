@@ -48,7 +48,7 @@ test:
 	djlint ./templates
 	flake8 --ignore E501
 	write-good README.md
-	pytest --cov=src tests --cov-report html:cov_html
+	pytest --cov=src tests
 	hadolint Dockerfile
 	docker compose config --quiet
 	kube-linter lint ./kubernetes

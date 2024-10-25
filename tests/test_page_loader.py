@@ -122,7 +122,7 @@ def test_left_right_dance(mock_render_template):
     assert result == "<html>Mocked HTML</html>"
 
 
-@patch('src.page_loader.load_sheet')
+@patch('src.page_loader.PageLoader.load_sheet')
 @patch('src.page_loader.render_template')
 @patch('src.page_loader.Race')
 @patch('src.page_loader.CharacterClass')
