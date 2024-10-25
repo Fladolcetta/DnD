@@ -68,6 +68,8 @@
     * [load\_classes](#page_loader.PageLoader.load_classes)
     * [left\_right\_dance](#page_loader.PageLoader.left_right_dance)
     * [load\_character](#page_loader.PageLoader.load_character)
+    * [build\_script\_string](#page_loader.PageLoader.build_script_string)
+    * [build\_styles\_string](#page_loader.PageLoader.build_styles_string)
 * [character](#character)
   * [Character](#character.Character)
     * [find\_modifier\_stat](#character.Character.find_modifier_stat)
@@ -732,6 +734,26 @@ def load_character(args: dict) -> str
 ```
 
 Load the sheet page.
+
+<a id="page_loader.PageLoader.build_script_string"></a>
+
+#### build\_script\_string
+
+```python
+def build_script_string(script_list: list) -> str
+```
+
+Build a string of script tags.
+
+<a id="page_loader.PageLoader.build_styles_string"></a>
+
+#### build\_styles\_string
+
+```python
+def build_styles_string(styles_list: list) -> str
+```
+
+Build a string of style tags.
 
 <a id="character"></a>
 
