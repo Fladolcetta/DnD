@@ -1,5 +1,5 @@
 """ Tests for the PageLoader class. """
-from unittest.mock import patch
+from unittest.mock import patch, call
 from src.page_loader import PageLoader
 
 
@@ -45,8 +45,10 @@ def test_load_sheet(mock_sheet_generator, mock_text_printer, mock_db, mock_rende
 
     result = page_loader.load_sheet("Name", "Human", "Bard")
 
-    mock_render_template.assert_any_call('character_sheet.html', subtitle="Character Sheet", char_id=1, key_pairs={}, details="Character Details", basic_info="Basic Stats")
-    mock_render_template.assert_any_call('base.html', subtitle="Character Sheet", content="<html>Mocked HTML</html>", other_styles="<link rel='stylesheet' type='text/css' href= '/static/sheet.css'>", other_scripts="<script  type='text/javascript' src='/static/sheet.js'></script>")
+    calls = [call('character_sheet.html', subtitle="Character Sheet", char_id=1, key_pairs={}, details="Character Details", basic_info="Basic Stats"),
+             call('base.html', subtitle="Character Sheet", content="<html>Mocked HTML</html>", other_styles="    <link rel='stylesheet' type='text/css' href='/static/sheet.css'>\n", other_scripts="        <script type='text/javascript' src='/static/sheet.js'></script>\n")]
+    mock_render_template.assert_has_calls(calls)
+
     assert result == "<html>Mocked HTML</html>"
 
 

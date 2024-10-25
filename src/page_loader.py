@@ -132,7 +132,7 @@ class PageLoader:
     def build_styles_string(self, styles_list: list) -> str:
         """ Build a string of style tags. """
         styles_string = "\n".join(
-            f"        <link rel='stylesheet' type='text/css' href='/static/{style}.css'>"
+            f"    <link rel='stylesheet' type='text/css' href='/static/{style}.css'>"
             for style in styles_list
         )
         return styles_string + "\n" if styles_list else ""
