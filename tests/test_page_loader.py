@@ -11,8 +11,9 @@ def test_load_left_right_page(mock_render_template):
 
     result = page_loader.load_left_right_page("left", "right", "Subtitle")
 
-    mock_render_template.assert_any_call('left_right_split_body.html', left_content="left", right_content="right")
-    mock_render_template.assert_any_call('base.html', subtitle="Subtitle", content="<html>Mocked HTML</html>", other_styles="<link rel='stylesheet' type='text/css' href= '/static/left_right_split.css'>")
+    calls = [call('left_right_split_body.html', left_content="left", right_content="right"),
+             call('base.html', subtitle="Subtitle", content="<html>Mocked HTML</html>", other_styles="    <link rel='stylesheet' type='text/css' href='/static/left_and_container.css'>\n    <link rel='stylesheet' type='text/css' href='/static/right_only.css'>\n    <link rel='stylesheet' type='text/css' href='/static/inputs.css'>\n")]
+    mock_render_template.assert_has_calls(calls)
     assert result == "<html>Mocked HTML</html>"
 
 
@@ -24,8 +25,9 @@ def test_load_left_only_page(mock_render_template):
 
     result = page_loader.load_left_only_page("left", "Subtitle")
 
-    mock_render_template.assert_any_call('left_only_body.html', left_content="left")
-    mock_render_template.assert_any_call('base.html', subtitle="Subtitle", content="<html>Mocked HTML</html>", other_styles="<link rel='stylesheet' type='text/css' href= '/static/left_only.css'>")
+    calls = [call('left_only_body.html', left_content="left"),
+             call('base.html', subtitle="Subtitle", content="<html>Mocked HTML</html>", other_styles="    <link rel='stylesheet' type='text/css' href='/static/left_and_container.css'>\n    <link rel='stylesheet' type='text/css' href='/static/inputs.css'>\n")]
+    mock_render_template.assert_has_calls(calls)
     assert result == "<html>Mocked HTML</html>"
 
 
