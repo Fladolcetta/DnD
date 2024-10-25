@@ -58,6 +58,16 @@
 * [dice](#dice)
   * [Dice](#dice.Dice)
     * [roll](#dice.Dice.roll)
+* [page\_loader](#page_loader)
+  * [PageLoader](#page_loader.PageLoader)
+    * [load\_left\_right\_page](#page_loader.PageLoader.load_left_right_page)
+    * [load\_left\_only\_page](#page_loader.PageLoader.load_left_only_page)
+    * [load\_sheet](#page_loader.PageLoader.load_sheet)
+    * [load\_roll](#page_loader.PageLoader.load_roll)
+    * [load\_races](#page_loader.PageLoader.load_races)
+    * [load\_classes](#page_loader.PageLoader.load_classes)
+    * [left\_right\_dance](#page_loader.PageLoader.left_right_dance)
+    * [load\_character](#page_loader.PageLoader.load_character)
 * [character](#character)
   * [Character](#character.Character)
     * [find\_modifier\_stat](#character.Character.find_modifier_stat)
@@ -623,6 +633,105 @@ def roll() -> None
 ```
 
 Roll the dice and return the total.
+
+<a id="page_loader"></a>
+
+# page\_loader
+
+A module to load html pages.
+
+<a id="page_loader.PageLoader"></a>
+
+## PageLoader Objects
+
+```python
+class PageLoader()
+```
+
+A class to load html pages.
+
+<a id="page_loader.PageLoader.load_left_right_page"></a>
+
+#### load\_left\_right\_page
+
+```python
+def load_left_right_page(left_content: str = "",
+                         right_content: str = "",
+                         subtitle: str = "") -> str
+```
+
+Load the page.
+
+<a id="page_loader.PageLoader.load_left_only_page"></a>
+
+#### load\_left\_only\_page
+
+```python
+def load_left_only_page(left_content: str = "", subtitle: str = "") -> str
+```
+
+Load the page.
+
+<a id="page_loader.PageLoader.load_sheet"></a>
+
+#### load\_sheet
+
+```python
+def load_sheet(name: str, race: str, character_class: str) -> str
+```
+
+Load the character sheet.
+
+<a id="page_loader.PageLoader.load_roll"></a>
+
+#### load\_roll
+
+```python
+def load_roll(args: dict) -> str
+```
+
+Load the roll page.
+
+<a id="page_loader.PageLoader.load_races"></a>
+
+#### load\_races
+
+```python
+def load_races(args: dict) -> str
+```
+
+Load the races page.
+
+<a id="page_loader.PageLoader.load_classes"></a>
+
+#### load\_classes
+
+```python
+def load_classes(args: dict) -> str
+```
+
+Load the classes page.
+
+<a id="page_loader.PageLoader.left_right_dance"></a>
+
+#### left\_right\_dance
+
+```python
+def left_right_dance(submit: Union[None, str], left_content: str,
+                     right_content: str, subtitle: str) -> str
+```
+
+Load the left right page.
+
+<a id="page_loader.PageLoader.load_character"></a>
+
+#### load\_character
+
+```python
+def load_character(args: dict) -> str
+```
+
+Load the sheet page.
 
 <a id="character"></a>
 
