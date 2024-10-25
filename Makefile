@@ -27,6 +27,9 @@ up: build k8sApply k8sup
 
 down: k8sDelete
 
+mount:
+	minikube mount .:/dnd
+
 k8sApply:
 	kubectl apply -f kubernetes
 
