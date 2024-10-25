@@ -1,7 +1,5 @@
 """ Main file for the Dungeons and Dragons character generator. """
-from flask import Flask, render_template, request, redirect
-from src.race import Race
-from src.character_class import CharacterClass
+from flask import Flask, request, redirect
 from src.page_loader import PageLoader
 
 app = Flask(__name__)
@@ -24,21 +22,7 @@ def roll() -> str:
 def character() -> str:
     """ Character function. """
     page_loader = PageLoader()
-    race_list = Race.get_all_races()
-    class_list = CharacterClass.get_all_classes()
-    left_content = render_template('character.html',
-                                   subtitle="Character Generator",
-                                   race_list=race_list,
-                                   class_list=class_list)
-    try:
-        if "submit" in request.args.get("submit"):
-            name = str(request.args.get("name"))
-            race = str(request.args.get("race"))
-            character_class = str(request.args.get("character_class"))
-            return page_loader.load_sheet(name, race, character_class)
-    except TypeError:
-        pass
-    return page_loader.load_left_only_page(left_content, "Character Generator")
+    return page_loader.load_character(request.args.to_dict())
 
 
 @app.route('/races')

@@ -78,7 +78,7 @@ class PageLoader:
         race_list = Race.get_all_races()
         race = args.get("race") or "Human"
         left_content = render_template('race.html',
-                                    race_list=race_list)
+                                       race_list=race_list)
         right_content = text_printer.print_race_info(race)
         submit = args.get("submit")
         return self.left_right_dance(submit, left_content, right_content, "Race Info")
@@ -89,7 +89,7 @@ class PageLoader:
         class_list = CharacterClass.get_all_classes()
         character_class = args.get("character_class") or "Barbarian"
         left_content = render_template('class.html',
-                                    class_list=class_list)
+                                       class_list=class_list)
         right_content = text_printer.print_class_info(character_class)
         submit = args.get("submit")
         return self.left_right_dance(submit, left_content, right_content, "Class Info")
@@ -102,3 +102,21 @@ class PageLoader:
         except TypeError:
             pass
         return self.load_left_only_page(left_content, subtitle)
+
+    def load_character(self, args: dict) -> str:
+        """ Load the sheet page. """
+        race_list = Race.get_all_races()
+        class_list = CharacterClass.get_all_classes()
+        left_content = render_template('character.html',
+                                       subtitle="Character Generator",
+                                       race_list=race_list,
+                                       class_list=class_list)
+        try:
+            if "submit" in args.get("submit"):
+                name = str(args.get("name"))
+                race = str(args.get("race"))
+                character_class = str(args.get("character_class"))
+                return self.load_sheet(name, race, character_class)
+        except TypeError:
+            pass
+        return self.load_left_only_page(left_content, "Character Generator")
