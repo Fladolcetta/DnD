@@ -13,15 +13,3 @@
     float: left;
     padding-left: 10px;
 }
-select[type="text"] {
-    width: 200px;
-}
-select[type="number"] {
-    width: 40px;
-}
-input[type="text"] {
-    width: 200px;
-}
-input[type="number"] {
-    width: 40px;
-}

@@ -16,7 +16,11 @@ class PageLoader:
 
     def load_left_right_page(self, left_content: str = "", right_content: str = "", subtitle: str = "") -> str:
         """ Load the page. """
-        other_styles = "<link rel='stylesheet' type='text/css' href= '/static/left_right_split.css'>"
+        other_styles = "<link rel='stylesheet' type='text/css' href= '/static/left_and_container.css'>"
+        other_styles += "\n    "
+        other_styles += "<link rel='stylesheet' type='text/css' href= '/static/right_only.css'>"
+        other_styles += "\n    "
+        other_styles += "<link rel='stylesheet' type='text/css' href= '/static/inputs.css'>"
         content = render_template('left_right_split_body.html',
                                   left_content=left_content,
                                   right_content=right_content)
@@ -27,7 +31,9 @@ class PageLoader:
 
     def load_left_only_page(self, left_content: str = "", subtitle: str = "") -> str:
         """ Load the page. """
-        other_styles = "<link rel='stylesheet' type='text/css' href= '/static/left_only.css'>"
+        other_styles = "<link rel='stylesheet' type='text/css' href= '/static/left_and_container.css'>"
+        other_styles += "\n    "
+        other_styles += "<link rel='stylesheet' type='text/css' href= '/static/inputs.css'>"
         content = render_template('left_only_body.html',
                                   left_content=left_content)
         return render_template('base.html',
@@ -120,3 +126,6 @@ class PageLoader:
         except TypeError:
             pass
         return self.load_left_only_page(left_content, "Character Generator")
+
+#TODO Class to build styles list
+#TODO Class to build scripts list
