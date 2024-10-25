@@ -63,7 +63,6 @@ A fun little project to experiment with different technologies to learn web deve
 
 ## Future Enhancements
 - Improve style of pages
-  - Improve Styles for Submit buttons / Selectors / Free text fields
   - Nicer backgrounds
   - Dice with icons
 - Add missing Character Info as selectable
