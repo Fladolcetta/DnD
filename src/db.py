@@ -25,7 +25,6 @@ class DB:
                       character.stats["Wisdom"],
                       character.stats["Charisma"])
         stat_id = self.insert_into_table(stats_sql, stats_data)
-        stat_id = 1
         character_sql = "INSERT INTO character_data (char_name, dnd_class, dnd_race, stat_id) VALUES (%s, %s, %s, %s);"
         character_data = (character.name, character.dnd_class, character.race, stat_id)
         character_id = self.insert_into_table(character_sql, character_data)
@@ -42,9 +41,22 @@ class DB:
         self.db.commit()
         return cursor.fetchone()[0]
 
+    def read_from_table(self, sql: str) -> list:
+        """ Read data from the db. """
+        cursor = self.db.cursor(buffered=True)
+        use_sql = "USE dnd;"
+        cursor.execute(use_sql)
+        cursor.execute(sql)
+        self.db.commit()
+        return cursor.fetchall()
+
     def load_character_list(self) -> list:
         """ Load the character list"""
-        fake = [["1", "Frank", "Human", "Barbarian", "1", "2", "3", "4", "5", "6"],
-                ["2", "Steve", "Human", "Barbarian", "1", "2", "3", "4", "5", "6"],
-                ["3", "Jimmy", "Human", "Barbarian", "1", "2", "3", "4", "5", "6"]]
-        return fake
+        sql = "SELECT cd.id, cd.char_name, cd.dnd_class, cd.dnd_race, \
+                      cs.dexterity, cs.strength, cs.constitution, cs.intelligence, cs.wisdom, cs.charisma \
+              FROM character_data AS cd \
+              LEFT JOIN character_stats AS cs\
+              ON cd.stat_id = cs.id \
+              ORDER BY cd.id;"
+        test = self.read_from_table(sql)
+        return test
