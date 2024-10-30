@@ -57,5 +57,23 @@ class DB:
               LEFT JOIN character_stats AS cs\
               ON cd.stat_id = cs.id \
               ORDER BY cd.id;"
-        test = self.read_from_table(sql)
-        return test
+        char_list = self.read_from_table(sql)
+        return char_list
+
+    def load_character(self, char_id: int) -> dict:
+        """ Load a character from the database. """
+        char_list = self.load_character_list()
+        for char in char_list:
+            if char[0] == char_id:
+                char_dict = {"id": char[0],
+                             "name": char[1],
+                             "dnd_class": char[2],
+                             "race": char[3],
+                             "stats": {"Dexterity": char[4],
+                                       "Strength": char[5],
+                                       "Constitution": char[6],
+                                       "Intelligence": char[7],
+                                       "Wisdom": char[8],
+                                       "Charisma": char[9]}}
+                return char_dict
+        return None
