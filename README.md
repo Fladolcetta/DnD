@@ -70,3 +70,5 @@ A fun little project to experiment with different technologies to learn web deve
   - New Page
     - Retrieval of generated characters from id
     - Generate character based on input stats
+- Bugs
+  - Fix killed DBs in Kubernetes mode

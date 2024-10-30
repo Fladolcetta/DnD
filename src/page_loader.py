@@ -16,7 +16,7 @@ class PageLoader:
 
     def load_left_right_page(self, left_content: str = "", right_content: str = "", subtitle: str = "") -> str:
         """ Load the page. """
-        other_styles = self.build_styles_string(['left_and_container', 'right_only', 'inputs'])
+        other_styles = self.build_styles_string(['container', 'left_and_right', 'inputs'])
         content = render_template('left_right_split_body.html',
                                   left_content=left_content,
                                   right_content=right_content)
@@ -27,7 +27,7 @@ class PageLoader:
 
     def load_left_only_page(self, left_content: str = "", subtitle: str = "") -> str:
         """ Load the page. """
-        other_styles = self.build_styles_string(['left_and_container', 'inputs'])
+        other_styles = self.build_styles_string(['container', 'inputs'])
         content = render_template('left_only_body.html',
                                   left_content=left_content)
         return render_template('base.html',
@@ -99,7 +99,7 @@ class PageLoader:
         left_content = render_template('character_table.html', char_list=char_list)
         content = render_template('left_only_body.html',
                                   left_content=left_content)
-        other_styles = self.build_styles_string(['left_and_container', 'table'])
+        other_styles = self.build_styles_string(['container', 'table'])
         other_scripts = ""
         return render_template('base.html',
                                subtitle="Character Table",
@@ -111,10 +111,10 @@ class PageLoader:
         """ Load the left right page. """
         try:
             if "submit" in submit:
-                return self.load_left_right_page(left_content, right_content, subtitle)
+                pass
         except TypeError:
-            pass
-        return self.load_left_only_page(left_content, subtitle)
+            right_content = ""
+        return self.load_left_right_page(left_content, right_content, subtitle)
 
     def load_character(self, args: dict) -> str:
         """ Load the sheet page. """
