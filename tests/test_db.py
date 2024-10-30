@@ -63,7 +63,7 @@ def test_insert_character(mock_insert, mock_character, mock_connect):
     db = DB()
 
     # Call the method to test
-    character_id = db.insert_character(mock_character)
+    character_id = db.insert_character(mock_character.name, mock_character.race, mock_character.dnd_class, mock_character.stats)
 
     # Assertions
     assert character_id == 1

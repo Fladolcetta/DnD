@@ -1,6 +1,7 @@
 """ Tests for the PageLoader class. """
 from unittest.mock import patch, call
 from src.page_loader import PageLoader
+from src.character import Character
 
 
 @patch('src.page_loader.render_template')
@@ -32,22 +33,20 @@ def test_load_left_only_page(mock_render_template):
 
 
 @patch('src.page_loader.render_template')
-@patch('src.page_loader.DB')
 @patch('src.page_loader.TextPrinter')
 @patch('src.page_loader.SheetGenerator')
-def test_load_sheet(mock_sheet_generator, mock_text_printer, mock_db, mock_render_template):
-    """ Test the load_sheet method. """
+def test_display_char(mock_sheet_generator, mock_text_printer, mock_render_template):
+    """ Test the display_char method. """
     mock_render_template.return_value = "<html>Mocked HTML</html>"
-    mock_db.return_value.insert_character.return_value = 1
     mock_sheet_generator.return_value.generate_key_pairs.return_value = {}
     mock_text_printer.return_value.print_character.return_value = "Character Details"
     mock_text_printer.return_value.print_basic_stats.return_value = "Basic Stats"
 
     page_loader = PageLoader()
+    test_char = Character("Name", "Human", "Bard")
+    result = page_loader.display_char(test_char)
 
-    result = page_loader.load_sheet("Name", "Human", "Bard")
-
-    calls = [call('character_sheet.html', subtitle="Character Sheet", char_id=1, key_pairs={}, details="Character Details", basic_info="Basic Stats"),
+    calls = [call('character_sheet.html', subtitle="Character Sheet", char_id=None, key_pairs={}, details="Character Details", basic_info="Basic Stats"),
              call('base.html', subtitle="Character Sheet", content="<html>Mocked HTML</html>", other_styles="    <link rel='stylesheet' type='text/css' href='/static/sheet.css'>\n", other_scripts="        <script type='text/javascript' src='/static/sheet.js'></script>\n")]
     mock_render_template.assert_has_calls(calls)
 
@@ -126,13 +125,15 @@ def test_left_right_dance(mock_render_template):
     assert result == "<html>Mocked HTML</html>"
 
 
-@patch('src.page_loader.PageLoader.load_sheet')
+@patch('src.page_loader.PageLoader.display_char')
 @patch('src.page_loader.render_template')
 @patch('src.page_loader.Race')
 @patch('src.page_loader.CharacterClass')
-def test_load_character(mock_character_class, mock_race, mock_render_template, mock_load_sheet):
+@patch('src.page_loader.Character')
+def test_load_character(mock_character, mock_character_class, mock_race, mock_render_template, mock_display_char):
     """ Test the load_character method. """
-    mock_load_sheet.return_value = "<html>Mocked HTML</html>"
+    mock_character.return_value = None
+    mock_display_char.return_value = "<html>Mocked HTML</html>"
     mock_render_template.return_value = "<html>Mocked HTML</html>"
     mock_race.get_all_races.return_value = ["Human", "Elf"]
     mock_character_class.get_all_classes.return_value = ["Barbarian", "Wizard"]

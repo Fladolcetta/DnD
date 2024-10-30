@@ -1,7 +1,6 @@
 """ A module for the database connection. """
 import os
 import mysql.connector
-from src.character import Character
 
 
 class DB:
@@ -15,18 +14,18 @@ class DB:
                                           user=self.user,
                                           password=self.password)
 
-    def insert_character(self, character: Character) -> int:
+    def insert_character(self, name: str, race: str, dnd_class: str, stats: dict) -> int:
         """ Insert a character into the database. """
         stats_sql = "INSERT INTO character_stats (dexterity, strength, constitution, intelligence, wisdom, charisma) VALUES ( %s, %s, %s, %s, %s, %s);"
-        stats_data = (character.stats["Dexterity"],
-                      character.stats["Strength"],
-                      character.stats["Constitution"],
-                      character.stats["Intelligence"],
-                      character.stats["Wisdom"],
-                      character.stats["Charisma"])
+        stats_data = (stats["Dexterity"],
+                      stats["Strength"],
+                      stats["Constitution"],
+                      stats["Intelligence"],
+                      stats["Wisdom"],
+                      stats["Charisma"])
         stat_id = self.insert_into_table(stats_sql, stats_data)
         character_sql = "INSERT INTO character_data (char_name, dnd_class, dnd_race, stat_id) VALUES (%s, %s, %s, %s);"
-        character_data = (character.name, character.dnd_class, character.race, stat_id)
+        character_data = (name, dnd_class, race, stat_id)
         character_id = self.insert_into_table(character_sql, character_data)
         return character_id
 

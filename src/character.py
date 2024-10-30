@@ -1,12 +1,13 @@
 """ A module to represent a character in Dungeons and Dragons. """
 from src.dice import Dice
 from src.race import Race
+from src.db import DB
 from src.character_class import CharacterClass
 
 
 class Character:
     """ A class to represent a character in Dungeons and Dragons. """
-    def __init__(self, name: str, desired_race="Human", desired_class="Fighter") -> None:
+    def __init__(self, name: str, desired_race="Human", desired_class="Fighter", create=False) -> None:
         self.name = name if name != "" else "Unnamed"
         self.race = desired_race
         self.dnd_class = desired_class
@@ -34,6 +35,7 @@ class Character:
             "Intelligence": 0,
             "Charisma": 0
         }
+        self.char_id = None
 
         # Roll stats and update values
         self.primary_stat = CharacterClass(self.dnd_class).get_primary_stat()
@@ -46,6 +48,13 @@ class Character:
         self.update_initiative()
         self.update_hp()
         self.update_passive_perception()
+        if create:
+            self.create_character()
+
+    def create_character(self) -> None:
+        """ Create the character in the database. """
+        db = DB()
+        self.char_id = db.insert_character(self.name, self.race, self.dnd_class, self.stats)
 
     def find_modifier_stat(self, stat: str) -> int:
         """ Find the modifier for a given stat. """

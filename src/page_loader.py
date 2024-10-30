@@ -35,15 +35,13 @@ class PageLoader:
                                content=content,
                                other_styles=other_styles)
 
-    def load_sheet(self, name: str, race: str, character_class: str) -> str:
-        """ Load the character sheet. """
+    def display_char(self, char: Character) -> str:
+        """ Display the character sheet. """
         text_printer = TextPrinter()
-        new_char = Character(name, race, character_class)
-        db = DB()
-        char_id = db.insert_character(new_char)
-        key_pairs = SheetGenerator(new_char).generate_key_pairs()
-        details = text_printer.print_character(new_char)
-        basic_info = text_printer.print_basic_stats(new_char)
+        key_pairs = SheetGenerator(char).generate_key_pairs()
+        details = text_printer.print_character(char)
+        basic_info = text_printer.print_basic_stats(char)
+        char_id = char.char_id
         content = render_template('character_sheet.html',
                                   subtitle="Character Sheet",
                                   char_id=char_id,
@@ -131,7 +129,9 @@ class PageLoader:
                 name = str(args.get("name"))
                 race = str(args.get("race"))
                 character_class = str(args.get("character_class"))
-                return self.load_sheet(name, race, character_class)
+                new_char = Character(name, race, character_class, create=True)
+
+                return self.display_char(new_char)
         except TypeError:
             pass
         return self.load_left_only_page(left_content, "Character Generator")
