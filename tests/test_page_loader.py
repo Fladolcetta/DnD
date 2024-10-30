@@ -4,6 +4,12 @@ from src.page_loader import PageLoader
 from src.character import Character
 
 
+def test_page_loader_initialization():
+    """ Test the initialization of the PageLoader class. """
+    page_loader = PageLoader()
+    assert page_loader
+
+
 @patch('src.page_loader.render_template')
 def test_load_left_right_page(mock_render_template):
     """ Test the load_left_right_page method. """
@@ -109,6 +115,23 @@ def test_load_classes(mock_character_class, mock_text_printer, mock_render_templ
     assert result == "<html>Mocked HTML</html>"
 
 
+@patch('src.page_loader.PageLoader.build_styles_string')
+@patch('src.page_loader.render_template')
+@patch('src.page_loader.DB')
+def test_load_table(mock_db, mock_render_template, mock_build_styles_string):
+    """ Test the load_table method. """
+    test_char_list = ["Hero", "Villain"]
+    mock_db.return_value.load_character_list.return_value = test_char_list
+    mock_render_template.return_value = "<html>Mocked HTML</html>"
+    mock_build_styles_string.return_value = "Style String"
+    page_loader = PageLoader()
+    page_loader.load_table()
+    calls = [call('character_table.html', char_list=test_char_list),
+             call('left_only_body.html', left_content="<html>Mocked HTML</html>"),
+             call('base.html', subtitle="Character Table", content="<html>Mocked HTML</html>", other_styles="Style String", other_scripts="")]
+    mock_render_template.assert_has_calls(calls)
+
+
 @patch('src.page_loader.render_template')
 def test_left_right_dance(mock_render_template):
     """ Test the left_right_dance method. """
@@ -156,18 +179,15 @@ def test_load_character(mock_character, mock_character_class, mock_race, mock_re
     assert result == "<html>Mocked HTML</html>"
 
 
-@patch('src.page_loader.PageLoader.build_styles_string')
-@patch('src.page_loader.render_template')
-@patch('src.page_loader.DB')
-def test_load_table(mock_db, mock_render_template, mock_build_styles_string):
-    """ Test the load_table method. """
-    test_char_list = ["Hero", "Villain"]
-    mock_db.return_value.load_character_list.return_value = test_char_list
-    mock_render_template.return_value = "<html>Mocked HTML</html>"
-    mock_build_styles_string.return_value = "Style String"
+def test_build_script_string():
+    """ Test the build_script_string method. """
     page_loader = PageLoader()
-    page_loader.load_table()
-    calls = [call('character_table.html', char_list=test_char_list),
-             call('left_only_body.html', left_content="<html>Mocked HTML</html>"),
-             call('base.html', subtitle="Character Table", content="<html>Mocked HTML</html>", other_styles="Style String", other_scripts="")]
-    mock_render_template.assert_has_calls(calls)
+    result = page_loader.build_script_string(["sheet", "roll"])
+    assert result == "        <script type='text/javascript' src='/static/sheet.js'></script>\n        <script type='text/javascript' src='/static/roll.js'></script>\n"
+
+
+def test_build_styles_string():
+    """ Test the build_styles_string method. """
+    page_loader = PageLoader()
+    result = page_loader.build_styles_string(["sheet", "roll"])
+    assert result == "    <link rel='stylesheet' type='text/css' href='/static/sheet.css'>\n    <link rel='stylesheet' type='text/css' href='/static/roll.css'>\n"

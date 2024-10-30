@@ -13,7 +13,6 @@ class Dice:
         self.rolls = []
         self.critical_success = False
         self.critical_fail = False
-        self.roll()
 
     def roll(self) -> None:
         """ Roll the dice and return the total. """
@@ -26,3 +25,16 @@ class Dice:
         total = sum(self.rolls) + self.modifier
         self.total = total
         self.rolls = self.rolls
+
+    def roll_stat(self) -> int:
+        """ Roll a single stat. """
+        rolls = [random.randint(1, 6) for _ in range(4)]
+        rolls.remove(min(rolls))
+        return sum(rolls)
+
+    def roll_stats(self) -> list:
+        """ Roll the stats for the character. """
+        stat_array = []
+        for _ in range(6):
+            stat_array.append(self.roll_stat())
+        return stat_array

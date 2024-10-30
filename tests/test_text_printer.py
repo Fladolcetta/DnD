@@ -72,6 +72,29 @@ def test_print_data():
     assert printer.text_to_print == "<b>Languages:</b>\n - Language 1\n - Language 2\n"
 
 
+def test_print_single_value():
+    """ Test the print_single_value method """
+    printer = TextPrinter()
+    printer.print_single_value("Common", "Language")
+    assert printer.text_to_print == "<b>Language</b>: Common\n"
+
+
+def test_print_dict_with_modifiers():
+    """ Test the print_dict_with_modifiers method """
+    printer = TextPrinter()
+    test_dict = {"Skill1": -2, "Skill2": 3}
+    printer.print_dict_with_modifiers(test_dict, "Skills")
+    assert printer.text_to_print == "<b>Skills:</b>\n - Skill1: -2\n - Skill2: +3\n"
+
+
+def test_print_dict_with_data_and_modifiers():
+    """ Test the print_dict_with_data_and_modifiers method """
+    printer = TextPrinter()
+    test_dict = {"Skill1": 6, "Skill2": 16}
+    printer.print_dict_with_data_and_modifiers(test_dict, "Skills")
+    assert printer.text_to_print == "<b>Skills:</b>\n - Skill1: 6 (-2)\n - Skill2: 16 (+3)\n"
+
+
 def test_print_modifiers_positive():
     """ Test the print_modifiers method for a positive modifier """
     printer = TextPrinter()
@@ -110,6 +133,52 @@ def test_print_character():
     assert "<p><b>Name</b>: Frodo</p>" in result
 
 
+def test_print_basic_stats():
+    """ Test the print_basic_stats method """
+    mock_character = Mock(spec=Character)
+    mock_character.race = "Hobbit"
+    mock_character.dnd_class = "Rogue"
+    mock_character.stats = {"Strength": 8, "Dexterity": 16}
+
+    printer = TextPrinter()
+    result = printer.print_basic_stats(mock_character)
+    assert "<p><b>Race</b>: Hobbit</p>" in result
+    assert "<p><b>Class</b>: Rogue</p>" in result
+    assert "<p><b>Stats:</b></p><p> - Dexterity: 16 (+3)</p>" in result
+
+
+def test_print_race_info():
+    """ Test the print_race_info method """
+    mock_race = Mock(spec=Race)
+    mock_race.name = "Elf"
+    mock_race.stats = {"Dexterity": 2}
+    mock_race.traits = ["Darkvision"]
+    mock_race.languages = ["Common", "Elvish"]
+    mock_race.speed = 30
+
+    printer = TextPrinter()
+    result = printer.print_race_info("Elf")
+
+    assert "<p><h2>Elf</h2></p>" in result
+    assert "<p><b>Stats:</b></p><p> - Dexterity: +2</p>" in result
+
+
+def test_print_class_info():
+    """ Test the print_class_info method """
+    mock_class = Mock(spec=CharacterClass)
+    mock_class.name = "Wizard"
+    mock_class.primary_stat = {"Intelligence": 4}
+    mock_class.hit_die = 6
+    mock_class.skill_proficiencies = ["Arcana", "History"]
+    mock_class.saving_throws_proficiencies = ["Intelligence", "Wisdom"]
+
+    printer = TextPrinter()
+    result = printer.print_class_info("Wizard")
+
+    assert "<p><h2>Wizard</h2></p>" in result
+    assert "<p><b>Hit Die</b>: 6</p>" in result
+
+
 @patch('src.text_printer.Dice')
 def test_print_roll_success(mock_dice):
     """ Test the print_roll method """
@@ -136,49 +205,3 @@ def test_print_roll_fail(mock_dice):
 
     assert "<p><b>Total Roll with Modifier</b>: 0</p>" in result
     assert "Critical Fail!" in result
-
-
-def test_print_race_info():
-    """ Test the print_race_info method """
-    mock_race = Mock(spec=Race)
-    mock_race.name = "Elf"
-    mock_race.stats = {"Dexterity": 2}
-    mock_race.traits = ["Darkvision"]
-    mock_race.languages = ["Common", "Elvish"]
-    mock_race.speed = 30
-
-    printer = TextPrinter()
-    result = printer.print_race_info("Elf")
-
-    assert "<p><h2>Elf</h2></p>" in result
-    assert "<p><b>Stats:</b></p><p> - Dexterity: +2</p>" in result
-
-
-def test_print_basic_stats():
-    """ Test the print_basic_stats method """
-    mock_character = Mock(spec=Character)
-    mock_character.race = "Hobbit"
-    mock_character.dnd_class = "Rogue"
-    mock_character.stats = {"Strength": 8, "Dexterity": 16}
-
-    printer = TextPrinter()
-    result = printer.print_basic_stats(mock_character)
-    assert "<p><b>Race</b>: Hobbit</p>" in result
-    assert "<p><b>Class</b>: Rogue</p>" in result
-    assert "<p><b>Stats:</b></p><p> - Dexterity: 16 (+3)</p>" in result
-
-
-def test_print_class_info():
-    """ Test the print_class_info method """
-    mock_class = Mock(spec=CharacterClass)
-    mock_class.name = "Wizard"
-    mock_class.primary_stat = {"Intelligence": 4}
-    mock_class.hit_die = 6
-    mock_class.skill_proficiencies = ["Arcana", "History"]
-    mock_class.saving_throws_proficiencies = ["Intelligence", "Wisdom"]
-
-    printer = TextPrinter()
-    result = printer.print_class_info("Wizard")
-
-    assert "<p><h2>Wizard</h2></p>" in result
-    assert "<p><b>Hit Die</b>: 6</p>" in result

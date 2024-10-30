@@ -142,6 +142,7 @@ class TextPrinter:
         """ Print the roll of the dice. """
         self.text_to_print = ""
         die = Dice(num_dice, num_sides, modifier)
+        die.roll()
         if modifier >= 0:
             modifier_string = f" + {modifier}"
         else:

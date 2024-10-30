@@ -5,26 +5,16 @@ from src.db import DB
 
 
 @patch.dict(os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True)
-@patch('mysql.connector')
-def test_insert_into_table(mock_connect):
-    """Test the insert_into_table method."""
-    # Mock the database connection and cursor
+@patch('mysql.connector.connect')
+def test_db_initialization(mock_connect):
+    """Test that the DB class initializes"""
     mock_db = MagicMock()
-    mock_cursor = MagicMock()
-    mock_connect.connect.return_value = mock_db
-    mock_db.cursor.return_value = mock_cursor
-    mock_cursor.fetchone.return_value = [1]  # Mock the last insert ID
-    # Create a DB instance
+    mock_connect.return_value = mock_db
     db = DB()
-    # Call the method to test
-    sql = "INSERT INTO some_table (column1, column2) VALUES (%s, %s);"
-    data = ("value1", "value2")
-    last_id = db.insert_into_table(sql, data)
-    # Assertions
-    assert last_id == 1
-    mock_cursor.execute.assert_any_call("USE dnd;")
-    mock_cursor.execute.assert_any_call(sql, data)
-    mock_db.commit.assert_called_once()
+    assert db.host == "dnd-db"
+    assert db.user == "user"
+    assert db.password == "password"
+    assert db.db is not None
 
 
 @patch.dict(os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True)
@@ -71,6 +61,70 @@ def test_insert_character(mock_insert, mock_character, mock_connect):
 
 
 @patch.dict(os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True)
+@patch('mysql.connector')
+def test_insert_into_table(mock_connect):
+    """Test the insert_into_table method."""
+    # Mock the database connection and cursor
+    mock_db = MagicMock()
+    mock_cursor = MagicMock()
+    mock_connect.connect.return_value = mock_db
+    mock_db.cursor.return_value = mock_cursor
+    mock_cursor.fetchone.return_value = [1]  # Mock the last insert ID
+    # Create a DB instance
+    db = DB()
+    # Call the method to test
+    sql = "INSERT INTO some_table (column1, column2) VALUES (%s, %s);"
+    data = ("value1", "value2")
+    last_id = db.insert_into_table(sql, data)
+    # Assertions
+    assert last_id == 1
+    mock_cursor.execute.assert_any_call("USE dnd;")
+    mock_cursor.execute.assert_any_call(sql, data)
+    mock_db.commit.assert_called_once()
+
+
+@patch.dict(os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True)
+@patch('mysql.connector')
+def test_read_from_table(mock_connect):
+    """Test the load_character_list method."""
+    # Mock the database connection and cursor
+    mock_db = MagicMock()
+    mock_cursor = MagicMock()
+    mock_db.cursor.return_value = mock_cursor
+    mock_connect.connect.return_value = mock_db
+    mock_cursor.fetchall.return_value = [[1]]
+    # Create a DB instance
+    db = DB()
+    # Call the method to test
+    sql = "TEST;"
+    data = db.read_from_table(sql)
+    # Assertions
+    assert data == [[1]]
+    mock_cursor.execute.assert_any_call("USE dnd;")
+    mock_cursor.execute.assert_any_call(sql)
+    mock_db.commit.assert_called_once()
+
+
+@patch.dict(os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True)
+@patch('src.db.DB.read_from_table')
+@patch('mysql.connector')
+def test_load_character_list(mock_connect, mock_read_from_table):
+    """Test the load_character_list method."""
+    # Mock the database connection and cursor
+    mock_db = MagicMock()
+    mock_cursor = MagicMock()
+    mock_db.cursor.return_value = mock_cursor
+    mock_connect.connect.return_value = mock_db
+    test_result = [(1, "Test Character", "Warrior", "Human", 10, 15, 14, 12, 13, 8)]
+    mock_read_from_table.return_value = test_result
+    # Create a DB instance
+    db = DB()
+    # Call the method to test
+    char_list = db.load_character_list()
+    assert char_list is test_result
+
+
+@patch.dict(os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True)
 @patch('src.db.DB.load_character_list')
 @patch('mysql.connector')
 def test_load_character(mock_connect, mock_load_character_list):
@@ -101,44 +155,3 @@ def test_load_character(mock_connect, mock_load_character_list):
     assert nothing is None
     character = db.load_character(test_id)
     assert character == test_char_dict
-
-
-@patch.dict(os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True)
-@patch('src.db.DB.read_from_table')
-@patch('mysql.connector')
-def test_load_character_list(mock_connect, mock_read_from_table):
-    """Test the load_character_list method."""
-    # Mock the database connection and cursor
-    mock_db = MagicMock()
-    mock_cursor = MagicMock()
-    mock_db.cursor.return_value = mock_cursor
-    mock_connect.connect.return_value = mock_db
-    test_result = [(1, "Test Character", "Warrior", "Human", 10, 15, 14, 12, 13, 8)]
-    mock_read_from_table.return_value = test_result
-    # Create a DB instance
-    db = DB()
-    # Call the method to test
-    char_list = db.load_character_list()
-    assert char_list is test_result
-
-
-@patch.dict(os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True)
-@patch('mysql.connector')
-def test_read_from_table(mock_connect):
-    """Test the load_character_list method."""
-    # Mock the database connection and cursor
-    mock_db = MagicMock()
-    mock_cursor = MagicMock()
-    mock_db.cursor.return_value = mock_cursor
-    mock_connect.connect.return_value = mock_db
-    mock_cursor.fetchall.return_value = [[1]]
-    # Create a DB instance
-    db = DB()
-    # Call the method to test
-    sql = "TEST;"
-    data = db.read_from_table(sql)
-    # Assertions
-    assert data == [[1]]
-    mock_cursor.execute.assert_any_call("USE dnd;")
-    mock_cursor.execute.assert_any_call(sql)
-    mock_db.commit.assert_called_once()

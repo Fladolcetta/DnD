@@ -125,6 +125,7 @@ class Character:
         hit_die_count = int(hit_die_array[0])
         hit_die_sides = int(hit_die_array[1])
         die = Dice(hit_die_count, hit_die_sides, self.find_modifier_stat("Constitution"))
+        die.roll()
         self.hp = die.total
 
     def update_passive_perception(self) -> None:
@@ -136,12 +137,10 @@ class Character:
             perception_proficiency = self.proficiency_bonus
         self.passive_perception = base_perception + wisdom_modifier + perception_proficiency
 
-    def roll_stats(self, primary_stat: str, worst_stat: str) -> None:
+    def roll_stats(self, primary_stat: list, worst_stat: list) -> None:
         """ Roll the stats for the character. """
-        stat_array = []
-        for _ in self.stats:
-            die = Dice(4, 6, 0)
-            stat_array.append(die.total - min(die.rolls))
+        die = Dice(4, 6, 0)
+        stat_array = die.roll_stats()
         stat_array.sort(reverse=True)
         for stat in primary_stat:
             self.stats[stat] = stat_array.pop(0)
