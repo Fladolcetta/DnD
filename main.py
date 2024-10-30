@@ -43,7 +43,7 @@ def classes() -> str:
 def table() -> str:
     """ Display characters function. """
     page_loader = PageLoader()
-    return page_loader.load_table(request.args.to_dict())
+    return page_loader.load_table()
 
 
 if __name__ == '__main__':

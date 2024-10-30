@@ -94,7 +94,7 @@ class PageLoader:
         submit = args.get("submit")
         return self.left_right_dance(submit, left_content, right_content, "Class Info")
 
-    def load_table(self, args: dict) -> str:
+    def load_table(self) -> str:
         """ Load the table page. """
         db = DB()
         char_list = db.load_character_list()
@@ -108,7 +108,6 @@ class PageLoader:
                                content=content,
                                other_styles=other_styles,
                                other_scripts=other_scripts)
-
 
     def left_right_dance(self, submit: Union[None, str], left_content: str, right_content: str, subtitle: str) -> str:
         """ Load the left right page. """
