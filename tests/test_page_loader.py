@@ -154,3 +154,20 @@ def test_load_character(mock_character, mock_character_class, mock_race, mock_re
     result = page_loader.load_character(args)
     mock_render_template.assert_any_call('left_only_body.html', left_content="<html>Mocked HTML</html>")
     assert result == "<html>Mocked HTML</html>"
+
+
+@patch('src.page_loader.PageLoader.build_styles_string')
+@patch('src.page_loader.render_template')
+@patch('src.page_loader.DB')
+def test_load_table(mock_db, mock_render_template, mock_build_styles_string):
+    """ Test the load_table method. """
+    test_char_list = ["Hero", "Villain"]
+    mock_db.return_value.load_character_list.return_value = test_char_list
+    mock_render_template.return_value = "<html>Mocked HTML</html>"
+    mock_build_styles_string.return_value = "Style String"
+    page_loader = PageLoader()
+    page_loader.load_table()
+    calls = [call('character_table.html', char_list=test_char_list),
+             call('left_only_body.html', left_content="<html>Mocked HTML</html>"),
+             call('base.html', subtitle="Character Table", content="<html>Mocked HTML</html>", other_styles="Style String", other_scripts="")]
+    mock_render_template.assert_has_calls(calls)

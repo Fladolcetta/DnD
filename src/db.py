@@ -40,7 +40,7 @@ class DB:
         self.db.commit()
         return cursor.fetchone()[0]
 
-    def read_from_table(self, sql: str) -> list:
+    def read_from_table(self, sql: str) -> list[list]:
         """ Read data from the db. """
         cursor = self.db.cursor(buffered=True)
         use_sql = "USE dnd;"
@@ -49,7 +49,7 @@ class DB:
         self.db.commit()
         return cursor.fetchall()
 
-    def load_character_list(self) -> list:
+    def load_character_list(self) -> list[list]:
         """ Load the character list"""
         sql = "SELECT cd.id, cd.char_name, cd.dnd_class, cd.dnd_race, \
                       cs.dexterity, cs.strength, cs.constitution, cs.intelligence, cs.wisdom, cs.charisma \

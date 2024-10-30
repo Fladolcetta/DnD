@@ -1,5 +1,5 @@
 """Test the Character class"""
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 import pytest
 from src.character import Character
 
@@ -65,3 +65,36 @@ def test_find_modifier_value():
     assert Character.find_modifier_value(10) == 0
     assert Character.find_modifier_value(12) == 1
     assert Character.find_modifier_value(8) == -1
+
+
+@patch('src.character.DB')
+def test_store_character_in_db(mock_db):
+    """Test the store_character_in_db method"""
+    mock_db.return_value = MagicMock()
+    mock_db.return_value.insert_character.return_value = 42
+    character = Character()
+    character.new_character("Aragorn", "Elf", "Ranger")
+    character.store_character_in_db()
+    assert character.char_id == 42
+
+
+@patch('src.character.DB')
+def test_load_character_from_db(mock_db):
+    """Test the load_character_from_db method"""
+    test_name = "Test Character"
+    test_id = 1
+    mock_db.return_value = MagicMock()
+    mock_db.return_value.load_character.return_value = {"id": test_id,
+                                                        "name": test_name,
+                                                        "dnd_class": "Wizard",
+                                                        "race": "Human",
+                                                        "stats": {
+                                                            "Dexterity": 11,
+                                                            "Strength": 12,
+                                                            "Constitution": 13,
+                                                            "Intelligence": 14,
+                                                            "Wisdom": 15,
+                                                            "Charisma": 16}}
+    character = Character()
+    character.load_character_from_db(1)
+    assert character.name == test_name
