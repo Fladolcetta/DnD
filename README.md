@@ -59,21 +59,14 @@ A fun little project to experiment with different technologies to learn web deve
 - Github Copilot
 - ChatGPT
 
-## TODO
-
 ## Future Enhancements
 - Improve style of pages
   - Dice with icons
-- Add missing Character Info as selectable
-  - Background
-  - Alignment
-  - Player name
-  - Experience Points
-  - Personality / Ideals / Bonds / Flaws
-  - Starting Equipment
-  - Attacks and Spells
-  - Selectable Class Proficiencies
+  - Table page
+    - Button to generate character from storage
 - Features
-  - Roll button based on selected stat / save / skill
-  - Retrieval of generated characters from storage
-  - Generate character based on input stats
+  - In Sheet
+    - Roll button based on selected stat / save / skill
+  - New Page
+    - Retrieval of generated characters from id
+    - Generate character based on input stats
