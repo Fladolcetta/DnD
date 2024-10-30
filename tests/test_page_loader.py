@@ -154,7 +154,7 @@ def test_left_right_dance(mock_render_template):
 @patch('src.page_loader.Race')
 @patch('src.page_loader.CharacterClass')
 @patch('src.page_loader.Character')
-def test_load_character(mock_character, mock_character_class, mock_race, mock_render_template, mock_display_char):
+def test_load_create_character(mock_character, mock_character_class, mock_race, mock_render_template, mock_display_char):
     """ Test the load_character method. """
     mock_character.return_value = Mock()
     mock_character.new_character.return_value = None
@@ -167,14 +167,14 @@ def test_load_character(mock_character, mock_character_class, mock_race, mock_re
     page_loader = PageLoader()
     args = {"name": "Hero", "race": "Elf", "character_class": "Wizard", "submit": "submit"}
 
-    result = page_loader.load_character(args)
+    result = page_loader.load_create_character(args)
 
     mock_render_template.assert_any_call('character.html', subtitle="Character Generator", race_list=["Human", "Elf"], class_list=["Barbarian", "Wizard"])
     assert result == "<html>Mocked HTML</html>"
 
     # Test without submit
     args = {"name": "Hero", "race": "Elf", "character_class": "Wizard"}
-    result = page_loader.load_character(args)
+    result = page_loader.load_create_character(args)
     mock_render_template.assert_any_call('left_only_body.html', left_content="<html>Mocked HTML</html>")
     assert result == "<html>Mocked HTML</html>"
 

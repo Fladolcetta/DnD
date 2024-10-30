@@ -116,7 +116,7 @@ class PageLoader:
             right_content = ""
         return self.load_left_right_page(left_content, right_content, subtitle)
 
-    def load_character(self, args: dict) -> str:
+    def load_create_character(self, args: dict) -> str:
         """ Load the sheet page. """
         race_list = Race.get_all_races()
         class_list = CharacterClass.get_all_classes()

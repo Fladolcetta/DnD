@@ -18,11 +18,11 @@ def roll() -> str:
     return page_loader.load_roll(request.args.to_dict())
 
 
-@app.route('/character')
-def character() -> str:
+@app.route('/create_character')
+def rolled_character() -> str:
     """ Character function. """
     page_loader = PageLoader()
-    return page_loader.load_character(request.args.to_dict())
+    return page_loader.load_create_character(request.args.to_dict())
 
 
 @app.route('/races')
