@@ -129,7 +129,9 @@ class PageLoader:
                 name = str(args.get("name"))
                 race = str(args.get("race"))
                 character_class = str(args.get("character_class"))
-                new_char = Character(name, race, character_class, create=True)
+                new_char = Character()
+                new_char.new_character(name, race, character_class)
+                new_char.store_character_in_db()
 
                 return self.display_char(new_char)
         except TypeError:

@@ -7,17 +7,15 @@ from src.character_class import CharacterClass
 
 class Character:
     """ A class to represent a character in Dungeons and Dragons. """
-    def __init__(self, name: str, desired_race="Human", desired_class="Fighter", create=False) -> None:
-        self.name = name if name != "" else "Unnamed"
-        self.race = desired_race
-        self.dnd_class = desired_class
+    def __init__(self) -> None:
+        self.name = "Unnamed"
+        self.race = "Human"
+        self.dnd_class = "Fighter"
         self.level = 1
         self.ac = 10
         self.initiative = 0
         self.hp = 0
         self.passive_perception = 10
-        self.primary_stat = []
-        self.worst_stat = []
         self.speed = 0
         self.proficiency_bonus = 2
         self.hit_die = "0d0"
@@ -37,10 +35,16 @@ class Character:
         }
         self.char_id = None
 
+    def new_character(self, name: str, race: str, dnd_class: str, stats=None) -> None:
+        """ Create a new character. """
         # Roll stats and update values
-        self.primary_stat = CharacterClass(self.dnd_class).get_primary_stat()
-        self.worst_stat = CharacterClass(self.dnd_class).get_worst_stat()
-        self.roll_stats()
+        self.name = name
+        self.race = race
+        self.dnd_class = dnd_class
+        if stats is None:
+            primary_stat = CharacterClass(self.dnd_class).get_primary_stat()
+            worst_stat = CharacterClass(self.dnd_class).get_worst_stat()
+            self.roll_stats(primary_stat, worst_stat)
         self.update_race_details()
         self.update_skills()
         self.update_class_details()
@@ -48,10 +52,8 @@ class Character:
         self.update_initiative()
         self.update_hp()
         self.update_passive_perception()
-        if create:
-            self.create_character()
 
-    def create_character(self) -> None:
+    def store_character_in_db(self) -> None:
         """ Create the character in the database. """
         db = DB()
         self.char_id = db.insert_character(self.name, self.race, self.dnd_class, self.stats)
@@ -134,17 +136,17 @@ class Character:
             perception_proficiency = self.proficiency_bonus
         self.passive_perception = base_perception + wisdom_modifier + perception_proficiency
 
-    def roll_stats(self) -> None:
+    def roll_stats(self, primary_stat: str, worst_stat: str) -> None:
         """ Roll the stats for the character. """
         stat_array = []
         for _ in self.stats:
             die = Dice(4, 6, 0)
             stat_array.append(die.total - min(die.rolls))
         stat_array.sort(reverse=True)
-        for primary_stat in self.primary_stat:
-            self.stats[primary_stat] = stat_array.pop(0)
-        for worst_stat in self.worst_stat:
-            self.stats[worst_stat] = stat_array.pop()
+        for stat in primary_stat:
+            self.stats[stat] = stat_array.pop(0)
+        for stat in worst_stat:
+            self.stats[stat] = stat_array.pop()
         for key, value in self.stats.items():
             if value == 0:
                 self.stats[key] = stat_array.pop(0)
@@ -153,3 +155,13 @@ class Character:
         """ Update the skill based on the stat. """
         for skill in skill_list:
             self.all_skills[skill] = self.find_modifier_stat(stat)
+
+    def load_character_from_db(self, char_id: int) -> None:
+        """ Load the character from the database. """
+        db = DB()
+        char_dict = db.load_character(char_id)
+        name = char_dict["name"]
+        dnd_class = char_dict["dnd_class"]
+        race = char_dict["race"]
+        stats = char_dict["stats"]
+        self.new_character(name, race, dnd_class, stats)

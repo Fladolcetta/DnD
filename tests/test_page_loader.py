@@ -1,5 +1,5 @@
 """ Tests for the PageLoader class. """
-from unittest.mock import patch, call
+from unittest.mock import patch, call, Mock
 from src.page_loader import PageLoader
 from src.character import Character
 
@@ -43,7 +43,8 @@ def test_display_char(mock_sheet_generator, mock_text_printer, mock_render_templ
     mock_text_printer.return_value.print_basic_stats.return_value = "Basic Stats"
 
     page_loader = PageLoader()
-    test_char = Character("Name", "Human", "Bard")
+    test_char = Character()
+    test_char.new_character("Name", "Human", "Bard")
     result = page_loader.display_char(test_char)
 
     calls = [call('character_sheet.html', subtitle="Character Sheet", char_id=None, key_pairs={}, details="Character Details", basic_info="Basic Stats"),
@@ -132,7 +133,9 @@ def test_left_right_dance(mock_render_template):
 @patch('src.page_loader.Character')
 def test_load_character(mock_character, mock_character_class, mock_race, mock_render_template, mock_display_char):
     """ Test the load_character method. """
-    mock_character.return_value = None
+    mock_character.return_value = Mock()
+    mock_character.new_character.return_value = None
+    mock_character.store_character_in_db.return_value = None
     mock_display_char.return_value = "<html>Mocked HTML</html>"
     mock_render_template.return_value = "<html>Mocked HTML</html>"
     mock_race.get_all_races.return_value = ["Human", "Elf"]

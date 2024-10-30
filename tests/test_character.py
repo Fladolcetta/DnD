@@ -42,7 +42,8 @@ def fixture_mock_character_class():
 def test_character_initialization(_mock_dice, _mock_race, _mock_character_class):
     """Test the initialization of the Character class"""
     # _mock_dice, _mock_race, and _mock_character_class are fixtures
-    character = Character("Aragorn", "Elf", "Ranger")
+    character = Character()
+    character.new_character("Aragorn", "Elf", "Ranger")
     assert character.name == "Aragorn"
     assert character.race == "Elf"
     assert character.dnd_class == "Ranger"
