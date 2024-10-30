@@ -49,25 +49,29 @@ def test_character_initialization():
     assert character.ac == 10
 
 
-def test_new_character(_mock_dice, _mock_race, _mock_character_class):
+@patch('src.character.Dice')
+def test_new_character(mock_dice, _mock_race, _mock_character_class):
     """Test the new_character method"""
-    # _mock_dice, _mock_race, and _mock_character_class are fixtures
+    # _mock_race, and _mock_character_class are fixtures
+    mock_dice.return_value = MagicMock()
+    mock_dice.return_value.roll_stats.return_value = [14, 10, 10, 10, 10, 8]
+    mock_dice.return_value.total = 14
     character = Character()
     character.new_character("Aragorn", "Elf", "Ranger")
     assert character.name == "Aragorn"
     assert character.race == "Elf"
     assert character.dnd_class == "Ranger"
     assert character.level == 1
-    assert character.ac == 11  # 10 + Dexterity modifier (1)
-    assert character.initiative == 1  # Dexterity modifier
+    assert character.ac == 13  # 10 + Dexterity modifier (3)
+    assert character.initiative == 3  # Dexterity modifier
     assert character.hp == 14  # Mocked Dice total
     assert character.passive_perception == 12  # 10 + Wisdom modifier (0) + proficiency bonus (2)
     assert character.speed == 30
     assert character.languages == ["Common", "Elvish"]
     assert character.traits == ["Darkvision", "Keen Senses"]
-    assert character.stats["Dexterity"] == 13  # Base 11 + Race bonus 2
-    assert character.stats["Strength"] == 11  # Base 11
-    assert character.all_skills["Acrobatics"] == 3  # Dexterity modifier (1) + proficiency bonus (2)
+    assert character.stats["Dexterity"] == 16  # Base 14 + Race bonus 2
+    assert character.stats["Strength"] == 8  # Base 8
+    assert character.all_skills["Acrobatics"] == 5  # Dexterity modifier (3) + proficiency bonus (2)
 
 
 @patch('src.character.DB')
