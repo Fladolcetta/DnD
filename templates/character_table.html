@@ -1,21 +1,27 @@
-<table>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Race</th>
-      <th>Class</th>
-      <th>Dex</th>
-      <th>Str</th>
-      <th>Con</th>
-      <th>Int</th>
-      <th>Wis</th>
-      <th>Cha</th>
-    </tr>
-    {% for char in char_list %}
-    <tr>
-        {% for field in char %}
-        <td>{{ field }}</td>
-        {% endfor %}
-    </tr>
-    {% endfor %}
-</table>
+  <table>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Race</th>
+        <th>Class</th>
+        <th>Dex</th>
+        <th>Str</th>
+        <th>Con</th>
+        <th>Int</th>
+        <th>Wis</th>
+        <th>Cha</th>
+        <th>Load</th>
+      </tr>
+      {% for char in char_list %}
+      <tr>
+          {% for field in char %}
+          <td>{{ field }}</td>
+          {% endfor %}
+          <td>
+            <a href="/load_character?char_id={{ char[0] }}">
+              <button>Load</button>
+            </a>
+          </td>
+      </tr>
+      {% endfor %}
+  </table>

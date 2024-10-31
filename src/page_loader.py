@@ -138,6 +138,13 @@ class PageLoader:
             pass
         return self.load_left_only_page(left_content, "Character Generator")
 
+    def load_old_character(self, args: dict) -> str:
+        """ Load the sheet page. """
+        char_id = int(args.get("char_id") or 1)
+        char = Character()
+        char.load_character_from_db(char_id)
+        return self.display_char(char)
+
     def build_script_string(self, script_list: list) -> str:
         """ Build a string of script tags. """
         script_string = "\n".join(

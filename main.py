@@ -46,5 +46,12 @@ def table() -> str:
     return page_loader.load_table()
 
 
+@app.route('/load_character')
+def character() -> str:
+    """ Character function. """
+    page_loader = PageLoader()
+    return page_loader.load_old_character(request.args.to_dict())
+
+
 if __name__ == '__main__':
     app.run(debug=True)
