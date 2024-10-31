@@ -73,7 +73,8 @@
     * [load\_classes](#page_loader.PageLoader.load_classes)
     * [load\_table](#page_loader.PageLoader.load_table)
     * [left\_right\_dance](#page_loader.PageLoader.left_right_dance)
-    * [load\_character](#page_loader.PageLoader.load_character)
+    * [load\_create\_character](#page_loader.PageLoader.load_create_character)
+    * [load\_old\_character](#page_loader.PageLoader.load_old_character)
     * [build\_script\_string](#page_loader.PageLoader.build_script_string)
     * [build\_styles\_string](#page_loader.PageLoader.build_styles_string)
 * [character](#character)
@@ -794,12 +795,22 @@ def left_right_dance(submit: Union[None, str], left_content: str,
 
 Load the left right page.
 
-<a id="page_loader.PageLoader.load_character"></a>
+<a id="page_loader.PageLoader.load_create_character"></a>
 
-#### load\_character
+#### load\_create\_character
 
 ```python
-def load_character(args: dict) -> str
+def load_create_character(args: dict) -> str
+```
+
+Load the sheet page.
+
+<a id="page_loader.PageLoader.load_old_character"></a>
+
+#### load\_old\_character
+
+```python
+def load_old_character(args: dict) -> str
 ```
 
 Load the sheet page.
