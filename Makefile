@@ -61,5 +61,8 @@ test:
 	docker compose config --quiet
 	kube-linter lint ./kubernetes
 
+coverage:
+	pytest --cov=src tests --cov-report=html
+
 docs:
 	pydoc-markdown -I src --render-toc > ./docs/code.md

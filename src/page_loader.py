@@ -16,7 +16,7 @@ class PageLoader:
 
     def load_left_right_page(self, left_content: str = "", right_content: str = "", subtitle: str = "") -> str:
         """ Load the page. """
-        other_styles = self.build_styles_string(['left_and_container', 'right_only', 'inputs'])
+        other_styles = self.build_styles_string(['container', 'left_and_right', 'inputs'])
         content = render_template('left_right_split_body.html',
                                   left_content=left_content,
                                   right_content=right_content)
@@ -27,7 +27,7 @@ class PageLoader:
 
     def load_left_only_page(self, left_content: str = "", subtitle: str = "") -> str:
         """ Load the page. """
-        other_styles = self.build_styles_string(['left_and_container', 'inputs'])
+        other_styles = self.build_styles_string(['container', 'inputs'])
         content = render_template('left_only_body.html',
                                   left_content=left_content)
         return render_template('base.html',
@@ -35,15 +35,13 @@ class PageLoader:
                                content=content,
                                other_styles=other_styles)
 
-    def load_sheet(self, name: str, race: str, character_class: str) -> str:
-        """ Load the character sheet. """
+    def display_char(self, char: Character) -> str:
+        """ Display the character sheet. """
         text_printer = TextPrinter()
-        new_char = Character(name, race, character_class)
-        db = DB()
-        char_id = db.insert_character(new_char)
-        key_pairs = SheetGenerator(new_char).generate_key_pairs()
-        details = text_printer.print_character(new_char)
-        basic_info = text_printer.print_basic_stats(new_char)
+        key_pairs = SheetGenerator(char).generate_key_pairs()
+        details = text_printer.print_character(char)
+        basic_info = text_printer.print_basic_stats(char)
+        char_id = char.char_id
         content = render_template('character_sheet.html',
                                   subtitle="Character Sheet",
                                   char_id=char_id,
@@ -94,16 +92,31 @@ class PageLoader:
         submit = args.get("submit")
         return self.left_right_dance(submit, left_content, right_content, "Class Info")
 
+    def load_table(self) -> str:
+        """ Load the table page. """
+        db = DB()
+        char_list = db.load_character_list()
+        left_content = render_template('character_table.html', char_list=char_list)
+        content = render_template('left_only_body.html',
+                                  left_content=left_content)
+        other_styles = self.build_styles_string(['container', 'table'])
+        other_scripts = ""
+        return render_template('base.html',
+                               subtitle="Character Table",
+                               content=content,
+                               other_styles=other_styles,
+                               other_scripts=other_scripts)
+
     def left_right_dance(self, submit: Union[None, str], left_content: str, right_content: str, subtitle: str) -> str:
         """ Load the left right page. """
         try:
             if "submit" in submit:
-                return self.load_left_right_page(left_content, right_content, subtitle)
+                pass
         except TypeError:
-            pass
-        return self.load_left_only_page(left_content, subtitle)
+            right_content = ""
+        return self.load_left_right_page(left_content, right_content, subtitle)
 
-    def load_character(self, args: dict) -> str:
+    def load_create_character(self, args: dict) -> str:
         """ Load the sheet page. """
         race_list = Race.get_all_races()
         class_list = CharacterClass.get_all_classes()
@@ -116,10 +129,21 @@ class PageLoader:
                 name = str(args.get("name"))
                 race = str(args.get("race"))
                 character_class = str(args.get("character_class"))
-                return self.load_sheet(name, race, character_class)
+                new_char = Character()
+                new_char.new_character(name, race, character_class)
+                new_char.store_character_in_db()
+
+                return self.display_char(new_char)
         except TypeError:
             pass
         return self.load_left_only_page(left_content, "Character Generator")
+
+    def load_old_character(self, args: dict) -> str:
+        """ Load the sheet page. """
+        char_id = int(args.get("char_id") or 1)
+        char = Character()
+        char.load_character_from_db(char_id)
+        return self.display_char(char)
 
     def build_script_string(self, script_list: list) -> str:
         """ Build a string of script tags. """

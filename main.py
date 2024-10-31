@@ -18,11 +18,11 @@ def roll() -> str:
     return page_loader.load_roll(request.args.to_dict())
 
 
-@app.route('/character')
-def character() -> str:
+@app.route('/character_sheet')
+def rolled_character() -> str:
     """ Character function. """
     page_loader = PageLoader()
-    return page_loader.load_character(request.args.to_dict())
+    return page_loader.load_create_character(request.args.to_dict())
 
 
 @app.route('/races')
@@ -37,6 +37,20 @@ def classes() -> str:
     """ List Classes """
     page_loader = PageLoader()
     return page_loader.load_classes(request.args.to_dict())
+
+
+@app.route('/table')
+def table() -> str:
+    """ Display characters function. """
+    page_loader = PageLoader()
+    return page_loader.load_table()
+
+
+@app.route('/load_character')
+def character() -> str:
+    """ Character function. """
+    page_loader = PageLoader()
+    return page_loader.load_old_character(request.args.to_dict())
 
 
 if __name__ == '__main__':

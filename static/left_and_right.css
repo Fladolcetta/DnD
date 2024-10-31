@@ -1,4 +1,9 @@
 /* For left_right_split_body.html */
+.left{
+    width: 50%;
+    float: left;
+    padding-right: 10px;
+}
 .right{
     width: 50%;
     float: right;

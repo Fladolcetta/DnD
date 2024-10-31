@@ -28,7 +28,7 @@ class CharacterClass:
         }
         return hit_die[self.name]
 
-    def get_primary_stat(self) -> dict:
+    def get_primary_stat(self) -> list:
         """ Get the primary stat of the class. """
         primary_stat = {
             "Barbarian": ["Strength"],

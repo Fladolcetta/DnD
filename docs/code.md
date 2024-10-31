@@ -23,6 +23,9 @@
   * [DB](#db.DB)
     * [insert\_character](#db.DB.insert_character)
     * [insert\_into\_table](#db.DB.insert_into_table)
+    * [read\_from\_table](#db.DB.read_from_table)
+    * [load\_character\_list](#db.DB.load_character_list)
+    * [load\_character](#db.DB.load_character)
 * [character\_class](#character_class)
   * [CharacterClass](#character_class.CharacterClass)
     * [get\_hit\_die](#character_class.CharacterClass.get_hit_die)
@@ -58,20 +61,26 @@
 * [dice](#dice)
   * [Dice](#dice.Dice)
     * [roll](#dice.Dice.roll)
+    * [roll\_stat](#dice.Dice.roll_stat)
+    * [roll\_stats](#dice.Dice.roll_stats)
 * [page\_loader](#page_loader)
   * [PageLoader](#page_loader.PageLoader)
     * [load\_left\_right\_page](#page_loader.PageLoader.load_left_right_page)
     * [load\_left\_only\_page](#page_loader.PageLoader.load_left_only_page)
-    * [load\_sheet](#page_loader.PageLoader.load_sheet)
+    * [display\_char](#page_loader.PageLoader.display_char)
     * [load\_roll](#page_loader.PageLoader.load_roll)
     * [load\_races](#page_loader.PageLoader.load_races)
     * [load\_classes](#page_loader.PageLoader.load_classes)
+    * [load\_table](#page_loader.PageLoader.load_table)
     * [left\_right\_dance](#page_loader.PageLoader.left_right_dance)
-    * [load\_character](#page_loader.PageLoader.load_character)
+    * [load\_create\_character](#page_loader.PageLoader.load_create_character)
+    * [load\_old\_character](#page_loader.PageLoader.load_old_character)
     * [build\_script\_string](#page_loader.PageLoader.build_script_string)
     * [build\_styles\_string](#page_loader.PageLoader.build_styles_string)
 * [character](#character)
   * [Character](#character.Character)
+    * [new\_character](#character.Character.new_character)
+    * [store\_character\_in\_db](#character.Character.store_character_in_db)
     * [find\_modifier\_stat](#character.Character.find_modifier_stat)
     * [find\_modifier\_value](#character.Character.find_modifier_value)
     * [update\_race\_details](#character.Character.update_race_details)
@@ -83,6 +92,7 @@
     * [update\_passive\_perception](#character.Character.update_passive_perception)
     * [roll\_stats](#character.Character.roll_stats)
     * [update\_skill\_for\_stat](#character.Character.update_skill_for_stat)
+    * [load\_character\_from\_db](#character.Character.load_character_from_db)
 
 <a id="text_printer"></a>
 
@@ -291,7 +301,7 @@ A class to represent a database connection.
 #### insert\_character
 
 ```python
-def insert_character(character: Character) -> int
+def insert_character(name: str, race: str, dnd_class: str, stats: dict) -> int
 ```
 
 Insert a character into the database.
@@ -305,6 +315,36 @@ def insert_into_table(sql: str, data: list) -> int
 ```
 
 Insert into a table.
+
+<a id="db.DB.read_from_table"></a>
+
+#### read\_from\_table
+
+```python
+def read_from_table(sql: str) -> list[list]
+```
+
+Read data from the db.
+
+<a id="db.DB.load_character_list"></a>
+
+#### load\_character\_list
+
+```python
+def load_character_list() -> list[list]
+```
+
+Load the character list
+
+<a id="db.DB.load_character"></a>
+
+#### load\_character
+
+```python
+def load_character(char_id: int) -> dict
+```
+
+Load a character from the database.
 
 <a id="character_class"></a>
 
@@ -337,7 +377,7 @@ Get the hit die of the class.
 #### get\_primary\_stat
 
 ```python
-def get_primary_stat() -> dict
+def get_primary_stat() -> list
 ```
 
 Get the primary stat of the class.
@@ -636,6 +676,26 @@ def roll() -> None
 
 Roll the dice and return the total.
 
+<a id="dice.Dice.roll_stat"></a>
+
+#### roll\_stat
+
+```python
+def roll_stat() -> int
+```
+
+Roll a single stat.
+
+<a id="dice.Dice.roll_stats"></a>
+
+#### roll\_stats
+
+```python
+def roll_stats() -> list
+```
+
+Roll the stats for the character.
+
 <a id="page_loader"></a>
 
 # page\_loader
@@ -674,15 +734,15 @@ def load_left_only_page(left_content: str = "", subtitle: str = "") -> str
 
 Load the page.
 
-<a id="page_loader.PageLoader.load_sheet"></a>
+<a id="page_loader.PageLoader.display_char"></a>
 
-#### load\_sheet
+#### display\_char
 
 ```python
-def load_sheet(name: str, race: str, character_class: str) -> str
+def display_char(char: Character) -> str
 ```
 
-Load the character sheet.
+Display the character sheet.
 
 <a id="page_loader.PageLoader.load_roll"></a>
 
@@ -714,6 +774,16 @@ def load_classes(args: dict) -> str
 
 Load the classes page.
 
+<a id="page_loader.PageLoader.load_table"></a>
+
+#### load\_table
+
+```python
+def load_table() -> str
+```
+
+Load the table page.
+
 <a id="page_loader.PageLoader.left_right_dance"></a>
 
 #### left\_right\_dance
@@ -725,12 +795,22 @@ def left_right_dance(submit: Union[None, str], left_content: str,
 
 Load the left right page.
 
-<a id="page_loader.PageLoader.load_character"></a>
+<a id="page_loader.PageLoader.load_create_character"></a>
 
-#### load\_character
+#### load\_create\_character
 
 ```python
-def load_character(args: dict) -> str
+def load_create_character(args: dict) -> str
+```
+
+Load the sheet page.
+
+<a id="page_loader.PageLoader.load_old_character"></a>
+
+#### load\_old\_character
+
+```python
+def load_old_character(args: dict) -> str
 ```
 
 Load the sheet page.
@@ -770,6 +850,26 @@ class Character()
 ```
 
 A class to represent a character in Dungeons and Dragons.
+
+<a id="character.Character.new_character"></a>
+
+#### new\_character
+
+```python
+def new_character(name: str, race: str, dnd_class: str, stats=None) -> None
+```
+
+Create a new character.
+
+<a id="character.Character.store_character_in_db"></a>
+
+#### store\_character\_in\_db
+
+```python
+def store_character_in_db() -> None
+```
+
+Create the character in the database.
 
 <a id="character.Character.find_modifier_stat"></a>
 
@@ -867,7 +967,7 @@ Update the passive perception based on the stats.
 #### roll\_stats
 
 ```python
-def roll_stats() -> None
+def roll_stats(primary_stat: list, worst_stat: list) -> None
 ```
 
 Roll the stats for the character.
@@ -881,4 +981,14 @@ def update_skill_for_stat(stat: str, skill_list: list) -> None
 ```
 
 Update the skill based on the stat.
+
+<a id="character.Character.load_character_from_db"></a>
+
+#### load\_character\_from\_db
+
+```python
+def load_character_from_db(char_id: int) -> None
+```
+
+Load the character from the database.
 
