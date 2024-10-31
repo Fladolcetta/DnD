@@ -18,7 +18,7 @@ def roll() -> str:
     return page_loader.load_roll(request.args.to_dict())
 
 
-@app.route('/create_character')
+@app.route('/character_sheet')
 def rolled_character() -> str:
     """ Character function. """
     page_loader = PageLoader()
