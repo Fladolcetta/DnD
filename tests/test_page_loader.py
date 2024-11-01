@@ -33,7 +33,7 @@ def test_load_left_only_page(mock_render_template):
     result = page_loader.load_left_only_page("left", "Subtitle")
 
     calls = [call('left_only_body.html', left_content="left"),
-             call('base.html', subtitle="Subtitle", content="<html>Mocked HTML</html>", other_styles="    <link rel='stylesheet' type='text/css' href='/static/container.css'>\n    <link rel='stylesheet' type='text/css' href='/static/inputs.css'>\n")]
+             call('base.html', subtitle="Subtitle", content="<html>Mocked HTML</html>", other_styles="    <link rel='stylesheet' type='text/css' href='/static/container.css'>\n    <link rel='stylesheet' type='text/css' href='/static/inputs.css'>\n", other_scripts='')]
     mock_render_template.assert_has_calls(calls)
     assert result == "<html>Mocked HTML</html>"
 
