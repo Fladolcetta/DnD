@@ -89,13 +89,12 @@ class Character:
             if skill in self.skill_proficiencies:
                 self.all_skills[skill] = self.all_skills[skill] + self.proficiency_bonus
 
-        saving_throws_stats = self.stats.copy()
-        for stat in saving_throws_stats:
-            modifier = Character.find_modifier_value(saving_throws_stats[stat])
-            self.saving_throws[stat] = modifier
         self.save_proficiencies = class_object.get_saving_throw_proficiencies()
-        for saving_throw in self.save_proficiencies:
-            self.saving_throws[saving_throw] = self.saving_throws[saving_throw] + self.proficiency_bonus
+        for stat, value in self.stats.items():
+            modifier = Character.find_modifier_value(value)
+            if stat in self.save_proficiencies:
+                modifier = modifier + self.proficiency_bonus
+            self.saving_throws[stat] = modifier
 
     def update_skills(self) -> None:
         """ Update the skills based on the stats. """
@@ -164,3 +163,18 @@ class Character:
         race = char_dict["race"]
         stats = char_dict["stats"]
         self.new_character(name, race, dnd_class, stats)
+
+    def roll_check(self, check_type: str, check="") -> int:
+        """ Roll a check based on type. """
+        modifier = 0
+        if check_type == "stat":
+            modifier = self.find_modifier_stat(check)
+        elif check_type == "skill":
+            modifier = self.all_skills[check]
+        elif check_type == "save":
+            modifier = self.saving_throws[check]
+        elif check_type == "death":
+            modifier = 0
+        die = Dice(1, 20, 0)
+        die.roll()
+        return die.total + modifier
