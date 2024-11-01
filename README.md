@@ -66,8 +66,5 @@ A fun little project to experiment with different technologies to learn web deve
   - Dice with icons
   - Table page
   - Roll Check
-- Features
-  - New Page
-    - Generate character based on input stats
 - Bugs
   - Fix killed DBs in Kubernetes mode
