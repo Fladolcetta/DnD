@@ -45,6 +45,8 @@ class Character:
             primary_stat = CharacterClass(self.dnd_class).get_primary_stat()
             worst_stat = CharacterClass(self.dnd_class).get_worst_stat()
             self.roll_stats(primary_stat, worst_stat)
+        else:
+            self.stats = stats
         self.update_race_details()
         self.update_skills()
         self.update_class_details()
