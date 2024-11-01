@@ -179,17 +179,28 @@ def test_load_create_character(mock_character, mock_character_class, mock_race, 
     assert result == "<html>Mocked HTML</html>"
 
 
-@patch('src.page_loader.PageLoader.display_char')
 @patch('src.page_loader.Character')
-def test_load_old_character(mock_character, mock_display_char):
+def test_load_old_character(mock_character):
     """ Test the load_old_character method. """
-    test_id = {"char_id": "42"}
+    test_args = {"char_id": "42"}
+    mock_test = Mock()
+    mock_character.return_value = mock_test
+    mock_character.load_character_from_db.return_value = None
+    page_loader = PageLoader()
+    result = page_loader.load_old_character(test_args)
+    assert result == mock_test
+
+
+@patch('src.page_loader.PageLoader.display_char')
+@patch('src.page_loader.PageLoader.load_old_character')
+def test_load_old_character_sheet(mock_load_old_character, mock_display_char):
+    """ Test the load_old_character method. """
+    test_args = {"char_id": "42"}
     test_string = "<html>Mocked HTML</html>"
-    mock_character.return_value = Mock()
-    mock_character.load_character_from_id.return_value = None
+    mock_load_old_character.return_value = Mock()
     mock_display_char.return_value = test_string
     page_loader = PageLoader()
-    result = page_loader.load_old_character(test_id)
+    result = page_loader.load_old_character_sheet(test_args)
     assert result == test_string
 
 

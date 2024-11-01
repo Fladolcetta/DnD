@@ -143,6 +143,11 @@ class PageLoader:
         char_id = int(args.get("char_id") or 1)
         char = Character()
         char.load_character_from_db(char_id)
+        return char
+
+    def load_old_character_sheet(self, args: dict) -> str:
+        """ Load the sheet page. """
+        char = self.load_old_character(args)
         return self.display_char(char)
 
     def build_script_string(self, script_list: list) -> str:
