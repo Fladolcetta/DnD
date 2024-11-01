@@ -1,14 +1,14 @@
 <form>
-    <p>
-        <label for="race">Race:</label><br>
-        <select type="text" id="race" name="race">
-            {% for item in race_list %}
-            <option value="{{ item }}">{{ item }}</option>
-            {% endfor %}
-        </select>
-    </p>
-    <p>
-        <label for="submit">Show Race:</label><br>
-        <input type="submit" name="submit" value="submit">
-    </p>
+  <p>
+    <label for="race">Race:</label><br />
+    <select type="text" id="race" name="race">
+      {% for item in race_list %}
+      <option value="{{ item }}">{{ item }}</option>
+      {% endfor %}
+    </select>
+  </p>
+  <p>
+    <label for="submit">Show Race:</label><br />
+    <input type="submit" name="submit" value="submit" />
+  </p>
 </form>

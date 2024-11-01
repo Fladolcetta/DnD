@@ -28,7 +28,7 @@ jobs:
         id: write-good
         uses: tomwhross/write-good-action@v1.6
         with:
-          directory: './README.md'
+          directory: "./README.md"
       - name: Output write-good results
         if: contains(steps.write-good.outputs.result, 'README')
         run: |
