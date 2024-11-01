@@ -75,6 +75,7 @@
     * [left\_right\_dance](#page_loader.PageLoader.left_right_dance)
     * [load\_create\_character](#page_loader.PageLoader.load_create_character)
     * [load\_old\_character](#page_loader.PageLoader.load_old_character)
+    * [load\_old\_character\_sheet](#page_loader.PageLoader.load_old_character_sheet)
     * [build\_script\_string](#page_loader.PageLoader.build_script_string)
     * [build\_styles\_string](#page_loader.PageLoader.build_styles_string)
 * [character](#character)
@@ -93,6 +94,7 @@
     * [roll\_stats](#character.Character.roll_stats)
     * [update\_skill\_for\_stat](#character.Character.update_skill_for_stat)
     * [load\_character\_from\_db](#character.Character.load_character_from_db)
+    * [roll\_check](#character.Character.roll_check)
 
 <a id="text_printer"></a>
 
@@ -810,7 +812,17 @@ Load the sheet page.
 #### load\_old\_character
 
 ```python
-def load_old_character(args: dict) -> str
+def load_old_character(char_id: int) -> Character
+```
+
+Load the sheet page.
+
+<a id="page_loader.PageLoader.load_old_character_sheet"></a>
+
+#### load\_old\_character\_sheet
+
+```python
+def load_old_character_sheet(args: dict) -> str
 ```
 
 Load the sheet page.
@@ -991,4 +1003,14 @@ def load_character_from_db(char_id: int) -> None
 ```
 
 Load the character from the database.
+
+<a id="character.Character.roll_check"></a>
+
+#### roll\_check
+
+```python
+def roll_check(check_type: str, check="") -> int
+```
+
+Roll a check based on type.
 
