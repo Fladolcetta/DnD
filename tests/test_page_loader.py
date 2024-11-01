@@ -54,7 +54,7 @@ def test_display_char(mock_sheet_generator, mock_text_printer, mock_render_templ
     result = page_loader.display_char(test_char)
 
     calls = [call('character_sheet.html', subtitle="Character Sheet", char_id=None, key_pairs={}, details="Character Details", basic_info="Basic Stats"),
-             call('base.html', subtitle="Character Sheet", content="<html>Mocked HTML</html>", other_styles="    <link rel='stylesheet' type='text/css' href='/static/sheet.css'>\n", other_scripts="        <script type='text/javascript' src='/static/sheet.js'></script>\n")]
+             call('base.html', subtitle="Character Sheet", content="<html>Mocked HTML</html>", other_styles="    <link rel='stylesheet' type='text/css' href='/static/sheet.css'>\n", other_scripts="        <script type='text/javascript' src='/static/sheet.js'></script>\n        <script type='text/javascript' src='/static/roll_check.js'></script>\n")]
     mock_render_template.assert_has_calls(calls)
 
     assert result == "<html>Mocked HTML</html>"
