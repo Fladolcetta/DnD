@@ -49,7 +49,7 @@ class PageLoader:
                                   details=details,
                                   basic_info=basic_info)
         other_styles = self.build_styles_string(['sheet'])
-        other_scripts = self.build_script_string(['sheet'])
+        other_scripts = self.build_script_string(['sheet', 'roll_check'])
         return render_template('base.html',
                                subtitle="Character Sheet",
                                content=content,
@@ -138,11 +138,16 @@ class PageLoader:
             pass
         return self.load_left_only_page(left_content, "Character Generator")
 
-    def load_old_character(self, args: dict) -> str:
+    def load_old_character(self, char_id: int) -> Character:
         """ Load the sheet page. """
-        char_id = int(args.get("char_id") or 1)
         char = Character()
         char.load_character_from_db(char_id)
+        return char
+
+    def load_old_character_sheet(self, args: dict) -> str:
+        """ Load the sheet page. """
+        char_id = int(args.get("char_id") or 1)
+        char = self.load_old_character(char_id)
         return self.display_char(char)
 
     def build_script_string(self, script_list: list) -> str:

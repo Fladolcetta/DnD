@@ -1,7 +1,7 @@
 <div class="character_sheet">
     <button type="button" class="collapsible">Character Sheet</button>
     <div class="content_shown">
-        <form class="charsheet">
+        <form class="charsheet" id="sheet">
             <header>
                 <section class="charname">
                     <label for="charname">Character Name</label><input name="charname" value="{{key_pairs.charname}}">
@@ -374,7 +374,46 @@
         "{{ details | safe }}"
     </div>
     <button type="button" class="collapsible">Character ID</button>
-    <div class="content">
+    <div class="content" id="char_id_div">
         "{{ char_id | safe }}"
+    </div>
+    <button type="button" class="collapsible">Roll Check</button>
+    <div class="content">
+        <select id="check_type" onchange="check_type_selection(this)">
+            <option value="stat">Stat Check</option>
+            <option value="skill">Skill Check</option>
+            <option value="save">Saving Throw</option>
+            <option value="death">Death Save</option>
+        </select>
+        <select id="stat_select">
+            <option value="Strength">Strength</option>
+            <option value="Dexterity">Dexterity</option>
+            <option value="Constitution">Constitution</option>
+            <option value="Wisdom">Wisdom</option>
+            <option value="Intelligence">Intelligence</option>
+            <option value="Charisma">Charisma</option>
+        </select>
+        <select id="skill_select" hidden>
+            <option value="Acrobatics">Acrobatics</option>
+            <option value="Animal Handling">Animal Handling</option>
+            <option value="Arcana">Arcana</option>
+            <option value="Athletics">Athletics</option>
+            <option value="Deception">Deception</option>
+            <option value="History">History</option>
+            <option value="Insight">Insight</option>
+            <option value="Intimidation">Intimidation</option>
+            <option value="Investigation">Investigation</option>
+            <option value="Medicine">Medicine</option>
+            <option value="Nature">Nature</option>
+            <option value="Perception">Perception</option>
+            <option value="Performance">Performance</option>
+            <option value="Persuasion">Persuasion</option>
+            <option value="Religion">Religion</option>
+            <option value="Sleight of Hand">Sleight of Hand</option>
+            <option value="Stealth">Stealth</option>
+            <option value="Survival">Survival</option>
+        </select>
+        <button onclick="sendData()">Submit</button>
+        <div id="roll_check"></div>
     </div>
 </div>

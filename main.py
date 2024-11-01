@@ -1,5 +1,5 @@
 """ Main file for the Dungeons and Dragons character generator. """
-from flask import Flask, request, redirect
+from flask import Flask, request, redirect, jsonify
 from src.page_loader import PageLoader
 
 app = Flask(__name__)
@@ -50,7 +50,20 @@ def table() -> str:
 def character() -> str:
     """ Character function. """
     page_loader = PageLoader()
-    return page_loader.load_old_character(request.args.to_dict())
+    return page_loader.load_old_character_sheet(request.args.to_dict())
+
+
+@app.route('/roll_check', methods=['POST'])
+def roll_check() -> str:
+    """ Roll Check function. """
+    data = request.get_json()
+    char_id = int(data["char_id"])
+    page_loader = PageLoader()
+    char = page_loader.load_old_character(char_id)
+    check_type = data["check_type"]
+    check = data["check"]
+    result = char.roll_check(check_type, check)
+    return jsonify(result=str(result))
 
 
 if __name__ == '__main__':

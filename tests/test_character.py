@@ -213,3 +213,20 @@ def test_load_character_from_db(mock_db):
     character = Character()
     character.load_character_from_db(1)
     assert character.name == test_name
+
+
+def test_roll_check(_mock_dice):
+    """Test the roll_check method"""
+    # _mock_dice is a fixture that returns 14
+    character = Character()
+    character.stats["Dexterity"] = 14  # Modifier 2
+    assert character.find_modifier_stat("Dexterity") == 2
+    assert character.roll_check("stat", "Dexterity") == 16  # 14 + 2
+
+    character.all_skills["Acrobatics"] = 5
+    assert character.roll_check("skill", "Acrobatics") == 19  # 14 + 5
+
+    character.saving_throws["Dexterity"] = 3
+    assert character.roll_check("save", "Dexterity") == 17  # 14 + 3
+
+    assert character.roll_check("death") == 14  # 14 + 0

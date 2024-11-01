@@ -63,9 +63,8 @@ A fun little project to experiment with different technologies to learn web deve
 - Improve style of pages
   - Dice with icons
   - Table page
+  - Roll Check
 - Features
-  - In Sheet
-    - Roll button based on selected stat / save / skill
   - New Page
     - Generate character based on input stats
 - Bugs
