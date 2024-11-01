@@ -165,15 +165,45 @@ def test_load_create_character(mock_character, mock_character_class, mock_race, 
     mock_character_class.get_all_classes.return_value = ["Barbarian", "Wizard"]
 
     page_loader = PageLoader()
-    args = {"name": "Hero", "race": "Elf", "character_class": "Wizard", "submit": "submit"}
 
+    # Test with submit and roll
+    args = {"name": "Hero",
+            "race": "Elf",
+            "character_class": "Wizard",
+            "submit": "submit",
+            "create_type": "roll"}
     result = page_loader.load_create_character(args)
-
     mock_render_template.assert_any_call('create.html', subtitle="Character Generator", race_list=["Human", "Elf"], class_list=["Barbarian", "Wizard"])
+    mock_character.return_value.new_character.assert_called_with("Hero", "Elf", "Wizard", None)
+    assert result == "<html>Mocked HTML</html>"
+
+    # Test with submit and manual
+    args = {"name": "Hero",
+            "race": "Elf",
+            "character_class": "Wizard",
+            "submit": "submit",
+            "create_type": "manual",
+            "Strength": "10",
+            "Dexterity": "10",
+            "Constitution": "10",
+            "Intelligence": "10",
+            "Wisdom": "10",
+            "Charisma": "10"}
+    manual_stats = {"Constitution": 10,
+                    "Dexterity": 10,
+                    "Strength": 10,
+                    "Wisdom": 10,
+                    "Intelligence": 10,
+                    "Charisma": 10}
+    result = page_loader.load_create_character(args)
+    mock_render_template.assert_any_call('create.html', subtitle="Character Generator", race_list=["Human", "Elf"], class_list=["Barbarian", "Wizard"])
+    mock_character.return_value.new_character.assert_called_with("Hero", "Elf", "Wizard", manual_stats)
     assert result == "<html>Mocked HTML</html>"
 
     # Test without submit
-    args = {"name": "Hero", "race": "Elf", "character_class": "Wizard"}
+    args = {"name": "Hero",
+            "race": "Elf",
+            "character_class": "Wizard"}
     result = page_loader.load_create_character(args)
     mock_render_template.assert_any_call('left_only_body.html', left_content="<html>Mocked HTML</html>")
     assert result == "<html>Mocked HTML</html>"

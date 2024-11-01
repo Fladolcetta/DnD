@@ -1,7 +1,12 @@
 <form>
   <p>
     <label for="create_type">Creation Type:</label><br />
-    <select type="text" id="create_type" onchange="check_type_selection(this)">
+    <select
+      type="text"
+      id="create_type"
+      name="create_type"
+      onchange="check_type_selection(this)"
+    >
       <option value="roll">Roll Stats</option>
       <option value="manual">Manual Selection</option>
     </select>
@@ -29,27 +34,27 @@
   <div id="stats" hidden>
     <p>
       <label for="modifier">Strength:</label><br />
-      <input type="number" name="Strength" value="{{Strength}}" />
+      <input type="number" name="Strength" value="10" />
     </p>
     <p>
       <label for="modifier">Dexterity:</label><br />
-      <input type="number" name="Dexterity" value="{{Dexterity}}" />
+      <input type="number" name="Dexterity" value="10" />
     </p>
     <p>
       <label for="modifier">Constitution:</label><br />
-      <input type="number" name="Constitution" value="{{Constitution}}" />
+      <input type="number" name="Constitution" value="10" />
     </p>
     <p>
       <label for="modifier">Wisdom:</label><br />
-      <input type="number" name="Wisdom" value="{{Wisdom}}" />
+      <input type="number" name="Wisdom" value="10" />
     </p>
     <p>
       <label for="modifier">Intelligence:</label><br />
-      <input type="number" name="Intelligence" value="{{Intelligence}}" />
+      <input type="number" name="Intelligence" value="10" />
     </p>
     <p>
       <label for="modifier">Charisma:</label><br />
-      <input type="number" name="Charisma" value="{{Charisma}}" />
+      <input type="number" name="Charisma" value="10" />
     </p>
   </div>
   <p>

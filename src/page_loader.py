@@ -134,9 +134,21 @@ class PageLoader:
             if "submit" in args.get("submit"):
                 name = str(args.get("name"))
                 race = str(args.get("race"))
+                create_type = str(args.get("create_type"))
                 character_class = str(args.get("character_class"))
                 new_char = Character()
-                new_char.new_character(name, race, character_class)
+                if create_type == "roll":
+                    stats = None
+                else:
+                    stats = {
+                        "Constitution": int(args.get("Constitution")),
+                        "Dexterity": int(args.get("Dexterity")),
+                        "Strength": int(args.get("Strength")),
+                        "Wisdom": int(args.get("Wisdom")),
+                        "Intelligence": int(args.get("Intelligence")),
+                        "Charisma": int(args.get("Charisma"))
+                    }
+                new_char.new_character(name, race, character_class, stats)
                 new_char.store_character_in_db()
 
                 return self.display_char(new_char)
