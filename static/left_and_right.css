@@ -1,17 +1,17 @@
 /* For left_right_split_body.html */
-.left{
-    width: 50%;
-    float: left;
-    padding-right: 10px;
+.left {
+  width: 50%;
+  float: left;
+  padding-right: 10px;
 }
-.right{
-    width: 50%;
-    float: right;
-    padding-left: 10px;
-    border: 2px solid black;
-    border-top-style: none;
-    border-right-style: none;
-    border-bottom-style: none;
-    border-left-style: solid ;
-    overflow-y: auto;
+.right {
+  width: 50%;
+  float: right;
+  padding-left: 10px;
+  border: 2px solid black;
+  border-top-style: none;
+  border-right-style: none;
+  border-bottom-style: none;
+  border-left-style: solid;
+  overflow-y: auto;
 }

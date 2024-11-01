@@ -11,6 +11,9 @@ setup:
 	brew install hadolint
 	brew install minikube
 	brew install kube-linter
+	brew install eslint
+	brew install pydoc-markdown
+	brew install prettier
 	docker image pull mysql:9.1.0
 	sudo chmod -R g+rw "$HOME/.docker"
 	brew services start mysql
@@ -51,18 +54,22 @@ dockerup:	build
 dockerdown:
 	sudo docker compose down
 
-test:
-	pylint ./src ./main.py ./tests --rcfile ./.pylintrc
-	djlint ./templates
-	flake8 --ignore E501
-	write-good README.md
+test: docs lint
 	pytest --cov=src tests
-	hadolint Dockerfile
-	docker compose config --quiet
-	kube-linter lint ./kubernetes
 
 coverage:
 	pytest --cov=src tests --cov-report=html
 
 docs:
 	pydoc-markdown -I src --render-toc > ./docs/code.md
+
+lint:
+	prettier ./ -w
+	docker compose config --quiet
+	kube-linter lint ./kubernetes
+	pylint ./src ./main.py ./tests --rcfile ./.pylintrc
+	djlint ./templates
+	flake8 --ignore E501
+	write-good README.md
+	eslint --no-config-lookup static
+	hadolint Dockerfile
