@@ -138,7 +138,7 @@ class PageLoader:
             pass
         return self.load_left_only_page(left_content, "Character Generator")
 
-    def load_old_character(self, args: dict) -> str:
+    def load_old_character(self, args: dict) -> Character:
         """ Load the sheet page. """
         char_id = int(args.get("char_id") or 1)
         char = Character()
