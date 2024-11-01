@@ -1,0 +1,59 @@
+<form>
+  <p>
+    <label for="create_type">Creation Type:</label><br />
+    <select type="text" id="create_type" onchange="check_type_selection(this)">
+      <option value="roll">Roll Stats</option>
+      <option value="manual">Manual Selection</option>
+    </select>
+  </p>
+  <p>
+    <label for="name">Character Name:</label><br />
+    <input type="text" name="name" />
+  </p>
+  <p>
+    <label for="race">Race:</label><br />
+    <select type="text" id="race" name="race">
+      {% for item in race_list %}
+      <option value="{{ item }}">{{ item }}</option>
+      {% endfor %}
+    </select>
+  </p>
+  <p>
+    <label for="character_class">Class:</label><br />
+    <select type="text" id="character_class" name="character_class">
+      {% for item in class_list %}
+      <option value="{{ item }}">{{ item }}</option>
+      {% endfor %}
+    </select>
+  </p>
+  <div id="stats" hidden>
+    <p>
+      <label for="modifier">Strength:</label><br />
+      <input type="number" name="Strength" value="{{Strength}}" />
+    </p>
+    <p>
+      <label for="modifier">Dexterity:</label><br />
+      <input type="number" name="Dexterity" value="{{Dexterity}}" />
+    </p>
+    <p>
+      <label for="modifier">Constitution:</label><br />
+      <input type="number" name="Constitution" value="{{Constitution}}" />
+    </p>
+    <p>
+      <label for="modifier">Wisdom:</label><br />
+      <input type="number" name="Wisdom" value="{{Wisdom}}" />
+    </p>
+    <p>
+      <label for="modifier">Intelligence:</label><br />
+      <input type="number" name="Intelligence" value="{{Intelligence}}" />
+    </p>
+    <p>
+      <label for="modifier">Charisma:</label><br />
+      <input type="number" name="Charisma" value="{{Charisma}}" />
+    </p>
+  </div>
+  <p>
+    <label for="submit">Create Character:</label><br />
+    <input type="submit" name="submit" value="submit" />
+  </p>
+</form>

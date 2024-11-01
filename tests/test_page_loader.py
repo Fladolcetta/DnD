@@ -169,7 +169,7 @@ def test_load_create_character(mock_character, mock_character_class, mock_race, 
 
     result = page_loader.load_create_character(args)
 
-    mock_render_template.assert_any_call('character.html', subtitle="Character Generator", race_list=["Human", "Elf"], class_list=["Barbarian", "Wizard"])
+    mock_render_template.assert_any_call('create.html', subtitle="Character Generator", race_list=["Human", "Elf"], class_list=["Barbarian", "Wizard"])
     assert result == "<html>Mocked HTML</html>"
 
     # Test without submit

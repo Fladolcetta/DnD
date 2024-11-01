@@ -25,15 +25,21 @@ class PageLoader:
                                content=content,
                                other_styles=other_styles)
 
-    def load_left_only_page(self, left_content: str = "", subtitle: str = "") -> str:
+    def load_left_only_page(self, left_content: str = "", subtitle: str = "", styles: list = None, scripts: list = None) -> str:
         """ Load the page. """
-        other_styles = self.build_styles_string(['container', 'inputs'])
+        if styles is None:
+            styles = []
+        if scripts is None:
+            scripts = []
+        other_styles = self.build_styles_string(['container', 'inputs'] + styles)
+        other_scripts = self.build_script_string(scripts)
         content = render_template('left_only_body.html',
                                   left_content=left_content)
         return render_template('base.html',
                                subtitle=subtitle,
                                content=content,
-                               other_styles=other_styles)
+                               other_styles=other_styles,
+                               other_scripts=other_scripts)
 
     def display_char(self, char: Character) -> str:
         """ Display the character sheet. """
@@ -120,7 +126,7 @@ class PageLoader:
         """ Load the sheet page. """
         race_list = Race.get_all_races()
         class_list = CharacterClass.get_all_classes()
-        left_content = render_template('character.html',
+        left_content = render_template('create.html',
                                        subtitle="Character Generator",
                                        race_list=race_list,
                                        class_list=class_list)
@@ -136,7 +142,7 @@ class PageLoader:
                 return self.display_char(new_char)
         except TypeError:
             pass
-        return self.load_left_only_page(left_content, "Character Generator")
+        return self.load_left_only_page(left_content, "Character Generator", scripts=['create'])
 
     def load_old_character(self, char_id: int) -> Character:
         """ Load the sheet page. """

@@ -731,7 +731,10 @@ Load the page.
 #### load\_left\_only\_page
 
 ```python
-def load_left_only_page(left_content: str = "", subtitle: str = "") -> str
+def load_left_only_page(left_content: str = "",
+                        subtitle: str = "",
+                        styles: list = None,
+                        scripts: list = None) -> str
 ```
 
 Load the page.
