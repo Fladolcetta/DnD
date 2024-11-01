@@ -165,6 +165,7 @@ class Character:
         race = char_dict["race"]
         stats = char_dict["stats"]
         self.new_character(name, race, dnd_class, stats)
+        self.char_id = char_id
 
     def roll_check(self, check_type: str, check="") -> int:
         """ Roll a check based on type. """
