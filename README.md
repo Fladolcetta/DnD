@@ -18,39 +18,34 @@ A fun little project to experiment with different technologies to learn web deve
  - Race Details
  - Class Details
 
-## Demonstrated Tech
-- Python
-- Flask
-- HTML Templates
-- Linters
-- Pytest
-- Github Actions
-- Docker
-- Kubernetes
-- Pytest
-- Code Coverage
-- mySQL
-
 ## Code Documentation
 [Generated Documentation](./docs/code.md)
 
 ## Dependencies
-- python: Base backend programming language
-- Flask: Python  micro web framework
-- gunicorn: Python Web Server Gateway Interface HTTP server
-- Docker: Containerization Technology
-- Docker Desktop: Containerization Visualization
-- pytest: Unit Testing tool
-- pytest-cov: Code Coverage Tool
-- pydoc-markdown: Document generation
-- pylint: Python linting
-- djlint: HTML Template linting
-- Flake8: Python Style linting
-- write-good: Markdown linting
-- mysql: Database
-- hadolint: Dockerfile linting
-- minikube: Local instance of Kubernetes
-- kube-linter: Kubernetes yaml file linting
+- Languages
+  - python: Backend
+  - html: Templates
+  - CSS: Style formatting
+  - Javascript: Browser interactions
+- Development Tools
+  - Docker: Containerization Technology
+  - Docker Desktop: Containerization Visualization
+  - pydoc-markdown: Document generation
+  - minikube: Local instance of Kubernetes
+  - mysql: Database Storage of character info
+  - Github Actions: For testing in PRs
+- Python Plugins
+  - Flask: Python  micro web framework
+  - gunicorn: Python Web Server Gateway Interface HTTP server
+  - pytest: Unit Testing tool
+  - pytest-cov: Code Coverage Tool
+- Linting
+  - pylint: Python linting
+  - djlint: HTML Template linting
+  - Flake8: Python Style linting
+  - write-good: Markdown linting
+  - hadolint: Dockerfile linting
+  - kube-linter: Kubernetes yaml file linting
 
 ## Acknowledgements
 - Gary Gygax
