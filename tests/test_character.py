@@ -8,7 +8,7 @@ from src.character import Character
 
 
 @pytest.fixture(name="_mock_dice")
-def fixture_mock_dice():
+def fixture_mock_dice() -> None:
     """Mock the Dice class."""
     with patch("src.character.Dice") as mock_dice_object:
         instance = mock_dice_object.return_value
@@ -18,7 +18,7 @@ def fixture_mock_dice():
 
 
 @pytest.fixture(name="_mock_race")
-def fixture_mock_race():
+def fixture_mock_race() -> None:
     """Mock the race class."""
     with patch("src.character.Race") as mock_race_object:
         instance = mock_race_object.return_value
@@ -30,7 +30,7 @@ def fixture_mock_race():
 
 
 @pytest.fixture(name="_mock_character_class")
-def fixture_mock_character_class():
+def fixture_mock_character_class() -> None:
     """Mock the CharacterClass class."""
     with patch("src.character.CharacterClass") as mock_character_class_object:
         instance = mock_character_class_object.return_value
@@ -51,9 +51,10 @@ def test_character_initialization() -> None:
     assert character.level == 1
     assert character.ac == 10
 
-@pytest.fixture(name="_mock_character_class")
+
+@pytest.mark.usefixtures("_mock_race", "_mock_character_class")
 @patch("src.character.Dice")
-def test_new_character(mock_dice, _mock_race, _mock_character_class) -> None:
+def test_new_character(mock_dice) -> None:
     """Test the new_character method."""
     # _mock_race, and _mock_character_class are fixtures
     mock_dice.return_value = MagicMock()
@@ -92,7 +93,8 @@ def test_store_character_in_db(mock_db) -> None:
     assert character.char_id == 42
 
 
-def test_find_modifier_stat(_mock_dice, _mock_race, _mock_character_class) -> None:
+@pytest.mark.usefixtures("_mock_dice", "_mock_race", "_mock_character_class")
+def test_find_modifier_stat() -> None:
     """Test the find_modifier_stat method."""
     # _mock_dice, _mock_race, and _mock_character_class are fixtures
     character = Character()
@@ -108,7 +110,8 @@ def test_find_modifier_value() -> None:
     assert Character.find_modifier_value(8) == -1
 
 
-def test_update_race_details(_mock_race) -> None:
+@pytest.mark.usefixtures("_mock_race")
+def test_update_race_details() -> None:
     """Test the update_race_details method."""
     # _mock_race is a fixture
     character = Character()
@@ -121,7 +124,8 @@ def test_update_race_details(_mock_race) -> None:
     assert character.stats["Intelligence"] == 1
 
 
-def test_update_class_details(_mock_character_class) -> None:
+@pytest.mark.usefixtures("_mock_character_class")
+def test_update_class_details() -> None:
     """Test the update_class_details method."""
     # _mock_character_class is a fixture
     character = Character()
@@ -132,7 +136,8 @@ def test_update_class_details(_mock_character_class) -> None:
     assert character.save_proficiencies == ["Dexterity"]
 
 
-def test_update_skills(_mock_character_class) -> None:
+@pytest.mark.usefixtures("_mock_character_class")
+def test_update_skills() -> None:
     """Test the update_skills method."""
     # _mock_character_class is a fixture
     character = Character()
@@ -163,7 +168,8 @@ def test_update_initiative() -> None:
     assert character.initiative == 2
 
 
-def test_update_hp(_mock_dice) -> None:
+@pytest.mark.usefixtures("_mock_dice")
+def test_update_hp() -> None:
     """Test the update_hp method."""
     # _mock_dice is a fixture
     character = Character()
@@ -225,7 +231,8 @@ def test_load_character_from_db(mock_db) -> None:
     assert character.name == test_name
 
 
-def test_roll_check(_mock_dice) -> None:
+@pytest.mark.usefixtures("_mock_dice")
+def test_roll_check() -> None:
     """Test the roll_check method."""
     # _mock_dice is a fixture that returns 14
     character = Character()

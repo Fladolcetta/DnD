@@ -17,7 +17,7 @@ def test_db_initialization(mock_connect) -> None:
     db = DB()
     assert db.host == "dnd-db"
     assert db.user == "user"
-    assert db.password == "password"
+    assert db.password == "password"  # noqa: S105
     assert db.db is not None
 
 
