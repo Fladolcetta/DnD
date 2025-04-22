@@ -1,17 +1,19 @@
-""" A module for generating a character sheet key_pairs. """
+"""A module for generating a character sheet key_pairs."""
+
 from src.character import Character
 from src.text_printer import TextPrinter
 
 
 class SheetGenerator:
-    """ A class to generate a character sheet. """
+    """A class to generate a character sheet."""
+
     def __init__(self, character: Character) -> None:
-        """ Initialize the SheetGenerator. """
+        """Initialize the SheetGenerator."""
         self.character = character
         self.key_pairs = {}
 
     def generate_key_pairs(self) -> dict:
-        """ Generate all key pairs for the character sheet. """
+        """Generate all key pairs for the character sheet."""
         self.key_pairs = self.generate_basic_key_pairs()
         self.key_pairs.update(self.generate_stat_key_pairs())
         self.key_pairs.update(self.generate_saving_throw_key_pairs())
@@ -21,7 +23,7 @@ class SheetGenerator:
         return self.key_pairs
 
     def generate_basic_key_pairs(self) -> dict:
-        """ Generate basic key pairs for the character sheet. """
+        """Generate basic key pairs for the character sheet."""
         return {
             "charname": self.character.name,
             "race": self.character.race,
@@ -37,11 +39,11 @@ class SheetGenerator:
             "totalhd": self.character.hit_die,
             "remaininghd": self.character.hit_die.split("d")[0],
             "otherprofs": self.list_to_textarea_string(self.character.languages),
-            "features": self.list_to_textarea_string(self.character.traits)
+            "features": self.list_to_textarea_string(self.character.traits),
         }
 
     def generate_stat_key_pairs(self) -> dict:
-        """ Generate stat key pairs for the character sheet. """
+        """Generate stat key pairs for the character sheet."""
         return {
             "Strengthscore": self.character.stats["Strength"],
             "Dexterityscore": self.character.stats["Dexterity"],
@@ -54,22 +56,22 @@ class SheetGenerator:
             "Constitutionmod": self.get_stat_modifier("Constitution"),
             "Wisdommod": self.get_stat_modifier("Wisdom"),
             "Intelligencemod": self.get_stat_modifier("Intelligence"),
-            "Charismamod": self.get_stat_modifier("Charisma")
+            "Charismamod": self.get_stat_modifier("Charisma"),
         }
 
     def generate_saving_throw_key_pairs(self) -> dict:
-        """ Generate saving throw key pairs for the character sheet. """
+        """Generate saving throw key pairs for the character sheet."""
         return {
             "Strengthsave": self.get_saving_throw_modifier("Strength"),
             "Dexteritysave": self.get_saving_throw_modifier("Dexterity"),
             "Constitutionsave": self.get_saving_throw_modifier("Constitution"),
             "Wisdomsave": self.get_saving_throw_modifier("Wisdom"),
             "Intelligencesave": self.get_saving_throw_modifier("Intelligence"),
-            "Charismasave": self.get_saving_throw_modifier("Charisma")
+            "Charismasave": self.get_saving_throw_modifier("Charisma"),
         }
 
     def generate_skill_key_pairs(self) -> dict:
-        """ Generate skill key pairs for the character sheet. """
+        """Generate skill key pairs for the character sheet."""
         return {
             "Acrobatics": self.get_skill_modifier("Acrobatics"),
             "AnimalHandling": self.get_skill_modifier("Animal Handling"),
@@ -88,11 +90,11 @@ class SheetGenerator:
             "Religion": self.get_skill_modifier("Religion"),
             "SleightofHand": self.get_skill_modifier("Sleight of Hand"),
             "Stealth": self.get_skill_modifier("Stealth"),
-            "Survival": self.get_skill_modifier("Survival")
+            "Survival": self.get_skill_modifier("Survival"),
         }
 
     def generate_skill_prof_key_pairs(self) -> dict:
-        """ Generate key pairs for the character sheet. """
+        """Generate key pairs for the character sheet."""
         return {
             "Acrobaticsprof": self.check_skill_proficiency("Acrobatics"),
             "AnimalHandlingprof": self.check_skill_proficiency("Animal Handling"),
@@ -111,46 +113,46 @@ class SheetGenerator:
             "Religionprof": self.check_skill_proficiency("Religion"),
             "SleightofHandprof": self.check_skill_proficiency("Sleight of Hand"),
             "Stealthprof": self.check_skill_proficiency("Stealth"),
-            "Survivalprof": self.check_skill_proficiency("Survival")
+            "Survivalprof": self.check_skill_proficiency("Survival"),
         }
 
     def generate_saving_throw_prof_key_pairs(self) -> dict:
-        """ Generate key pairs for the character sheet. """
+        """Generate key pairs for the character sheet."""
         return {
             "Strengthsaveprof": self.check_save_proficiency("Strength"),
             "Dexteritysaveprof": self.check_save_proficiency("Dexterity"),
             "Constitutionsaveprof": self.check_save_proficiency("Constitution"),
             "Wisdomsaveprof": self.check_save_proficiency("Wisdom"),
             "Intelligencesaveprof": self.check_save_proficiency("Intelligence"),
-            "Charismasaveprof": self.check_save_proficiency("Charisma")
+            "Charismasaveprof": self.check_save_proficiency("Charisma"),
         }
 
     def get_stat_modifier(self, stat: str) -> int:
-        """ Get the modifier of the stat. """
+        """Get the modifier of the stat."""
         return TextPrinter().print_modifiers(self.character.find_modifier_stat(stat))
 
     def get_skill_modifier(self, skill: str) -> int:
-        """ Get the modifier of the skill. """
+        """Get the modifier of the skill."""
         return TextPrinter().print_modifiers(self.character.all_skills[skill])
 
     def get_saving_throw_modifier(self, save: str) -> int:
-        """ Get the modifier of the saving throw. """
+        """Get the modifier of the saving throw."""
         return TextPrinter().print_modifiers(self.character.saving_throws[save])
 
     def check_skill_proficiency(self, skill: str) -> bool:
-        """ Check if the character is proficient in the skill. """
+        """Check if the character is proficient in the skill."""
         if skill in self.character.skill_proficiencies:
             return "checked"
         return ""
 
     def check_save_proficiency(self, save: str) -> bool:
-        """ Check if the character is proficient in the save. """
+        """Check if the character is proficient in the save."""
         if save in self.character.save_proficiencies:
             return "checked"
         return ""
 
     def list_to_textarea_string(self, data: list) -> str:
-        """ Convert a list to a string. """
+        """Convert a list to a string."""
         if not data:
             return ""
         return "- " + "\n- ".join(data)

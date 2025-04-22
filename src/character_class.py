@@ -1,8 +1,9 @@
-""" A module to represent a class in Dungeons and Dragons. """
+"""A module to represent a class in Dungeons and Dragons."""
 
 
 class CharacterClass:
-    """ A class to represent a class in Dungeons and Dragons. """
+    """A class to represent a class in Dungeons and Dragons."""
+
     def __init__(self, name: str) -> None:
         self.name = name
         self.hit_die = self.get_hit_die()
@@ -11,7 +12,7 @@ class CharacterClass:
         self.skill_proficiencies = self.get_skill_proficiencies()
 
     def get_hit_die(self) -> dict:
-        """ Get the hit die of the class. """
+        """Get the hit die of the class."""
         hit_die = {
             "Barbarian": 12,
             "Bard": 8,
@@ -24,12 +25,12 @@ class CharacterClass:
             "Rogue": 8,
             "Sorcerer": 6,
             "Warlock": 8,
-            "Wizard": 6
+            "Wizard": 6,
         }
         return hit_die[self.name]
 
     def get_primary_stat(self) -> list:
-        """ Get the primary stat of the class. """
+        """Get the primary stat of the class."""
         primary_stat = {
             "Barbarian": ["Strength"],
             "Bard": ["Charisma"],
@@ -42,12 +43,12 @@ class CharacterClass:
             "Rogue": ["Dexterity"],
             "Sorcerer": ["Charisma"],
             "Warlock": ["Charisma"],
-            "Wizard": ["Intelligence"]
+            "Wizard": ["Intelligence"],
         }
         return primary_stat[self.name]
 
     def get_worst_stat(self) -> dict:
-        """ Get the worst stat of the class. """
+        """Get the worst stat of the class."""
         worst_stat = {
             "Barbarian": ["Intelligence"],
             "Bard": ["Strength"],
@@ -60,13 +61,13 @@ class CharacterClass:
             "Rogue": ["Strength"],
             "Sorcerer": ["Strength"],
             "Warlock": ["Strength"],
-            "Wizard": ["Strength"]
+            "Wizard": ["Strength"],
         }
 
         return worst_stat[self.name]
 
     def get_saving_throw_proficiencies(self) -> dict:
-        """ Get the saving throws of the class. """
+        """Get the saving throws of the class."""
         saving_throws = {
             "Barbarian": ["Strength", "Constitution"],
             "Bard": ["Dexterity", "Charisma"],
@@ -79,31 +80,113 @@ class CharacterClass:
             "Rogue": ["Dexterity", "Intelligence"],
             "Sorcerer": ["Constitution", "Charisma"],
             "Warlock": ["Wisdom", "Charisma"],
-            "Wizard": ["Intelligence", "Wisdom"]
+            "Wizard": ["Intelligence", "Wisdom"],
         }
         return saving_throws[self.name]
 
     def get_skill_proficiencies(self) -> dict:
-        """ Get the skills of the class. """
+        """Get the skills of the class."""
         skills = {
-            "Barbarian": ["Animal Handling", "Athletics", "Intimidation", "Nature", "Perception", "Survival"],
+            "Barbarian": [
+                "Animal Handling",
+                "Athletics",
+                "Intimidation",
+                "Nature",
+                "Perception",
+                "Survival",
+            ],
             "Bard": ["Acrobatics", "Performance", "Persuasion"],
             "Cleric": ["History", "Insight", "Medicine", "Persuasion", "Religion"],
-            "Druid": ["Arcana", "Animal Handling", "Insight", "Medicine", "Nature", "Perception", "Religion", "Survival"],
-            "Fighter": ["Acrobatics", "Animal Handling", "Athletics", "History", "Insight", "Intimidation", "Perception", "Survival"],
-            "Monk": ["Acrobatics", "Athletics", "History", "Insight", "Religion", "Stealth"],
-            "Paladin": ["Athletics", "Insight", "Intimidation", "Medicine", "Persuasion", "Religion"],
-            "Ranger": ["Animal Handling", "Athletics", "Insight", "Investigation", "Nature", "Perception", "Stealth", "Survival"],
-            "Rogue": ["Acrobatics", "Athletics", "Deception", "Insight", "Intimidation", "Investigation", "Perception", "Performance", "Persuasion", "Sleight of Hand", "Stealth"],
-            "Sorcerer": ["Arcana", "Deception", "Insight", "Intimidation", "Persuasion", "Religion"],
-            "Warlock": ["Arcana", "Deception", "History", "Intimidation", "Investigation", "Nature", "Religion"],
-            "Wizard": ["Arcana", "History", "Insight", "Investigation", "Medicine", "Religion"]
+            "Druid": [
+                "Arcana",
+                "Animal Handling",
+                "Insight",
+                "Medicine",
+                "Nature",
+                "Perception",
+                "Religion",
+                "Survival",
+            ],
+            "Fighter": [
+                "Acrobatics",
+                "Animal Handling",
+                "Athletics",
+                "History",
+                "Insight",
+                "Intimidation",
+                "Perception",
+                "Survival",
+            ],
+            "Monk": [
+                "Acrobatics",
+                "Athletics",
+                "History",
+                "Insight",
+                "Religion",
+                "Stealth",
+            ],
+            "Paladin": [
+                "Athletics",
+                "Insight",
+                "Intimidation",
+                "Medicine",
+                "Persuasion",
+                "Religion",
+            ],
+            "Ranger": [
+                "Animal Handling",
+                "Athletics",
+                "Insight",
+                "Investigation",
+                "Nature",
+                "Perception",
+                "Stealth",
+                "Survival",
+            ],
+            "Rogue": [
+                "Acrobatics",
+                "Athletics",
+                "Deception",
+                "Insight",
+                "Intimidation",
+                "Investigation",
+                "Perception",
+                "Performance",
+                "Persuasion",
+                "Sleight of Hand",
+                "Stealth",
+            ],
+            "Sorcerer": [
+                "Arcana",
+                "Deception",
+                "Insight",
+                "Intimidation",
+                "Persuasion",
+                "Religion",
+            ],
+            "Warlock": [
+                "Arcana",
+                "Deception",
+                "History",
+                "Intimidation",
+                "Investigation",
+                "Nature",
+                "Religion",
+            ],
+            "Wizard": [
+                "Arcana",
+                "History",
+                "Insight",
+                "Investigation",
+                "Medicine",
+                "Religion",
+            ],
         }
         return skills[self.name]
 
     @staticmethod
     def get_all_classes() -> list:
-        """ Get all classes. """
+        """Get all classes."""
         return [
             "Barbarian",
             "Bard",
@@ -116,5 +199,5 @@ class CharacterClass:
             "Rogue",
             "Sorcerer",
             "Warlock",
-            "Wizard"
+            "Wizard",
         ]

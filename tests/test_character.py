@@ -1,4 +1,5 @@
 """Test the Character class"""
+
 from unittest.mock import patch, MagicMock
 import pytest
 from src.character import Character
@@ -6,8 +7,8 @@ from src.character import Character
 
 @pytest.fixture(name="_mock_dice")
 def fixture_mock_dice():
-    """ Mock the Dice class """
-    with patch('src.character.Dice') as mock_dice_object:
+    """Mock the Dice class"""
+    with patch("src.character.Dice") as mock_dice_object:
         instance = mock_dice_object.return_value
         instance.total = 14
         instance.rolls = [3, 3, 4, 4]
@@ -16,8 +17,8 @@ def fixture_mock_dice():
 
 @pytest.fixture(name="_mock_race")
 def fixture_mock_race():
-    """ Mock the race class """
-    with patch('src.character.Race') as mock_race_object:
+    """Mock the race class"""
+    with patch("src.character.Race") as mock_race_object:
         instance = mock_race_object.return_value
         instance.speed = 30
         instance.languages = ["Common", "Elvish"]
@@ -29,7 +30,7 @@ def fixture_mock_race():
 @pytest.fixture(name="_mock_character_class")
 def fixture_mock_character_class():
     """Mock the CharacterClass class"""
-    with patch('src.character.CharacterClass') as mock_character_class_object:
+    with patch("src.character.CharacterClass") as mock_character_class_object:
         instance = mock_character_class_object.return_value
         instance.get_primary_stat.return_value = ["Dexterity"]
         instance.get_worst_stat.return_value = ["Strength"]
@@ -49,7 +50,7 @@ def test_character_initialization():
     assert character.ac == 10
 
 
-@patch('src.character.Dice')
+@patch("src.character.Dice")
 def test_new_character(mock_dice, _mock_race, _mock_character_class):
     """Test the new_character method"""
     # _mock_race, and _mock_character_class are fixtures
@@ -65,16 +66,20 @@ def test_new_character(mock_dice, _mock_race, _mock_character_class):
     assert character.ac == 13  # 10 + Dexterity modifier (3)
     assert character.initiative == 3  # Dexterity modifier
     assert character.hp == 14  # Mocked Dice total
-    assert character.passive_perception == 12  # 10 + Wisdom modifier (0) + proficiency bonus (2)
+    assert (
+        character.passive_perception == 12
+    )  # 10 + Wisdom modifier (0) + proficiency bonus (2)
     assert character.speed == 30
     assert character.languages == ["Common", "Elvish"]
     assert character.traits == ["Darkvision", "Keen Senses"]
     assert character.stats["Dexterity"] == 16  # Base 14 + Race bonus 2
     assert character.stats["Strength"] == 8  # Base 8
-    assert character.all_skills["Acrobatics"] == 5  # Dexterity modifier (3) + proficiency bonus (2)
+    assert (
+        character.all_skills["Acrobatics"] == 5
+    )  # Dexterity modifier (3) + proficiency bonus (2)
 
 
-@patch('src.character.DB')
+@patch("src.character.DB")
 def test_store_character_in_db(mock_db):
     """Test the store_character_in_db method"""
     mock_db.return_value = MagicMock()
@@ -173,7 +178,7 @@ def test_update_passive_perception():
     assert character.passive_perception == 12
 
 
-@patch('src.character.Dice')
+@patch("src.character.Dice")
 def test_roll_stats(mock_dice):
     """Test the roll_stats method"""
     mock_dice.return_value = MagicMock()
@@ -193,23 +198,26 @@ def test_update_skill_for_stat():
     assert character.all_skills["Acrobatics"] == 2
 
 
-@patch('src.character.DB')
+@patch("src.character.DB")
 def test_load_character_from_db(mock_db):
     """Test the load_character_from_db method"""
     test_name = "Test Character"
     test_id = 1
     mock_db.return_value = MagicMock()
-    mock_db.return_value.load_character.return_value = {"id": test_id,
-                                                        "name": test_name,
-                                                        "dnd_class": "Wizard",
-                                                        "race": "Human",
-                                                        "stats": {
-                                                            "Dexterity": 11,
-                                                            "Strength": 12,
-                                                            "Constitution": 13,
-                                                            "Intelligence": 14,
-                                                            "Wisdom": 15,
-                                                            "Charisma": 16}}
+    mock_db.return_value.load_character.return_value = {
+        "id": test_id,
+        "name": test_name,
+        "dnd_class": "Wizard",
+        "race": "Human",
+        "stats": {
+            "Dexterity": 11,
+            "Strength": 12,
+            "Constitution": 13,
+            "Intelligence": 14,
+            "Wisdom": 15,
+            "Charisma": 16,
+        },
+    }
     character = Character()
     character.load_character_from_db(1)
     assert character.name == test_name

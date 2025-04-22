@@ -1,61 +1,62 @@
-""" Main file for the Dungeons and Dragons character generator. """
+"""Main file for the Dungeons and Dragons character generator."""
+
 from flask import Flask, request, redirect, jsonify
 from src.page_loader import PageLoader
 
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route("/")
 def main() -> str:
-    """ Main function. """
-    return redirect('roll')
+    """Main function."""
+    return redirect("roll")
 
 
-@app.route('/roll')
+@app.route("/roll")
 def roll() -> str:
-    """ Roll function. """
+    """Roll function."""
     page_loader = PageLoader()
     return page_loader.load_roll(request.args.to_dict())
 
 
-@app.route('/character_sheet')
+@app.route("/character_sheet")
 def rolled_character() -> str:
-    """ Character function. """
+    """Character function."""
     page_loader = PageLoader()
     return page_loader.load_create_character(request.args.to_dict())
 
 
-@app.route('/races')
+@app.route("/races")
 def races() -> str:
-    """ List Races """
+    """List Races"""
     page_loader = PageLoader()
     return page_loader.load_races(request.args.to_dict())
 
 
-@app.route('/classes')
+@app.route("/classes")
 def classes() -> str:
-    """ List Classes """
+    """List Classes"""
     page_loader = PageLoader()
     return page_loader.load_classes(request.args.to_dict())
 
 
-@app.route('/table')
+@app.route("/table")
 def table() -> str:
-    """ Display characters function. """
+    """Display characters function."""
     page_loader = PageLoader()
     return page_loader.load_table()
 
 
-@app.route('/load_character')
+@app.route("/load_character")
 def character() -> str:
-    """ Character function. """
+    """Character function."""
     page_loader = PageLoader()
     return page_loader.load_old_character_sheet(request.args.to_dict())
 
 
-@app.route('/roll_check', methods=['POST'])
+@app.route("/roll_check", methods=["POST"])
 def roll_check() -> str:
-    """ Roll Check function. """
+    """Roll Check function."""
     data = request.get_json()
     char_id = int(data["char_id"])
     page_loader = PageLoader()
@@ -66,5 +67,5 @@ def roll_check() -> str:
     return jsonify(result=str(result))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)

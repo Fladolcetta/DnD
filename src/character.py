@@ -1,4 +1,5 @@
-""" A module to represent a character in Dungeons and Dragons. """
+"""A module to represent a character in Dungeons and Dragons."""
+
 from src.dice import Dice
 from src.race import Race
 from src.db import DB
@@ -6,7 +7,8 @@ from src.character_class import CharacterClass
 
 
 class Character:
-    """ A class to represent a character in Dungeons and Dragons. """
+    """A class to represent a character in Dungeons and Dragons."""
+
     def __init__(self) -> None:
         self.name = "Unnamed"
         self.race = "Human"
@@ -31,12 +33,12 @@ class Character:
             "Strength": 0,
             "Wisdom": 0,
             "Intelligence": 0,
-            "Charisma": 0
+            "Charisma": 0,
         }
         self.char_id = None
 
     def new_character(self, name: str, race: str, dnd_class: str, stats=None) -> None:
-        """ Create a new character. """
+        """Create a new character."""
         # Roll stats and update values
         self.name = name
         self.race = race
@@ -56,21 +58,23 @@ class Character:
         self.update_passive_perception()
 
     def store_character_in_db(self) -> None:
-        """ Create the character in the database. """
+        """Create the character in the database."""
         db = DB()
-        self.char_id = db.insert_character(self.name, self.race, self.dnd_class, self.stats)
+        self.char_id = db.insert_character(
+            self.name, self.race, self.dnd_class, self.stats
+        )
 
     def find_modifier_stat(self, stat: str) -> int:
-        """ Find the modifier for a given stat. """
+        """Find the modifier for a given stat."""
         return Character.find_modifier_value(self.stats[stat])
 
     @staticmethod
     def find_modifier_value(value: int) -> int:
-        """ Find the modifier for a given value. """
+        """Find the modifier for a given value."""
         return (value - 10) // 2
 
     def update_race_details(self) -> None:
-        """ Update the character based on the race. """
+        """Update the character based on the race."""
         race_object = Race(self.race)
         self.speed = race_object.speed
         self.languages = race_object.languages
@@ -83,7 +87,7 @@ class Character:
         self.stats = dict(sorted(self.stats.items()))
 
     def update_class_details(self) -> None:
-        """ Update the character based on the class. """
+        """Update the character based on the class."""
         class_object = CharacterClass(self.dnd_class)
         self.hit_die = str(self.level) + "d" + str(class_object.hit_die)
         self.skill_proficiencies = class_object.get_skill_proficiencies()
@@ -99,11 +103,23 @@ class Character:
             self.saving_throws[stat] = modifier
 
     def update_skills(self) -> None:
-        """ Update the skills based on the stats. """
+        """Update the skills based on the stats."""
         strength_skills = ["Athletics"]
         dexterity_skills = ["Acrobatics", "Sleight of Hand", "Stealth"]
-        intelligence_skills = ["Arcana", "History", "Investigation", "Nature", "Religion"]
-        wisdom_skills = ["Animal Handling", "Insight", "Medicine", "Perception", "Survival"]
+        intelligence_skills = [
+            "Arcana",
+            "History",
+            "Investigation",
+            "Nature",
+            "Religion",
+        ]
+        wisdom_skills = [
+            "Animal Handling",
+            "Insight",
+            "Medicine",
+            "Perception",
+            "Survival",
+        ]
         charisma_skills = ["Deception", "Intimidation", "Performance", "Persuasion"]
         self.update_skill_for_stat("Strength", strength_skills)
         self.update_skill_for_stat("Dexterity", dexterity_skills)
@@ -113,33 +129,37 @@ class Character:
         self.all_skills = dict(sorted(self.all_skills.items()))
 
     def update_ac(self) -> None:
-        """ Update the AC based on the stats. """
+        """Update the AC based on the stats."""
         self.ac = 10 + self.find_modifier_stat("Dexterity")
 
     def update_initiative(self) -> None:
-        """ Update the initiative based on the stats. """
+        """Update the initiative based on the stats."""
         self.initiative = self.find_modifier_stat("Dexterity")
 
     def update_hp(self) -> None:
-        """ Update the HP based on the stats. """
+        """Update the HP based on the stats."""
         hit_die_array = self.hit_die.split("d")
         hit_die_count = int(hit_die_array[0])
         hit_die_sides = int(hit_die_array[1])
-        die = Dice(hit_die_count, hit_die_sides, self.find_modifier_stat("Constitution"))
+        die = Dice(
+            hit_die_count, hit_die_sides, self.find_modifier_stat("Constitution")
+        )
         die.roll()
         self.hp = die.total
 
     def update_passive_perception(self) -> None:
-        """ Update the passive perception based on the stats. """
+        """Update the passive perception based on the stats."""
         base_perception = 10
         wisdom_modifier = self.find_modifier_stat("Wisdom")
         perception_proficiency = 0
         if "Perception" in self.skill_proficiencies:
             perception_proficiency = self.proficiency_bonus
-        self.passive_perception = base_perception + wisdom_modifier + perception_proficiency
+        self.passive_perception = (
+            base_perception + wisdom_modifier + perception_proficiency
+        )
 
     def roll_stats(self, primary_stat: list, worst_stat: list) -> None:
-        """ Roll the stats for the character. """
+        """Roll the stats for the character."""
         die = Dice(4, 6, 0)
         stat_array = die.roll_stats()
         stat_array.sort(reverse=True)
@@ -152,12 +172,12 @@ class Character:
                 self.stats[key] = stat_array.pop(0)
 
     def update_skill_for_stat(self, stat: str, skill_list: list) -> None:
-        """ Update the skill based on the stat. """
+        """Update the skill based on the stat."""
         for skill in skill_list:
             self.all_skills[skill] = self.find_modifier_stat(stat)
 
     def load_character_from_db(self, char_id: int) -> None:
-        """ Load the character from the database. """
+        """Load the character from the database."""
         db = DB()
         char_dict = db.load_character(char_id)
         name = char_dict["name"]
@@ -168,7 +188,7 @@ class Character:
         self.char_id = char_id
 
     def roll_check(self, check_type: str, check="") -> int:
-        """ Roll a check based on type. """
+        """Roll a check based on type."""
         modifier = 0
         if check_type == "stat":
             modifier = self.find_modifier_stat(check)
