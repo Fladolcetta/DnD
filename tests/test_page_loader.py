@@ -311,17 +311,11 @@ def test_build_script_string():
     """Test the build_script_string method."""
     page_loader = PageLoader()
     result = page_loader.build_script_string(["sheet", "roll"])
-    assert (
-        result
-        == "        <script type='text/javascript' src='/static/sheet.js'></script>\n        <script type='text/javascript' src='/static/roll.js'></script>\n"
-    )
+    assert result == "        <script type='text/javascript' src='/static/sheet.js'></script>\n        <script type='text/javascript' src='/static/roll.js'></script>\n"
 
 
 def test_build_styles_string():
     """Test the build_styles_string method."""
     page_loader = PageLoader()
     result = page_loader.build_styles_string(["sheet", "roll"])
-    assert (
-        result
-        == "    <link rel='stylesheet' type='text/css' href='/static/sheet.css'>\n    <link rel='stylesheet' type='text/css' href='/static/roll.css'>\n"
-    )
+    assert result == "    <link rel='stylesheet' type='text/css' href='/static/sheet.css'>\n    <link rel='stylesheet' type='text/css' href='/static/roll.css'>\n"

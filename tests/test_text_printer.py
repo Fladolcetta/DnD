@@ -93,10 +93,7 @@ def test_print_dict_with_data_and_modifiers():
     printer = TextPrinter()
     test_dict = {"Skill1": 6, "Skill2": 16}
     printer.print_dict_with_data_and_modifiers(test_dict, "Skills")
-    assert (
-        printer.text_to_print
-        == "<b>Skills:</b>\n - Skill1: 6 (-2)\n - Skill2: 16 (+3)\n"
-    )
+    assert printer.text_to_print == "<b>Skills:</b>\n - Skill1: 6 (-2)\n - Skill2: 16 (+3)\n"
 
 
 def test_print_modifiers_positive():

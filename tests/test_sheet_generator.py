@@ -266,7 +266,4 @@ def test_list_to_textarea_string(_sheet_generator):
 
     test_single_item_list = ["Item 1"]
     expected_output = "- Item 1"
-    assert (
-        _sheet_generator.list_to_textarea_string(test_single_item_list)
-        == expected_output
-    )
+    assert _sheet_generator.list_to_textarea_string(test_single_item_list) == expected_output
