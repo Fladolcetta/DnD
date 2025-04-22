@@ -2,6 +2,7 @@
 
 * [text\_printer](#text_printer)
   * [TextPrinter](#text_printer.TextPrinter)
+    * [\_\_init\_\_](#text_printer.TextPrinter.__init__)
     * [update\_text\_to\_print](#text_printer.TextPrinter.update_text_to_print)
     * [split\_string](#text_printer.TextPrinter.split_string)
     * [header](#text_printer.TextPrinter.header)
@@ -21,6 +22,7 @@
     * [print\_roll](#text_printer.TextPrinter.print_roll)
 * [db](#db)
   * [DB](#db.DB)
+    * [\_\_init\_\_](#db.DB.__init__)
     * [insert\_character](#db.DB.insert_character)
     * [insert\_into\_table](#db.DB.insert_into_table)
     * [read\_from\_table](#db.DB.read_from_table)
@@ -28,6 +30,7 @@
     * [load\_character](#db.DB.load_character)
 * [character\_class](#character_class)
   * [CharacterClass](#character_class.CharacterClass)
+    * [\_\_init\_\_](#character_class.CharacterClass.__init__)
     * [get\_hit\_die](#character_class.CharacterClass.get_hit_die)
     * [get\_primary\_stat](#character_class.CharacterClass.get_primary_stat)
     * [get\_worst\_stat](#character_class.CharacterClass.get_worst_stat)
@@ -52,6 +55,7 @@
     * [list\_to\_textarea\_string](#sheet_generator.SheetGenerator.list_to_textarea_string)
 * [race](#race)
   * [Race](#race.Race)
+    * [\_\_init\_\_](#race.Race.__init__)
     * [get\_race\_bonus\_stat](#race.Race.get_race_bonus_stat)
     * [get\_race\_speed](#race.Race.get_race_speed)
     * [get\_race\_languages](#race.Race.get_race_languages)
@@ -60,11 +64,13 @@
 * [\_\_init\_\_](#__init__)
 * [dice](#dice)
   * [Dice](#dice.Dice)
+    * [\_\_init\_\_](#dice.Dice.__init__)
     * [roll](#dice.Dice.roll)
     * [roll\_stat](#dice.Dice.roll_stat)
     * [roll\_stats](#dice.Dice.roll_stats)
 * [page\_loader](#page_loader)
   * [PageLoader](#page_loader.PageLoader)
+    * [\_\_init\_\_](#page_loader.PageLoader.__init__)
     * [load\_left\_right\_page](#page_loader.PageLoader.load_left_right_page)
     * [load\_left\_only\_page](#page_loader.PageLoader.load_left_only_page)
     * [display\_char](#page_loader.PageLoader.display_char)
@@ -80,6 +86,7 @@
     * [build\_styles\_string](#page_loader.PageLoader.build_styles_string)
 * [character](#character)
   * [Character](#character.Character)
+    * [\_\_init\_\_](#character.Character.__init__)
     * [new\_character](#character.Character.new_character)
     * [store\_character\_in\_db](#character.Character.store_character_in_db)
     * [find\_modifier\_stat](#character.Character.find_modifier_stat)
@@ -111,6 +118,16 @@ class TextPrinter()
 ```
 
 A class to print text to the console.
+
+<a id="text_printer.TextPrinter.__init__"></a>
+
+#### \_\_init\_\_
+
+```python
+def __init__() -> None
+```
+
+Initialize the TextPrinter.
 
 <a id="text_printer.TextPrinter.update_text_to_print"></a>
 
@@ -187,7 +204,7 @@ Sort the dictionary.
 #### print\_data
 
 ```python
-def print_data(data: Union[list, dict], title: str) -> None
+def print_data(data: list | dict, title: str) -> None
 ```
 
 Print the dictionary.
@@ -197,7 +214,7 @@ Print the dictionary.
 #### print\_single\_value
 
 ```python
-def print_single_value(value: Union[int, str], title: str) -> None
+def print_single_value(value: int | str, title: str) -> None
 ```
 
 Print a single value.
@@ -298,6 +315,16 @@ class DB()
 
 A class to represent a database connection.
 
+<a id="db.DB.__init__"></a>
+
+#### \_\_init\_\_
+
+```python
+def __init__() -> None
+```
+
+Initialize the database connection.
+
 <a id="db.DB.insert_character"></a>
 
 #### insert\_character
@@ -336,7 +363,7 @@ Read data from the db.
 def load_character_list() -> list[list]
 ```
 
-Load the character list
+Load the character list.
 
 <a id="db.DB.load_character"></a>
 
@@ -363,6 +390,16 @@ class CharacterClass()
 ```
 
 A class to represent a class in Dungeons and Dragons.
+
+<a id="character_class.CharacterClass.__init__"></a>
+
+#### \_\_init\_\_
+
+```python
+def __init__(name: str) -> None
+```
+
+Initialize the class.
 
 <a id="character_class.CharacterClass.get_hit_die"></a>
 
@@ -597,6 +634,16 @@ class Race()
 
 A class to represent a race in Dungeons and Dragons.
 
+<a id="race.Race.__init__"></a>
+
+#### \_\_init\_\_
+
+```python
+def __init__(name: str) -> None
+```
+
+Initialize the race.
+
 <a id="race.Race.get_race_bonus_stat"></a>
 
 #### get\_race\_bonus\_stat
@@ -646,11 +693,13 @@ Get the traits of the Race.
 def get_all_races() -> list
 ```
 
-Get a list of all the Dungeons and Dragons races
+Get a list of all the Dungeons and Dragons races.
 
 <a id="__init__"></a>
 
 # \_\_init\_\_
+
+A module to initialize the application.
 
 <a id="dice"></a>
 
@@ -667,6 +716,16 @@ class Dice()
 ```
 
 A class to represent a dice roll.
+
+<a id="dice.Dice.__init__"></a>
+
+#### \_\_init\_\_
+
+```python
+def __init__(num_dice: int, num_sides: int, modifier: int) -> None
+```
+
+Initialize the dice roll.
 
 <a id="dice.Dice.roll"></a>
 
@@ -714,6 +773,16 @@ class PageLoader()
 
 A class to load html pages.
 
+<a id="page_loader.PageLoader.__init__"></a>
+
+#### \_\_init\_\_
+
+```python
+def __init__() -> None
+```
+
+Initialize the page loader.
+
 <a id="page_loader.PageLoader.load_left_right_page"></a>
 
 #### load\_left\_right\_page
@@ -733,8 +802,8 @@ Load the page.
 ```python
 def load_left_only_page(left_content: str = "",
                         subtitle: str = "",
-                        styles: list = None,
-                        scripts: list = None) -> str
+                        styles: list | None = None,
+                        scripts: list | None = None) -> str
 ```
 
 Load the page.
@@ -794,8 +863,8 @@ Load the table page.
 #### left\_right\_dance
 
 ```python
-def left_right_dance(submit: Union[None, str], left_content: str,
-                     right_content: str, subtitle: str) -> str
+def left_right_dance(submit: str | None, left_content: str, right_content: str,
+                     subtitle: str) -> str
 ```
 
 Load the left right page.
@@ -866,12 +935,25 @@ class Character()
 
 A class to represent a character in Dungeons and Dragons.
 
+<a id="character.Character.__init__"></a>
+
+#### \_\_init\_\_
+
+```python
+def __init__() -> None
+```
+
+Initialize the character.
+
 <a id="character.Character.new_character"></a>
 
 #### new\_character
 
 ```python
-def new_character(name: str, race: str, dnd_class: str, stats=None) -> None
+def new_character(name: str,
+                  race: str,
+                  dnd_class: str,
+                  stats: dict[str, int] | None = None) -> None
 ```
 
 Create a new character.
@@ -1012,7 +1094,7 @@ Load the character from the database.
 #### roll\_check
 
 ```python
-def roll_check(check_type: str, check="") -> int
+def roll_check(check_type: str, check: str = "") -> int
 ```
 
 Roll a check based on type.

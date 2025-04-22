@@ -5,6 +5,7 @@ class CharacterClass:
     """A class to represent a class in Dungeons and Dragons."""
 
     def __init__(self, name: str) -> None:
+        """Initialize the class."""
         self.name = name
         self.hit_die = self.get_hit_die()
         self.primary_stat = self.get_primary_stat()

@@ -9,6 +9,7 @@ class DB:
     """A class to represent a database connection."""
 
     def __init__(self) -> None:
+        """Initialize the database connection."""
         self.host = "dnd-db"
         self.user = os.environ["MYSQL_USER"]
         self.password = os.environ["MYSQL_PASSWORD"]

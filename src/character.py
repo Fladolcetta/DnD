@@ -1,4 +1,5 @@
 """A module to represent a character in Dungeons and Dragons."""
+from __future__ import annotations
 
 import contextlib
 
@@ -12,6 +13,7 @@ class Character:
     """A class to represent a character in Dungeons and Dragons."""
 
     def __init__(self) -> None:
+        """Initialize the character."""
         self.name = "Unnamed"
         self.race = "Human"
         self.dnd_class = "Fighter"
@@ -39,7 +41,11 @@ class Character:
         }
         self.char_id = None
 
-    def new_character(self, name: str, race: str, dnd_class: str, stats=None) -> None:
+    def new_character(self,
+                      name: str,
+                      race: str,
+                      dnd_class: str,
+                      stats: dict[str, int] | None = None) -> None:
         """Create a new character."""
         # Roll stats and update values
         self.name = name
@@ -187,7 +193,7 @@ class Character:
         self.new_character(name, race, dnd_class, stats)
         self.char_id = char_id
 
-    def roll_check(self, check_type: str, check="") -> int:
+    def roll_check(self, check_type: str, check: str = "") -> int:
         """Roll a check based on type."""
         modifier = 0
         if check_type == "stat":

@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def main() -> str:
-    """Main function."""
+    """Redirect to roll."""
     return redirect("roll")
 
 

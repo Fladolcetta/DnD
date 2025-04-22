@@ -1,6 +1,6 @@
 """A module for printing text to the console."""
 
-from typing import Union
+from __future__ import annotations
 
 from src.character import Character
 from src.character_class import CharacterClass
@@ -12,6 +12,7 @@ class TextPrinter:
     """A class to print text to the console."""
 
     def __init__(self) -> None:
+        """Initialize the TextPrinter."""
         self.text_to_print = ""
 
     def update_text_to_print(self, text: str) -> None:
@@ -38,16 +39,13 @@ class TextPrinter:
 
     def list_to_dict(self, list_object: list) -> dict:
         """Convert a list to a dictionary."""
-        dict_object = {}
-        for i, value in enumerate(list_object):
-            dict_object[i] = value
-        return dict_object
+        return dict(enumerate(list_object))
 
     def sort_dict(self, dict_object: dict) -> dict:
         """Sort the dictionary."""
         return dict(sorted(dict_object.items()))
 
-    def print_data(self, data: Union[list, dict], title: str) -> None:
+    def print_data(self, data: list | dict, title: str) -> None:
         """Print the dictionary."""
         if data:
             if isinstance(data, list):
@@ -57,7 +55,7 @@ class TextPrinter:
             for value in sorted_data.values():
                 self.update_text_to_print(f" - {value}")
 
-    def print_single_value(self, value: Union[int, str], title: str) -> None:
+    def print_single_value(self, value: int | str, title: str) -> None:
         """Print a single value."""
         self.update_text_to_print(f"<b>{title}</b>: {value}")
 

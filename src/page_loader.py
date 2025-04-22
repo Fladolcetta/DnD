@@ -1,6 +1,6 @@
 """A module to load html pages."""
 
-from typing import Optional, Union
+from __future__ import annotations
 
 from flask import render_template
 
@@ -16,7 +16,7 @@ class PageLoader:
     """A class to load html pages."""
 
     def __init__(self) -> None:
-        pass
+        """Initialize the page loader."""
 
     def load_left_right_page(
         self, left_content: str = "", right_content: str = "", subtitle: str = "",
@@ -38,8 +38,8 @@ class PageLoader:
         self,
         left_content: str = "",
         subtitle: str = "",
-        styles: Optional[list] = None,
-        scripts: Optional[list] = None,
+        styles: list | None = None,
+        scripts: list | None = None,
     ) -> str:
         """Load the page."""
         if styles is None:
@@ -133,7 +133,7 @@ class PageLoader:
 
     def left_right_dance(
         self,
-        submit: Union[None, str],
+        submit: str | None,
         left_content: str,
         right_content: str,
         subtitle: str,

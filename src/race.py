@@ -5,6 +5,7 @@ class Race:
     """A class to represent a race in Dungeons and Dragons."""
 
     def __init__(self, name: str) -> None:
+        """Initialize the race."""
         self.name = name
         self.stats = self.get_race_bonus_stat()
         self.speed = self.get_race_speed()
