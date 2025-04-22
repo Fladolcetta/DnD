@@ -7,7 +7,9 @@ from src.db import DB
 
 
 @patch.dict(
-    os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True,
+    os.environ,
+    {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"},
+    clear=True,
 )
 @patch("mysql.connector.connect")
 def test_db_initialization(mock_connect) -> None:
@@ -22,7 +24,9 @@ def test_db_initialization(mock_connect) -> None:
 
 
 @patch.dict(
-    os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True,
+    os.environ,
+    {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"},
+    clear=True,
 )
 @patch("mysql.connector.connect")
 @patch("src.character.Character")
@@ -72,7 +76,9 @@ def test_insert_character(mock_insert, mock_character, mock_connect) -> None:
 
 
 @patch.dict(
-    os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True,
+    os.environ,
+    {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"},
+    clear=True,
 )
 @patch("mysql.connector")
 def test_insert_into_table(mock_connect) -> None:
@@ -97,7 +103,9 @@ def test_insert_into_table(mock_connect) -> None:
 
 
 @patch.dict(
-    os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True,
+    os.environ,
+    {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"},
+    clear=True,
 )
 @patch("mysql.connector")
 def test_read_from_table(mock_connect) -> None:
@@ -121,7 +129,9 @@ def test_read_from_table(mock_connect) -> None:
 
 
 @patch.dict(
-    os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True,
+    os.environ,
+    {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"},
+    clear=True,
 )
 @patch("src.db.DB.read_from_table")
 @patch("mysql.connector")
@@ -142,7 +152,9 @@ def test_load_character_list(mock_connect, mock_read_from_table) -> None:
 
 
 @patch.dict(
-    os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True,
+    os.environ,
+    {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"},
+    clear=True,
 )
 @patch("src.db.DB.load_character_list")
 @patch("mysql.connector")

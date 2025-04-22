@@ -132,7 +132,8 @@ class TextPrinter:
         self.print_single_value(current_class.hit_die, "Hit Die")
         self.print_data(current_class.skill_proficiencies, "Skill Proficiencies")
         self.print_data(
-            current_class.saving_throws_proficiencies, "Saving Throw Proficiencies",
+            current_class.saving_throws_proficiencies,
+            "Saving Throw Proficiencies",
         )
         return self.split_string(self.text_to_print)
 

@@ -105,7 +105,10 @@ def test_load_roll(mock_text_printer, mock_render_template) -> None:
     result = page_loader.load_roll(args)
 
     mock_render_template.assert_any_call(
-        "roll.html", num_sides=6, num_dice=2, modifier=1,
+        "roll.html",
+        num_sides=6,
+        num_dice=2,
+        modifier=1,
     )
     mock_text_printer.return_value.print_roll.assert_called_once_with(2, 6, 1)
     assert result == "<html>Mocked HTML</html>"
@@ -145,7 +148,8 @@ def test_load_classes(mock_character_class, mock_text_printer, mock_render_templ
     result = page_loader.load_classes(args)
 
     mock_render_template.assert_any_call(
-        "class.html", class_list=["Barbarian", "Wizard"],
+        "class.html",
+        class_list=["Barbarian", "Wizard"],
     )
     mock_text_printer.return_value.print_class_info.assert_called_once_with("Wizard")
     assert result == "<html>Mocked HTML</html>"
@@ -185,14 +189,18 @@ def test_left_right_dance(mock_render_template) -> None:
     # Test with submit
     result = page_loader.left_right_dance("submit", "left", "right", "Subtitle")
     mock_render_template.assert_any_call(
-        "left_right_split_body.html", left_content="left", right_content="right",
+        "left_right_split_body.html",
+        left_content="left",
+        right_content="right",
     )
     assert result == "<html>Mocked HTML</html>"
 
     # Test without submit
     result = page_loader.left_right_dance(None, "left", "right", "Subtitle")
     mock_render_template.assert_any_call(
-        "left_right_split_body.html", left_content="left", right_content="",
+        "left_right_split_body.html",
+        left_content="left",
+        right_content="",
     )
     assert result == "<html>Mocked HTML</html>"
 
@@ -236,7 +244,10 @@ def test_load_create_character(
         class_list=["Barbarian", "Wizard"],
     )
     mock_character.return_value.new_character.assert_called_with(
-        "Hero", "Elf", "Wizard", None,
+        "Hero",
+        "Elf",
+        "Wizard",
+        None,
     )
     assert result == "<html>Mocked HTML</html>"
 
@@ -270,7 +281,10 @@ def test_load_create_character(
         class_list=["Barbarian", "Wizard"],
     )
     mock_character.return_value.new_character.assert_called_with(
-        "Hero", "Elf", "Wizard", manual_stats,
+        "Hero",
+        "Elf",
+        "Wizard",
+        manual_stats,
     )
     assert result == "<html>Mocked HTML</html>"
 
@@ -278,7 +292,8 @@ def test_load_create_character(
     args = {"name": "Hero", "race": "Elf", "character_class": "Wizard"}
     result = page_loader.load_create_character(args)
     mock_render_template.assert_any_call(
-        "left_only_body.html", left_content="<html>Mocked HTML</html>",
+        "left_only_body.html",
+        left_content="<html>Mocked HTML</html>",
     )
     assert result == "<html>Mocked HTML</html>"
 

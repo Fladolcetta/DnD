@@ -234,30 +234,30 @@ def test_generate_saving_throw_prof_key_pairs(request) -> None:
 def test_get_stat_modifier(request) -> None:
     """Test the get_stat_modifier method."""
     sheet_generator = request.getfixturevalue("_sheet_generator")
-    assert sheet_generator.get_stat_modifier('Strength') == "+3"
-    assert sheet_generator.get_stat_modifier('Dexterity') == "+2"
-    assert sheet_generator.get_stat_modifier('Intelligence') == "+0"
-    assert sheet_generator.get_stat_modifier('Charisma') == "-1"
+    assert sheet_generator.get_stat_modifier("Strength") == "+3"
+    assert sheet_generator.get_stat_modifier("Dexterity") == "+2"
+    assert sheet_generator.get_stat_modifier("Intelligence") == "+0"
+    assert sheet_generator.get_stat_modifier("Charisma") == "-1"
 
 
 @pytest.mark.usefixtures("_sheet_generator")
 def test_get_skill_modifier(request) -> None:
     """Test the get_skill_modifier method."""
     sheet_generator = request.getfixturevalue("_sheet_generator")
-    assert sheet_generator.get_skill_modifier('Athletics') == "+3"
-    assert sheet_generator.get_skill_modifier('Stealth') == "+2"
-    assert sheet_generator.get_skill_modifier('Religion') == "+0"
-    assert sheet_generator.get_skill_modifier('Performance') == "-1"
+    assert sheet_generator.get_skill_modifier("Athletics") == "+3"
+    assert sheet_generator.get_skill_modifier("Stealth") == "+2"
+    assert sheet_generator.get_skill_modifier("Religion") == "+0"
+    assert sheet_generator.get_skill_modifier("Performance") == "-1"
 
 
 @pytest.mark.usefixtures("_sheet_generator")
 def test_get_saving_throw_modifier(request) -> None:
     """Test the get_saving_throw_modifier method."""
     sheet_generator = request.getfixturevalue("_sheet_generator")
-    assert sheet_generator.get_saving_throw_modifier('Strength') == "+3"
-    assert sheet_generator.get_saving_throw_modifier('Dexterity') == "+2"
-    assert sheet_generator.get_saving_throw_modifier('Intelligence') == "+0"
-    assert sheet_generator.get_saving_throw_modifier('Charisma') == "-1"
+    assert sheet_generator.get_saving_throw_modifier("Strength") == "+3"
+    assert sheet_generator.get_saving_throw_modifier("Dexterity") == "+2"
+    assert sheet_generator.get_saving_throw_modifier("Intelligence") == "+0"
+    assert sheet_generator.get_saving_throw_modifier("Charisma") == "-1"
 
 
 @pytest.mark.usefixtures("_sheet_generator")

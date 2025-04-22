@@ -1,4 +1,5 @@
 """A module to represent a character in Dungeons and Dragons."""
+
 from __future__ import annotations
 
 import contextlib
@@ -41,11 +42,7 @@ class Character:
         }
         self.char_id = None
 
-    def new_character(self,
-                      name: str,
-                      race: str,
-                      dnd_class: str,
-                      stats: dict[str, int] | None = None) -> None:
+    def new_character(self, name: str, race: str, dnd_class: str, stats: dict[str, int] | None = None) -> None:
         """Create a new character."""
         # Roll stats and update values
         self.name = name
@@ -69,7 +66,10 @@ class Character:
         """Create the character in the database."""
         db = DB()
         self.char_id = db.insert_character(
-            self.name, self.race, self.dnd_class, self.stats,
+            self.name,
+            self.race,
+            self.dnd_class,
+            self.stats,
         )
 
     def find_modifier_stat(self, stat: str) -> int:
@@ -148,7 +148,9 @@ class Character:
         hit_die_count = int(hit_die_array[0])
         hit_die_sides = int(hit_die_array[1])
         die = Dice(
-            hit_die_count, hit_die_sides, self.find_modifier_stat("Constitution"),
+            hit_die_count,
+            hit_die_sides,
+            self.find_modifier_stat("Constitution"),
         )
         die.roll()
         self.hp = die.total

@@ -14,11 +14,18 @@ class DB:
         self.user = os.environ["MYSQL_USER"]
         self.password = os.environ["MYSQL_PASSWORD"]
         self.db = mysql.connector.connect(
-            host=self.host, port=3306, user=self.user, password=self.password,
+            host=self.host,
+            port=3306,
+            user=self.user,
+            password=self.password,
         )
 
     def insert_character(
-        self, name: str, race: str, dnd_class: str, stats: dict,
+        self,
+        name: str,
+        race: str,
+        dnd_class: str,
+        stats: dict,
     ) -> int:
         """Insert a character into the database."""
         stats_sql = "INSERT INTO character_stats (dexterity, strength, constitution, intelligence, wisdom, charisma) VALUES ( %s, %s, %s, %s, %s, %s);"

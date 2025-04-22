@@ -19,7 +19,10 @@ class PageLoader:
         """Initialize the page loader."""
 
     def load_left_right_page(
-        self, left_content: str = "", right_content: str = "", subtitle: str = "",
+        self,
+        left_content: str = "",
+        right_content: str = "",
+        subtitle: str = "",
     ) -> str:
         """Load the page."""
         other_styles = self.build_styles_string(
@@ -31,7 +34,10 @@ class PageLoader:
             right_content=right_content,
         )
         return render_template(
-            "base.html", subtitle=subtitle, content=content, other_styles=other_styles,
+            "base.html",
+            subtitle=subtitle,
+            content=content,
+            other_styles=other_styles,
         )
 
     def load_left_only_page(
@@ -89,7 +95,10 @@ class PageLoader:
         num_dice = int(args.get("num_dice") or 1)
         modifier = int(args.get("modifier") or 0)
         left_content = render_template(
-            "roll.html", num_sides=num_sides, num_dice=num_dice, modifier=modifier,
+            "roll.html",
+            num_sides=num_sides,
+            num_dice=num_dice,
+            modifier=modifier,
         )
         right_content = text_printer.print_roll(num_dice, num_sides, modifier)
         submit = args.get("submit")
@@ -181,7 +190,9 @@ class PageLoader:
         except TypeError:
             pass
         return self.load_left_only_page(
-            left_content, "Character Generator", scripts=["create"],
+            left_content,
+            "Character Generator",
+            scripts=["create"],
         )
 
     def load_old_character(self, char_id: int) -> Character:
