@@ -92,7 +92,7 @@ class Race:
 
     @staticmethod
     def get_all_races() -> list:
-        """Get a list of all the Dungeons and Dragons races"""
+        """Get a list of all the Dungeons and Dragons races."""
         return [
             "Human",
             "Elf",

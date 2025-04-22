@@ -1,13 +1,15 @@
 """A module to load html pages."""
 
-from typing import Union
+from typing import Optional, Union
+
 from flask import render_template
+
+from src.character import Character
+from src.character_class import CharacterClass
 from src.db import DB
 from src.race import Race
-from src.character import Character
-from src.text_printer import TextPrinter
 from src.sheet_generator import SheetGenerator
-from src.character_class import CharacterClass
+from src.text_printer import TextPrinter
 
 
 class PageLoader:
@@ -17,11 +19,11 @@ class PageLoader:
         pass
 
     def load_left_right_page(
-        self, left_content: str = "", right_content: str = "", subtitle: str = ""
+        self, left_content: str = "", right_content: str = "", subtitle: str = "",
     ) -> str:
         """Load the page."""
         other_styles = self.build_styles_string(
-            ["container", "left_and_right", "inputs"]
+            ["container", "left_and_right", "inputs"],
         )
         content = render_template(
             "left_right_split_body.html",
@@ -29,22 +31,22 @@ class PageLoader:
             right_content=right_content,
         )
         return render_template(
-            "base.html", subtitle=subtitle, content=content, other_styles=other_styles
+            "base.html", subtitle=subtitle, content=content, other_styles=other_styles,
         )
 
     def load_left_only_page(
         self,
         left_content: str = "",
         subtitle: str = "",
-        styles: list = None,
-        scripts: list = None,
+        styles: Optional[list] = None,
+        scripts: Optional[list] = None,
     ) -> str:
         """Load the page."""
         if styles is None:
             styles = []
         if scripts is None:
             scripts = []
-        other_styles = self.build_styles_string(["container", "inputs"] + styles)
+        other_styles = self.build_styles_string(["container", "inputs", *styles])
         other_scripts = self.build_script_string(scripts)
         content = render_template("left_only_body.html", left_content=left_content)
         return render_template(
@@ -87,7 +89,7 @@ class PageLoader:
         num_dice = int(args.get("num_dice") or 1)
         modifier = int(args.get("modifier") or 0)
         left_content = render_template(
-            "roll.html", num_sides=num_sides, num_dice=num_dice, modifier=modifier
+            "roll.html", num_sides=num_sides, num_dice=num_dice, modifier=modifier,
         )
         right_content = text_printer.print_roll(num_dice, num_sides, modifier)
         submit = args.get("submit")
@@ -179,7 +181,7 @@ class PageLoader:
         except TypeError:
             pass
         return self.load_left_only_page(
-            left_content, "Character Generator", scripts=["create"]
+            left_content, "Character Generator", scripts=["create"],
         )
 
     def load_old_character(self, char_id: int) -> Character:

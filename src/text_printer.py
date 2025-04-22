@@ -1,10 +1,11 @@
 """A module for printing text to the console."""
 
 from typing import Union
-from src.dice import Dice
+
 from src.character import Character
-from src.race import Race
 from src.character_class import CharacterClass
+from src.dice import Dice
+from src.race import Race
 
 
 class TextPrinter:
@@ -21,8 +22,7 @@ class TextPrinter:
         """Split the string."""
         string_array = string.split("\n")
         join_string = "</p><p>"
-        html_string = "<p>" + join_string.join(string_array) + "</p>"
-        return html_string
+        return "<p>" + join_string.join(string_array) + "</p>"
 
     def header(self, title: str) -> None:
         """Print the header."""
@@ -54,7 +54,7 @@ class TextPrinter:
                 data = self.list_to_dict(data)
             sorted_data = self.sort_dict(data)
             self.bolded(f"{title}:")
-            for _, value in sorted_data.items():
+            for value in sorted_data.values():
                 self.update_text_to_print(f" - {value}")
 
     def print_single_value(self, value: Union[int, str], title: str) -> None:
@@ -77,17 +77,12 @@ class TextPrinter:
             self.bolded(f"{title}:")
             for key, value in sorted_data.items():
                 self.update_text_to_print(
-                    f" - {key}: {value} ({self.print_modifiers(Character.find_modifier_value(value))})"
+                    f" - {key}: {value} ({self.print_modifiers(Character.find_modifier_value(value))})",
                 )
 
     def print_modifiers(self, value: int) -> str:
         """Print the modifiers of the value."""
-        printed_value = ""
-        if value >= 0:
-            printed_value = f"+{value}"
-        else:
-            printed_value = f"{value}"
-        return printed_value
+        return f"+{value}" if value >= 0 else f"{value}"
 
     def print_character(self, character: Character) -> str:
         """Print the character."""
@@ -139,7 +134,7 @@ class TextPrinter:
         self.print_single_value(current_class.hit_die, "Hit Die")
         self.print_data(current_class.skill_proficiencies, "Skill Proficiencies")
         self.print_data(
-            current_class.saving_throws_proficiencies, "Saving Throw Proficiencies"
+            current_class.saving_throws_proficiencies, "Saving Throw Proficiencies",
         )
         return self.split_string(self.text_to_print)
 
@@ -148,10 +143,7 @@ class TextPrinter:
         self.text_to_print = ""
         die = Dice(num_dice, num_sides, modifier)
         die.roll()
-        if modifier >= 0:
-            modifier_string = f" + {modifier}"
-        else:
-            modifier_string = f" - {abs(modifier)}"
+        modifier_string = f" + {modifier}" if modifier >= 0 else f" - {abs(modifier)}"
         self.subheader(f"Rolling {num_dice}d{num_sides}{modifier_string}")
         self.print_single_value(die.total, "Total Roll with Modifier")
         self.print_data(die.rolls, "Individual Rolls")

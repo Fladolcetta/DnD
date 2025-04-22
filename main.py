@@ -1,6 +1,7 @@
 """Main file for the Dungeons and Dragons character generator."""
 
-from flask import Flask, request, redirect, jsonify
+from flask import Flask, jsonify, redirect, request
+
 from src.page_loader import PageLoader
 
 app = Flask(__name__)
@@ -28,14 +29,14 @@ def rolled_character() -> str:
 
 @app.route("/races")
 def races() -> str:
-    """List Races"""
+    """List Races."""
     page_loader = PageLoader()
     return page_loader.load_races(request.args.to_dict())
 
 
 @app.route("/classes")
 def classes() -> str:
-    """List Classes"""
+    """List Classes."""
     page_loader = PageLoader()
     return page_loader.load_classes(request.args.to_dict())
 
@@ -68,4 +69,4 @@ def roll_check() -> str:
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()

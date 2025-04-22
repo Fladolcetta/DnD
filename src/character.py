@@ -1,9 +1,11 @@
 """A module to represent a character in Dungeons and Dragons."""
 
+import contextlib
+
+from src.character_class import CharacterClass
+from src.db import DB
 from src.dice import Dice
 from src.race import Race
-from src.db import DB
-from src.character_class import CharacterClass
 
 
 class Character:
@@ -61,7 +63,7 @@ class Character:
         """Create the character in the database."""
         db = DB()
         self.char_id = db.insert_character(
-            self.name, self.race, self.dnd_class, self.stats
+            self.name, self.race, self.dnd_class, self.stats,
         )
 
     def find_modifier_stat(self, stat: str) -> int:
@@ -80,10 +82,8 @@ class Character:
         self.languages = race_object.languages
         self.traits = race_object.traits
         for stat in self.stats:
-            try:
+            with contextlib.suppress(KeyError):
                 self.stats[stat] = self.stats[stat] + race_object.stats[stat]
-            except KeyError:
-                pass
         self.stats = dict(sorted(self.stats.items()))
 
     def update_class_details(self) -> None:
@@ -142,7 +142,7 @@ class Character:
         hit_die_count = int(hit_die_array[0])
         hit_die_sides = int(hit_die_array[1])
         die = Dice(
-            hit_die_count, hit_die_sides, self.find_modifier_stat("Constitution")
+            hit_die_count, hit_die_sides, self.find_modifier_stat("Constitution"),
         )
         die.roll()
         self.hp = die.total
