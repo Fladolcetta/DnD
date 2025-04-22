@@ -1,27 +1,37 @@
 """Tests for the DB class."""
+
 import os
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
+
 from src.db import DB
 
 
-@patch.dict(os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True)
-@patch('mysql.connector.connect')
-def test_db_initialization(mock_connect):
-    """Test that the DB class initializes"""
+@patch.dict(
+    os.environ,
+    {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"},
+    clear=True,
+)
+@patch("mysql.connector.connect")
+def test_db_initialization(mock_connect) -> None:
+    """Test that the DB class initializes."""
     mock_db = MagicMock()
     mock_connect.return_value = mock_db
     db = DB()
     assert db.host == "dnd-db"
     assert db.user == "user"
-    assert db.password == "password"
+    assert db.password == "password"  # noqa: S105
     assert db.db is not None
 
 
-@patch.dict(os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True)
-@patch('mysql.connector.connect')
-@patch('src.character.Character')
-@patch('src.db.DB.insert_into_table')
-def test_insert_character(mock_insert, mock_character, mock_connect):
+@patch.dict(
+    os.environ,
+    {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"},
+    clear=True,
+)
+@patch("mysql.connector.connect")
+@patch("src.character.Character")
+@patch("src.db.DB.insert_into_table")
+def test_insert_character(mock_insert, mock_character, mock_connect) -> None:
     """Test the insert_character method."""
     # Mock the database connection and cursor
     mock_db = MagicMock()
@@ -39,30 +49,39 @@ def test_insert_character(mock_insert, mock_character, mock_connect):
         "Constitution": 14,
         "Intelligence": 12,
         "Wisdom": 13,
-        "Charisma": 8
+        "Charisma": 8,
     }
     # Mock the insert_into_table method
     mock_insert.side_effect = [1, 1]
     # Create a DB instance
     db = DB()
     # Call the method to test
-    character_id = db.insert_character(mock_character.name, mock_character.race, mock_character.dnd_class, mock_character.stats)
+    character_id = db.insert_character(
+        mock_character.name,
+        mock_character.race,
+        mock_character.dnd_class,
+        mock_character.stats,
+    )
     # Assertions
     assert character_id == 1
     assert mock_insert.call_count == 2
     assert mock_insert.call_args_list[0][0] == (
         "INSERT INTO character_stats (dexterity, strength, constitution, intelligence, wisdom, charisma) VALUES ( %s, %s, %s, %s, %s, %s);",
-        (10, 15, 14, 12, 13, 8)
+        (10, 15, 14, 12, 13, 8),
     )
     assert mock_insert.call_args_list[1][0] == (
         "INSERT INTO character_data (char_name, dnd_class, dnd_race, stat_id) VALUES (%s, %s, %s, %s);",
-        ("Test Character", "Warrior", "Human", 1)
+        ("Test Character", "Warrior", "Human", 1),
     )
 
 
-@patch.dict(os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True)
-@patch('mysql.connector')
-def test_insert_into_table(mock_connect):
+@patch.dict(
+    os.environ,
+    {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"},
+    clear=True,
+)
+@patch("mysql.connector")
+def test_insert_into_table(mock_connect) -> None:
     """Test the insert_into_table method."""
     # Mock the database connection and cursor
     mock_db = MagicMock()
@@ -83,9 +102,13 @@ def test_insert_into_table(mock_connect):
     mock_db.commit.assert_called_once()
 
 
-@patch.dict(os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True)
-@patch('mysql.connector')
-def test_read_from_table(mock_connect):
+@patch.dict(
+    os.environ,
+    {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"},
+    clear=True,
+)
+@patch("mysql.connector")
+def test_read_from_table(mock_connect) -> None:
     """Test the load_character_list method."""
     # Mock the database connection and cursor
     mock_db = MagicMock()
@@ -105,10 +128,14 @@ def test_read_from_table(mock_connect):
     mock_db.commit.assert_called_once()
 
 
-@patch.dict(os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True)
-@patch('src.db.DB.read_from_table')
-@patch('mysql.connector')
-def test_load_character_list(mock_connect, mock_read_from_table):
+@patch.dict(
+    os.environ,
+    {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"},
+    clear=True,
+)
+@patch("src.db.DB.read_from_table")
+@patch("mysql.connector")
+def test_load_character_list(mock_connect, mock_read_from_table) -> None:
     """Test the load_character_list method."""
     # Mock the database connection and cursor
     mock_db = MagicMock()
@@ -124,10 +151,14 @@ def test_load_character_list(mock_connect, mock_read_from_table):
     assert char_list is test_result
 
 
-@patch.dict(os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True)
-@patch('src.db.DB.load_character_list')
-@patch('mysql.connector')
-def test_load_character(mock_connect, mock_load_character_list):
+@patch.dict(
+    os.environ,
+    {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"},
+    clear=True,
+)
+@patch("src.db.DB.load_character_list")
+@patch("mysql.connector")
+def test_load_character(mock_connect, mock_load_character_list) -> None:
     """Test the load_character method."""
     # Mock the database connection and cursor
     mock_db = MagicMock()
@@ -136,18 +167,33 @@ def test_load_character(mock_connect, mock_load_character_list):
     mock_connect.connect.return_value = mock_db
     test_id = 42
     fake_id = 1
-    test_char_list = [test_id, "Test Character", "Warrior", "Human", 10, 15, 14, 12, 13, 8]
+    test_char_list = [
+        test_id,
+        "Test Character",
+        "Warrior",
+        "Human",
+        10,
+        15,
+        14,
+        12,
+        13,
+        8,
+    ]
     mock_load_character_list.return_value = [test_char_list]
-    test_char_dict = {"id": test_char_list[0],
-                      "name": test_char_list[1],
-                      "dnd_class": test_char_list[2],
-                      "race": test_char_list[3],
-                      "stats": {"Dexterity": test_char_list[4],
-                                "Strength": test_char_list[5],
-                                "Constitution": test_char_list[6],
-                                "Intelligence": test_char_list[7],
-                                "Wisdom": test_char_list[8],
-                                "Charisma": test_char_list[9]}}
+    test_char_dict = {
+        "id": test_char_list[0],
+        "name": test_char_list[1],
+        "dnd_class": test_char_list[2],
+        "race": test_char_list[3],
+        "stats": {
+            "Dexterity": test_char_list[4],
+            "Strength": test_char_list[5],
+            "Constitution": test_char_list[6],
+            "Intelligence": test_char_list[7],
+            "Wisdom": test_char_list[8],
+            "Charisma": test_char_list[9],
+        },
+    }
     # Create a DB instance
     db = DB()
     # Call the method to test

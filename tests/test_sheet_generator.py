@@ -1,11 +1,15 @@
-""" This module tests the SheetGenerator class """
+"""Tests the SheetGenerator class."""
+
 import pytest
+
 from src.sheet_generator import SheetGenerator
 
 
 class MockCharacter:
-    """ A mock class to represent a character in Dungeons and Dragons. """
-    def __init__(self):
+    """A mock class to represent a character in Dungeons and Dragons."""
+
+    def __init__(self) -> None:
+        """Initialize the mock character."""
         self.name = "Test Character"
         self.race = "Human"
         self.dnd_class = "Warrior"
@@ -25,7 +29,7 @@ class MockCharacter:
             "Constitution": 15,
             "Wisdom": 12,
             "Intelligence": 10,
-            "Charisma": 8
+            "Charisma": 8,
         }
         self.all_skills = {
             "Acrobatics": 2,
@@ -45,7 +49,7 @@ class MockCharacter:
             "Religion": 0,
             "Sleight of Hand": 2,
             "Stealth": 2,
-            "Survival": 1
+            "Survival": 1,
         }
         self.saving_throws = {
             "Strength": 3,
@@ -53,40 +57,42 @@ class MockCharacter:
             "Constitution": 2,
             "Wisdom": 1,
             "Intelligence": 0,
-            "Charisma": -1
+            "Charisma": -1,
         }
         self.skill_proficiencies = ["Athletics", "Perception"]
         self.save_proficiencies = ["Strength", "Constitution"]
 
     def find_modifier_stat(self, stat: str) -> int:
-        """ Find the modifier for a given stat. """
+        """Find the modifier for a given stat."""
         stat_value = self.stats[stat]
         return (stat_value - 10) // 2
 
 
 @pytest.fixture(name="_mock_character")
-def fixture_mock_character():
-    """ A fixture to return a mock character. """
+def fixture_mock_character() -> MockCharacter:
+    """Return a mock character."""
     return MockCharacter()
 
 
 @pytest.fixture(name="_sheet_generator")
-def fixture_sheet_generator(_mock_character):
-    """ A fixture to return a SheetGenerator object. """
+def fixture_sheet_generator(_mock_character) -> SheetGenerator:
+    """Return a SheetGenerator object."""
     return SheetGenerator(_mock_character)
 
 
-def test_init():
-    """ Test the __init__ method """
+def test_init() -> None:
+    """Test the __init__ method."""
     sheet_generator = SheetGenerator(MockCharacter())
     assert sheet_generator.character.name == "Test Character"
     assert sheet_generator.character
 
 
-def test_generate_key_pairs(_sheet_generator):
-    """ Test the generate_key_pairs method """
+@pytest.mark.usefixtures("_sheet_generator")
+def test_generate_key_pairs(request) -> None:
+    """Test the generate_key_pairs method."""
     # This test will check if the generate_key_pairs method correctly combines all key pairs
-    key_pairs = _sheet_generator.generate_key_pairs()
+    sheet_generator = request.getfixturevalue("_sheet_generator")
+    key_pairs = sheet_generator.generate_key_pairs()
     assert "charname" in key_pairs
     assert "Strengthscore" in key_pairs
     assert "Strengthsave" in key_pairs
@@ -95,8 +101,10 @@ def test_generate_key_pairs(_sheet_generator):
     assert "Strengthsaveprof" in key_pairs
 
 
-def test_generate_basic_key_pairs(_sheet_generator):
-    """ Test the generate_basic_key_pairs method """
+@pytest.mark.usefixtures("_sheet_generator")
+def test_generate_basic_key_pairs(request) -> None:
+    """Test the generate_basic_key_pairs method."""
+    sheet_generator = request.getfixturevalue("_sheet_generator")
     expected_keys = {
         "charname": "Test Character",
         "race": "Human",
@@ -112,13 +120,15 @@ def test_generate_basic_key_pairs(_sheet_generator):
         "totalhd": "5d10",
         "remaininghd": "5",
         "otherprofs": "- Common\n- Elvish",
-        "features": "- Brave\n- Strong"
+        "features": "- Brave\n- Strong",
     }
-    assert _sheet_generator.generate_basic_key_pairs() == expected_keys
+    assert sheet_generator.generate_basic_key_pairs() == expected_keys
 
 
-def test_generate_stat_key_pairs(_sheet_generator):
-    """ Test the generate_stat_key_pairs method """
+@pytest.mark.usefixtures("_sheet_generator")
+def test_generate_stat_key_pairs(request) -> None:
+    """Test the generate_stat_key_pairs method."""
+    sheet_generator = request.getfixturevalue("_sheet_generator")
     expected_keys = {
         "Strengthscore": 16,
         "Dexterityscore": 14,
@@ -131,26 +141,30 @@ def test_generate_stat_key_pairs(_sheet_generator):
         "Constitutionmod": "+2",
         "Wisdommod": "+1",
         "Intelligencemod": "+0",
-        "Charismamod": "-1"
+        "Charismamod": "-1",
     }
-    assert _sheet_generator.generate_stat_key_pairs() == expected_keys
+    assert sheet_generator.generate_stat_key_pairs() == expected_keys
 
 
-def test_generate_saving_throw_key_pairs(_sheet_generator):
-    """ Test the generate_saving_throw_key_pairs method """
+@pytest.mark.usefixtures("_sheet_generator")
+def test_generate_saving_throw_key_pairs(request) -> None:
+    """Test the generate_saving_throw_key_pairs method."""
+    sheet_generator = request.getfixturevalue("_sheet_generator")
     expected_keys = {
         "Strengthsave": "+3",
         "Dexteritysave": "+2",
         "Constitutionsave": "+2",
         "Wisdomsave": "+1",
         "Intelligencesave": "+0",
-        "Charismasave": "-1"
+        "Charismasave": "-1",
     }
-    assert _sheet_generator.generate_saving_throw_key_pairs() == expected_keys
+    assert sheet_generator.generate_saving_throw_key_pairs() == expected_keys
 
 
-def test_generate_skill_key_pairs(_sheet_generator):
-    """ Test the generate_skill_key_pairs method """
+@pytest.mark.usefixtures("_sheet_generator")
+def test_generate_skill_key_pairs(request) -> None:
+    """Test the generate_skill_key_pairs method."""
+    sheet_generator = request.getfixturevalue("_sheet_generator")
     expected_keys = {
         "Acrobatics": "+2",
         "AnimalHandling": "+1",
@@ -169,13 +183,15 @@ def test_generate_skill_key_pairs(_sheet_generator):
         "Religion": "+0",
         "SleightofHand": "+2",
         "Stealth": "+2",
-        "Survival": "+1"
+        "Survival": "+1",
     }
-    assert _sheet_generator.generate_skill_key_pairs() == expected_keys
+    assert sheet_generator.generate_skill_key_pairs() == expected_keys
 
 
-def test_generate_skill_prof_key_pairs(_sheet_generator):
-    """ Test the generate_skill_prof_key_pairs method """
+@pytest.mark.usefixtures("_sheet_generator")
+def test_generate_skill_prof_key_pairs(request) -> None:
+    """Test the generate_skill_prof_key_pairs method."""
+    sheet_generator = request.getfixturevalue("_sheet_generator")
     expected_keys = {
         "Acrobaticsprof": "",
         "AnimalHandlingprof": "",
@@ -194,74 +210,78 @@ def test_generate_skill_prof_key_pairs(_sheet_generator):
         "Religionprof": "",
         "SleightofHandprof": "",
         "Stealthprof": "",
-        "Survivalprof": ""
+        "Survivalprof": "",
     }
-    assert _sheet_generator.generate_skill_prof_key_pairs() == expected_keys
+    assert sheet_generator.generate_skill_prof_key_pairs() == expected_keys
 
 
-def test_generate_saving_throw_prof_key_pairs(_sheet_generator):
-    """ Test the generate_saving_throw_prof_key_pairs method """
+@pytest.mark.usefixtures("_sheet_generator")
+def test_generate_saving_throw_prof_key_pairs(request) -> None:
+    """Test the generate_saving_throw_prof_key_pairs method."""
+    sheet_generator = request.getfixturevalue("_sheet_generator")
     expected_keys = {
         "Strengthsaveprof": "checked",
         "Dexteritysaveprof": "",
         "Constitutionsaveprof": "checked",
         "Wisdomsaveprof": "",
         "Intelligencesaveprof": "",
-        "Charismasaveprof": ""
+        "Charismasaveprof": "",
     }
-    assert _sheet_generator.generate_saving_throw_prof_key_pairs() == expected_keys
+    assert sheet_generator.generate_saving_throw_prof_key_pairs() == expected_keys
 
 
-def get_stat_modifier(_sheet_generator):
-    """ Test the get_stat_modifier method """
-    assert _sheet_generator.get_stat_modifier(16) == "+3"
-    assert _sheet_generator.get_stat_modifier(14) == "+2"
-    assert _sheet_generator.get_stat_modifier(10) == "+0"
-    assert _sheet_generator.get_stat_modifier(8) == "-1"
+@pytest.mark.usefixtures("_sheet_generator")
+def test_get_stat_modifier(request) -> None:
+    """Test the get_stat_modifier method."""
+    sheet_generator = request.getfixturevalue("_sheet_generator")
+    assert sheet_generator.get_stat_modifier("Strength") == "+3"
+    assert sheet_generator.get_stat_modifier("Dexterity") == "+2"
+    assert sheet_generator.get_stat_modifier("Intelligence") == "+0"
+    assert sheet_generator.get_stat_modifier("Charisma") == "-1"
 
 
-def get_skill_modifier(_sheet_generator):
-    """ Test the get_skill_modifier method """
-    assert _sheet_generator.get_skill_modifier(3) == "+3"
-    assert _sheet_generator.get_skill_modifier(2) == "+2"
-    assert _sheet_generator.get_skill_modifier(0) == "+0"
-    assert _sheet_generator.get_skill_modifier(-1) == "-1"
+@pytest.mark.usefixtures("_sheet_generator")
+def test_get_skill_modifier(request) -> None:
+    """Test the get_skill_modifier method."""
+    sheet_generator = request.getfixturevalue("_sheet_generator")
+    assert sheet_generator.get_skill_modifier("Athletics") == "+3"
+    assert sheet_generator.get_skill_modifier("Stealth") == "+2"
+    assert sheet_generator.get_skill_modifier("Religion") == "+0"
+    assert sheet_generator.get_skill_modifier("Performance") == "-1"
 
 
-def get_saving_throw_modifier(_sheet_generator):
-    """ Test the get_saving_throw_modifier method """
-    assert _sheet_generator.get_saving_throw_modifier(3) == "+3"
-    assert _sheet_generator.get_saving_throw_modifier(2) == "+2"
-    assert _sheet_generator.get_saving_throw_modifier(0) == "+0"
-    assert _sheet_generator.get_saving_throw_modifier(-1) == "-1"
+@pytest.mark.usefixtures("_sheet_generator")
+def test_get_saving_throw_modifier(request) -> None:
+    """Test the get_saving_throw_modifier method."""
+    sheet_generator = request.getfixturevalue("_sheet_generator")
+    assert sheet_generator.get_saving_throw_modifier("Strength") == "+3"
+    assert sheet_generator.get_saving_throw_modifier("Dexterity") == "+2"
+    assert sheet_generator.get_saving_throw_modifier("Intelligence") == "+0"
+    assert sheet_generator.get_saving_throw_modifier("Charisma") == "-1"
 
 
-def check_skill_proficiency(_sheet_generator):
-    """ Test the check_skill_proficiency method """
-    assert _sheet_generator.check_skill_proficiency("Athletics") == "checked"
-    assert _sheet_generator.check_skill_proficiency("Perception") == "checked"
-    assert _sheet_generator.check_skill_proficiency("Acrobatics") == ""
-    assert _sheet_generator.check_skill_proficiency("Deception") == ""
+@pytest.mark.usefixtures("_sheet_generator")
+def test_check_skill_proficiency(request) -> None:
+    """Test the check_skill_proficiency method."""
+    sheet_generator = request.getfixturevalue("_sheet_generator")
+    assert sheet_generator.check_skill_proficiency("Athletics") == "checked"
+    assert sheet_generator.check_skill_proficiency("Perception") == "checked"
+    assert sheet_generator.check_skill_proficiency("Acrobatics") == ""
+    assert sheet_generator.check_skill_proficiency("Deception") == ""
 
 
-def check_saving_throw_proficiency(_sheet_generator):
-    """ Test the check_saving_throw_proficiency method """
-    assert _sheet_generator.check_saving_throw_proficiency("Strength") == "checked"
-    assert _sheet_generator.check_saving_throw_proficiency("Constitution") == "checked"
-    assert _sheet_generator.check_saving_throw_proficiency("Dexterity") == ""
-    assert _sheet_generator.check_saving_throw_proficiency("Charisma") == ""
-
-
-def test_list_to_textarea_string(_sheet_generator):
-    """ Test the list_to_textarea_string method """
+@pytest.mark.usefixtures("_sheet_generator")
+def test_list_to_textarea_string(request) -> None:
+    """Test the list_to_textarea_string method."""
+    sheet_generator = request.getfixturevalue("_sheet_generator")
     test_list = ["Item 1", "Item 2"]
     expected_output = "- Item 1\n- Item 2"
-    assert _sheet_generator.list_to_textarea_string(test_list) == expected_output
+    assert sheet_generator.list_to_textarea_string(test_list) == expected_output
 
     test_empty_list = []
     expected_output = ""
-    assert _sheet_generator.list_to_textarea_string(test_empty_list) == expected_output
+    assert sheet_generator.list_to_textarea_string(test_empty_list) == expected_output
 
     test_single_item_list = ["Item 1"]
     expected_output = "- Item 1"
-    assert _sheet_generator.list_to_textarea_string(test_single_item_list) == expected_output
+    assert sheet_generator.list_to_textarea_string(test_single_item_list) == expected_output
