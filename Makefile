@@ -74,4 +74,5 @@ lint:
 	write-good README.md
 	eslint --no-config-lookup static
 	hadolint Dockerfile
-	ruff check
+	ruff check --select ALL ./src main.py --ignore E501
+	ruff check --select ALL ./tests --ignore E501,S101,ANN001,PLR2004

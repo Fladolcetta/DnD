@@ -1,18 +1,19 @@
 """Tests for the PageLoader class."""
 
-from unittest.mock import patch, call, Mock
-from src.page_loader import PageLoader
+from unittest.mock import Mock, call, patch
+
 from src.character import Character
+from src.page_loader import PageLoader
 
 
-def test_page_loader_initialization():
+def test_page_loader_initialization() -> None:
     """Test the initialization of the PageLoader class."""
     page_loader = PageLoader()
     assert page_loader
 
 
 @patch("src.page_loader.render_template")
-def test_load_left_right_page(mock_render_template):
+def test_load_left_right_page(mock_render_template) -> None:
     """Test the load_left_right_page method."""
     mock_render_template.return_value = "<html>Mocked HTML</html>"
     page_loader = PageLoader()
@@ -33,7 +34,7 @@ def test_load_left_right_page(mock_render_template):
 
 
 @patch("src.page_loader.render_template")
-def test_load_left_only_page(mock_render_template):
+def test_load_left_only_page(mock_render_template) -> None:
     """Test the load_left_only_page method."""
     mock_render_template.return_value = "<html>Mocked HTML</html>"
     page_loader = PageLoader()
@@ -57,7 +58,7 @@ def test_load_left_only_page(mock_render_template):
 @patch("src.page_loader.render_template")
 @patch("src.page_loader.TextPrinter")
 @patch("src.page_loader.SheetGenerator")
-def test_display_char(mock_sheet_generator, mock_text_printer, mock_render_template):
+def test_display_char(mock_sheet_generator, mock_text_printer, mock_render_template) -> None:
     """Test the display_char method."""
     mock_render_template.return_value = "<html>Mocked HTML</html>"
     mock_sheet_generator.return_value.generate_key_pairs.return_value = {}
@@ -93,7 +94,7 @@ def test_display_char(mock_sheet_generator, mock_text_printer, mock_render_templ
 
 @patch("src.page_loader.render_template")
 @patch("src.page_loader.TextPrinter")
-def test_load_roll(mock_text_printer, mock_render_template):
+def test_load_roll(mock_text_printer, mock_render_template) -> None:
     """Test the load_roll method."""
     mock_render_template.return_value = "<html>Mocked HTML</html>"
     mock_text_printer.return_value.print_roll.return_value = "Roll Result"
@@ -104,7 +105,7 @@ def test_load_roll(mock_text_printer, mock_render_template):
     result = page_loader.load_roll(args)
 
     mock_render_template.assert_any_call(
-        "roll.html", num_sides=6, num_dice=2, modifier=1
+        "roll.html", num_sides=6, num_dice=2, modifier=1,
     )
     mock_text_printer.return_value.print_roll.assert_called_once_with(2, 6, 1)
     assert result == "<html>Mocked HTML</html>"
@@ -113,7 +114,7 @@ def test_load_roll(mock_text_printer, mock_render_template):
 @patch("src.page_loader.render_template")
 @patch("src.page_loader.TextPrinter")
 @patch("src.page_loader.Race")
-def test_load_races(mock_race, mock_text_printer, mock_render_template):
+def test_load_races(mock_race, mock_text_printer, mock_render_template) -> None:
     """Test the load_races method."""
     mock_render_template.return_value = "<html>Mocked HTML</html>"
     mock_race.get_all_races.return_value = ["Human", "Elf"]
@@ -132,7 +133,7 @@ def test_load_races(mock_race, mock_text_printer, mock_render_template):
 @patch("src.page_loader.render_template")
 @patch("src.page_loader.TextPrinter")
 @patch("src.page_loader.CharacterClass")
-def test_load_classes(mock_character_class, mock_text_printer, mock_render_template):
+def test_load_classes(mock_character_class, mock_text_printer, mock_render_template) -> None:
     """Test the load_classes method."""
     mock_render_template.return_value = "<html>Mocked HTML</html>"
     mock_character_class.get_all_classes.return_value = ["Barbarian", "Wizard"]
@@ -144,7 +145,7 @@ def test_load_classes(mock_character_class, mock_text_printer, mock_render_templ
     result = page_loader.load_classes(args)
 
     mock_render_template.assert_any_call(
-        "class.html", class_list=["Barbarian", "Wizard"]
+        "class.html", class_list=["Barbarian", "Wizard"],
     )
     mock_text_printer.return_value.print_class_info.assert_called_once_with("Wizard")
     assert result == "<html>Mocked HTML</html>"
@@ -153,7 +154,7 @@ def test_load_classes(mock_character_class, mock_text_printer, mock_render_templ
 @patch("src.page_loader.PageLoader.build_styles_string")
 @patch("src.page_loader.render_template")
 @patch("src.page_loader.DB")
-def test_load_table(mock_db, mock_render_template, mock_build_styles_string):
+def test_load_table(mock_db, mock_render_template, mock_build_styles_string) -> None:
     """Test the load_table method."""
     test_char_list = ["Hero", "Villain"]
     mock_db.return_value.load_character_list.return_value = test_char_list
@@ -176,7 +177,7 @@ def test_load_table(mock_db, mock_render_template, mock_build_styles_string):
 
 
 @patch("src.page_loader.render_template")
-def test_left_right_dance(mock_render_template):
+def test_left_right_dance(mock_render_template) -> None:
     """Test the left_right_dance method."""
     mock_render_template.return_value = "<html>Mocked HTML</html>"
     page_loader = PageLoader()
@@ -184,14 +185,14 @@ def test_left_right_dance(mock_render_template):
     # Test with submit
     result = page_loader.left_right_dance("submit", "left", "right", "Subtitle")
     mock_render_template.assert_any_call(
-        "left_right_split_body.html", left_content="left", right_content="right"
+        "left_right_split_body.html", left_content="left", right_content="right",
     )
     assert result == "<html>Mocked HTML</html>"
 
     # Test without submit
     result = page_loader.left_right_dance(None, "left", "right", "Subtitle")
     mock_render_template.assert_any_call(
-        "left_right_split_body.html", left_content="left", right_content=""
+        "left_right_split_body.html", left_content="left", right_content="",
     )
     assert result == "<html>Mocked HTML</html>"
 
@@ -207,7 +208,7 @@ def test_load_create_character(
     mock_race,
     mock_render_template,
     mock_display_char,
-):
+) -> None:
     """Test the load_character method."""
     mock_character.return_value = Mock()
     mock_character.new_character.return_value = None
@@ -235,7 +236,7 @@ def test_load_create_character(
         class_list=["Barbarian", "Wizard"],
     )
     mock_character.return_value.new_character.assert_called_with(
-        "Hero", "Elf", "Wizard", None
+        "Hero", "Elf", "Wizard", None,
     )
     assert result == "<html>Mocked HTML</html>"
 
@@ -269,7 +270,7 @@ def test_load_create_character(
         class_list=["Barbarian", "Wizard"],
     )
     mock_character.return_value.new_character.assert_called_with(
-        "Hero", "Elf", "Wizard", manual_stats
+        "Hero", "Elf", "Wizard", manual_stats,
     )
     assert result == "<html>Mocked HTML</html>"
 
@@ -277,13 +278,13 @@ def test_load_create_character(
     args = {"name": "Hero", "race": "Elf", "character_class": "Wizard"}
     result = page_loader.load_create_character(args)
     mock_render_template.assert_any_call(
-        "left_only_body.html", left_content="<html>Mocked HTML</html>"
+        "left_only_body.html", left_content="<html>Mocked HTML</html>",
     )
     assert result == "<html>Mocked HTML</html>"
 
 
 @patch("src.page_loader.Character")
-def test_load_old_character(mock_character):
+def test_load_old_character(mock_character) -> None:
     """Test the load_old_character method."""
     test_args = {"char_id": "42"}
     mock_test = Mock()
@@ -296,7 +297,7 @@ def test_load_old_character(mock_character):
 
 @patch("src.page_loader.PageLoader.display_char")
 @patch("src.page_loader.PageLoader.load_old_character")
-def test_load_old_character_sheet(mock_load_old_character, mock_display_char):
+def test_load_old_character_sheet(mock_load_old_character, mock_display_char) -> None:
     """Test the load_old_character method."""
     test_args = {"char_id": "42"}
     test_string = "<html>Mocked HTML</html>"
@@ -307,14 +308,14 @@ def test_load_old_character_sheet(mock_load_old_character, mock_display_char):
     assert result == test_string
 
 
-def test_build_script_string():
+def test_build_script_string() -> None:
     """Test the build_script_string method."""
     page_loader = PageLoader()
     result = page_loader.build_script_string(["sheet", "roll"])
     assert result == "        <script type='text/javascript' src='/static/sheet.js'></script>\n        <script type='text/javascript' src='/static/roll.js'></script>\n"
 
 
-def test_build_styles_string():
+def test_build_styles_string() -> None:
     """Test the build_styles_string method."""
     page_loader = PageLoader()
     result = page_loader.build_styles_string(["sheet", "roll"])

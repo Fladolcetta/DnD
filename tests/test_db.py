@@ -1,16 +1,17 @@
 """Tests for the DB class."""
 
 import os
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
+
 from src.db import DB
 
 
 @patch.dict(
-    os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True
+    os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True,
 )
 @patch("mysql.connector.connect")
-def test_db_initialization(mock_connect):
-    """Test that the DB class initializes"""
+def test_db_initialization(mock_connect) -> None:
+    """Test that the DB class initializes."""
     mock_db = MagicMock()
     mock_connect.return_value = mock_db
     db = DB()
@@ -21,12 +22,12 @@ def test_db_initialization(mock_connect):
 
 
 @patch.dict(
-    os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True
+    os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True,
 )
 @patch("mysql.connector.connect")
 @patch("src.character.Character")
 @patch("src.db.DB.insert_into_table")
-def test_insert_character(mock_insert, mock_character, mock_connect):
+def test_insert_character(mock_insert, mock_character, mock_connect) -> None:
     """Test the insert_character method."""
     # Mock the database connection and cursor
     mock_db = MagicMock()
@@ -71,10 +72,10 @@ def test_insert_character(mock_insert, mock_character, mock_connect):
 
 
 @patch.dict(
-    os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True
+    os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True,
 )
 @patch("mysql.connector")
-def test_insert_into_table(mock_connect):
+def test_insert_into_table(mock_connect) -> None:
     """Test the insert_into_table method."""
     # Mock the database connection and cursor
     mock_db = MagicMock()
@@ -96,10 +97,10 @@ def test_insert_into_table(mock_connect):
 
 
 @patch.dict(
-    os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True
+    os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True,
 )
 @patch("mysql.connector")
-def test_read_from_table(mock_connect):
+def test_read_from_table(mock_connect) -> None:
     """Test the load_character_list method."""
     # Mock the database connection and cursor
     mock_db = MagicMock()
@@ -120,11 +121,11 @@ def test_read_from_table(mock_connect):
 
 
 @patch.dict(
-    os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True
+    os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True,
 )
 @patch("src.db.DB.read_from_table")
 @patch("mysql.connector")
-def test_load_character_list(mock_connect, mock_read_from_table):
+def test_load_character_list(mock_connect, mock_read_from_table) -> None:
     """Test the load_character_list method."""
     # Mock the database connection and cursor
     mock_db = MagicMock()
@@ -141,11 +142,11 @@ def test_load_character_list(mock_connect, mock_read_from_table):
 
 
 @patch.dict(
-    os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True
+    os.environ, {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"}, clear=True,
 )
 @patch("src.db.DB.load_character_list")
 @patch("mysql.connector")
-def test_load_character(mock_connect, mock_load_character_list):
+def test_load_character(mock_connect, mock_load_character_list) -> None:
     """Test the load_character method."""
     # Mock the database connection and cursor
     mock_db = MagicMock()

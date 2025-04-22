@@ -1,13 +1,14 @@
-"""This module tests the SheetGenerator class"""
+"""This module tests the SheetGenerator class."""
 
 import pytest
+
 from src.sheet_generator import SheetGenerator
 
 
 class MockCharacter:
     """A mock class to represent a character in Dungeons and Dragons."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.name = "Test Character"
         self.race = "Human"
         self.dnd_class = "Warrior"
@@ -78,15 +79,15 @@ def fixture_sheet_generator(_mock_character):
     return SheetGenerator(_mock_character)
 
 
-def test_init():
-    """Test the __init__ method"""
+def test_init() -> None:
+    """Test the __init__ method."""
     sheet_generator = SheetGenerator(MockCharacter())
     assert sheet_generator.character.name == "Test Character"
     assert sheet_generator.character
 
 
-def test_generate_key_pairs(_sheet_generator):
-    """Test the generate_key_pairs method"""
+def test_generate_key_pairs(_sheet_generator) -> None:
+    """Test the generate_key_pairs method."""
     # This test will check if the generate_key_pairs method correctly combines all key pairs
     key_pairs = _sheet_generator.generate_key_pairs()
     assert "charname" in key_pairs
@@ -97,8 +98,8 @@ def test_generate_key_pairs(_sheet_generator):
     assert "Strengthsaveprof" in key_pairs
 
 
-def test_generate_basic_key_pairs(_sheet_generator):
-    """Test the generate_basic_key_pairs method"""
+def test_generate_basic_key_pairs(_sheet_generator) -> None:
+    """Test the generate_basic_key_pairs method."""
     expected_keys = {
         "charname": "Test Character",
         "race": "Human",
@@ -119,8 +120,8 @@ def test_generate_basic_key_pairs(_sheet_generator):
     assert _sheet_generator.generate_basic_key_pairs() == expected_keys
 
 
-def test_generate_stat_key_pairs(_sheet_generator):
-    """Test the generate_stat_key_pairs method"""
+def test_generate_stat_key_pairs(_sheet_generator) -> None:
+    """Test the generate_stat_key_pairs method."""
     expected_keys = {
         "Strengthscore": 16,
         "Dexterityscore": 14,
@@ -138,8 +139,8 @@ def test_generate_stat_key_pairs(_sheet_generator):
     assert _sheet_generator.generate_stat_key_pairs() == expected_keys
 
 
-def test_generate_saving_throw_key_pairs(_sheet_generator):
-    """Test the generate_saving_throw_key_pairs method"""
+def test_generate_saving_throw_key_pairs(_sheet_generator) -> None:
+    """Test the generate_saving_throw_key_pairs method."""
     expected_keys = {
         "Strengthsave": "+3",
         "Dexteritysave": "+2",
@@ -151,8 +152,8 @@ def test_generate_saving_throw_key_pairs(_sheet_generator):
     assert _sheet_generator.generate_saving_throw_key_pairs() == expected_keys
 
 
-def test_generate_skill_key_pairs(_sheet_generator):
-    """Test the generate_skill_key_pairs method"""
+def test_generate_skill_key_pairs(_sheet_generator) -> None:
+    """Test the generate_skill_key_pairs method."""
     expected_keys = {
         "Acrobatics": "+2",
         "AnimalHandling": "+1",
@@ -176,8 +177,8 @@ def test_generate_skill_key_pairs(_sheet_generator):
     assert _sheet_generator.generate_skill_key_pairs() == expected_keys
 
 
-def test_generate_skill_prof_key_pairs(_sheet_generator):
-    """Test the generate_skill_prof_key_pairs method"""
+def test_generate_skill_prof_key_pairs(_sheet_generator) -> None:
+    """Test the generate_skill_prof_key_pairs method."""
     expected_keys = {
         "Acrobaticsprof": "",
         "AnimalHandlingprof": "",
@@ -201,8 +202,8 @@ def test_generate_skill_prof_key_pairs(_sheet_generator):
     assert _sheet_generator.generate_skill_prof_key_pairs() == expected_keys
 
 
-def test_generate_saving_throw_prof_key_pairs(_sheet_generator):
-    """Test the generate_saving_throw_prof_key_pairs method"""
+def test_generate_saving_throw_prof_key_pairs(_sheet_generator) -> None:
+    """Test the generate_saving_throw_prof_key_pairs method."""
     expected_keys = {
         "Strengthsaveprof": "checked",
         "Dexteritysaveprof": "",
@@ -214,48 +215,48 @@ def test_generate_saving_throw_prof_key_pairs(_sheet_generator):
     assert _sheet_generator.generate_saving_throw_prof_key_pairs() == expected_keys
 
 
-def get_stat_modifier(_sheet_generator):
-    """Test the get_stat_modifier method"""
+def get_stat_modifier(_sheet_generator) -> None:
+    """Test the get_stat_modifier method."""
     assert _sheet_generator.get_stat_modifier(16) == "+3"
     assert _sheet_generator.get_stat_modifier(14) == "+2"
     assert _sheet_generator.get_stat_modifier(10) == "+0"
     assert _sheet_generator.get_stat_modifier(8) == "-1"
 
 
-def get_skill_modifier(_sheet_generator):
-    """Test the get_skill_modifier method"""
+def get_skill_modifier(_sheet_generator) -> None:
+    """Test the get_skill_modifier method."""
     assert _sheet_generator.get_skill_modifier(3) == "+3"
     assert _sheet_generator.get_skill_modifier(2) == "+2"
     assert _sheet_generator.get_skill_modifier(0) == "+0"
     assert _sheet_generator.get_skill_modifier(-1) == "-1"
 
 
-def get_saving_throw_modifier(_sheet_generator):
-    """Test the get_saving_throw_modifier method"""
+def get_saving_throw_modifier(_sheet_generator) -> None:
+    """Test the get_saving_throw_modifier method."""
     assert _sheet_generator.get_saving_throw_modifier(3) == "+3"
     assert _sheet_generator.get_saving_throw_modifier(2) == "+2"
     assert _sheet_generator.get_saving_throw_modifier(0) == "+0"
     assert _sheet_generator.get_saving_throw_modifier(-1) == "-1"
 
 
-def check_skill_proficiency(_sheet_generator):
-    """Test the check_skill_proficiency method"""
+def check_skill_proficiency(_sheet_generator) -> None:
+    """Test the check_skill_proficiency method."""
     assert _sheet_generator.check_skill_proficiency("Athletics") == "checked"
     assert _sheet_generator.check_skill_proficiency("Perception") == "checked"
     assert _sheet_generator.check_skill_proficiency("Acrobatics") == ""
     assert _sheet_generator.check_skill_proficiency("Deception") == ""
 
 
-def check_saving_throw_proficiency(_sheet_generator):
-    """Test the check_saving_throw_proficiency method"""
+def check_saving_throw_proficiency(_sheet_generator) -> None:
+    """Test the check_saving_throw_proficiency method."""
     assert _sheet_generator.check_saving_throw_proficiency("Strength") == "checked"
     assert _sheet_generator.check_saving_throw_proficiency("Constitution") == "checked"
     assert _sheet_generator.check_saving_throw_proficiency("Dexterity") == ""
     assert _sheet_generator.check_saving_throw_proficiency("Charisma") == ""
 
 
-def test_list_to_textarea_string(_sheet_generator):
-    """Test the list_to_textarea_string method"""
+def test_list_to_textarea_string(_sheet_generator) -> None:
+    """Test the list_to_textarea_string method."""
     test_list = ["Item 1", "Item 2"]
     expected_output = "- Item 1\n- Item 2"
     assert _sheet_generator.list_to_textarea_string(test_list) == expected_output
