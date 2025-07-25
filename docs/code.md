@@ -23,6 +23,7 @@
 * [db](#db)
   * [DB](#db.DB)
     * [\_\_init\_\_](#db.DB.__init__)
+    * [\_\_del\_\_](#db.DB.__del__)
     * [insert\_character](#db.DB.insert_character)
     * [insert\_into\_table](#db.DB.insert_into_table)
     * [read\_from\_table](#db.DB.read_from_table)
@@ -324,6 +325,16 @@ def __init__() -> None
 ```
 
 Initialize the database connection.
+
+<a id="db.DB.__del__"></a>
+
+#### \_\_del\_\_
+
+```python
+def __del__() -> None
+```
+
+Close the database connection when the object is destroyed.
 
 <a id="db.DB.insert_character"></a>
 
