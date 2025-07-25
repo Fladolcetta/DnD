@@ -301,12 +301,12 @@ def test_load_create_character(
 @patch("src.page_loader.Character")
 def test_load_old_character(mock_character) -> None:
     """Test the load_old_character method."""
-    test_args = {"char_id": "42"}
+    char_id = 42
     mock_test = Mock()
     mock_character.return_value = mock_test
     mock_character.load_character_from_db.return_value = None
     page_loader = PageLoader()
-    result = page_loader.load_old_character(test_args)
+    result = page_loader.load_old_character(char_id)
     assert result == mock_test
 
 
