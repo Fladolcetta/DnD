@@ -13,7 +13,6 @@ class Dice:
         self.modifier = modifier
         self.rolls = []
         self.total = 0
-        self.rolls = []
         self.critical_success = False
         self.critical_fail = False
 
