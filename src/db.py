@@ -23,7 +23,7 @@ class DB:
         except (KeyError, mysql.connector.Error) as e:
             print(f"Database connection error: {e}")
             self.db = None
-            
+
     def __del__(self) -> None:
         """Close the database connection when the object is destroyed."""
         if hasattr(self, 'db') and self.db is not None:
