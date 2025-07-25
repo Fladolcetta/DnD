@@ -1,8 +1,11 @@
 """A module for the database connection."""
 
+import logging
 import os
 
 import mysql.connector
+
+logging.basicConfig(level=logging.INFO)
 
 
 class DB:
@@ -11,14 +14,24 @@ class DB:
     def __init__(self) -> None:
         """Initialize the database connection."""
         self.host = "dnd-db"
-        self.user = os.environ["MYSQL_USER"]
-        self.password = os.environ["MYSQL_PASSWORD"]
-        self.db = mysql.connector.connect(
-            host=self.host,
-            port=3306,
-            user=self.user,
-            password=self.password,
-        )
+        try:
+            self.user = os.environ["MYSQL_USER"]
+            self.password = os.environ["MYSQL_PASSWORD"]
+            self.db = mysql.connector.connect(
+                host=self.host,
+                port=3306,
+                user=self.user,
+                password=self.password,
+            )
+        except (KeyError, mysql.connector.Error):
+            logger = logging.getLogger(__name__)
+            logger.exception("Database connection error")
+            self.db = None
+
+    def __del__(self) -> None:
+        """Close the database connection when the object is destroyed."""
+        if hasattr(self, "db") and self.db is not None:
+            self.db.close()
 
     def insert_character(
         self,

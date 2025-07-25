@@ -48,11 +48,27 @@ class Character:
         self.name = name
         self.race = race
         self.dnd_class = dnd_class
+
+        min_stat = 1
+        max_stat = 20
+
         if stats is None:
             primary_stat = CharacterClass(self.dnd_class).get_primary_stat()
             worst_stat = CharacterClass(self.dnd_class).get_worst_stat()
             self.roll_stats(primary_stat, worst_stat)
         else:
+            # Validate stats
+            required_stats = ["Constitution", "Dexterity", "Strength", "Wisdom", "Intelligence", "Charisma"]
+            for stat in required_stats:
+                if stat not in stats:
+                    error_message = f"Missing required stat: {stat}"
+                    raise ValueError(error_message)
+                if not isinstance(stats[stat], int):
+                    error_message = f"Stat value for {stat} must be an integer"
+                    raise TypeError(error_message)
+                if stats[stat] < min_stat or stats[stat] > max_stat:  # D&D stats typically range from 1-20
+                    error_message = f"Stat value for {stat} must be between {min_stat} and {max_stat}"
+                    raise ValueError(error_message)
             self.stats = stats
         self.update_race_details()
         self.update_skills()

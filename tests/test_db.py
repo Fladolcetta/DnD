@@ -23,6 +23,12 @@ def test_db_initialization(mock_connect) -> None:
     assert db.db is not None
 
 
+def test_db_destruction() -> None:
+    """Test that the DB class closes the connection when the object is destroyed."""
+    db = DB()
+    del db
+
+
 @patch.dict(
     os.environ,
     {"MYSQL_USER": "user", "MYSQL_PASSWORD": "password"},
