@@ -148,10 +148,9 @@ class PageLoader:
         subtitle: str,
     ) -> str:
         """Load the left right page."""
-        try:
-            if "submit" in submit:
-                pass
-        except TypeError:
+        if submit is not None and "submit" in submit:
+            pass
+        else:
             right_content = ""
         return self.load_left_right_page(left_content, right_content, subtitle)
 
