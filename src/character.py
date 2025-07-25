@@ -3,11 +3,14 @@
 from __future__ import annotations
 
 import contextlib
+import typing
 
-from src.character_class import CharacterClass
+if typing.TYPE_CHECKING:
+    from src.character_class import CharacterClass
+    from src.race import Race
+
 from src.db import DB
 from src.dice import Dice
-from src.race import Race
 
 
 class Character:
@@ -53,6 +56,15 @@ class Character:
             worst_stat = CharacterClass(self.dnd_class).get_worst_stat()
             self.roll_stats(primary_stat, worst_stat)
         else:
+            # Validate stats
+            required_stats = ["Constitution", "Dexterity", "Strength", "Wisdom", "Intelligence", "Charisma"]
+            for stat in required_stats:
+                if stat not in stats:
+                    raise ValueError(f"Missing required stat: {stat}")
+                if not isinstance(stats[stat], int):
+                    raise TypeError(f"Stat value for {stat} must be an integer")
+                if stats[stat] < 1 or stats[stat] > 20:  # D&D stats typically range from 1-20
+                    raise ValueError(f"Stat value for {stat} must be between 1 and 20")
             self.stats = stats
         self.update_race_details()
         self.update_skills()
