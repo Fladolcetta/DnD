@@ -1,8 +1,11 @@
 """A module for the database connection."""
 
+import logging
 import os
 
 import mysql.connector
+
+logging.basicConfig(level=logging.INFO)
 
 
 class DB:
@@ -20,13 +23,14 @@ class DB:
                 user=self.user,
                 password=self.password,
             )
-        except (KeyError, mysql.connector.Error) as e:
-            print(f"Database connection error: {e}")
+        except (KeyError, mysql.connector.Error):
+            logger = logging.getLogger(__name__)
+            logger.exception("Database connection error")
             self.db = None
 
     def __del__(self) -> None:
         """Close the database connection when the object is destroyed."""
-        if hasattr(self, 'db') and self.db is not None:
+        if hasattr(self, "db") and self.db is not None:
             self.db.close()
 
     def insert_character(

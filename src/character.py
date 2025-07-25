@@ -3,9 +3,10 @@
 from __future__ import annotations
 
 import contextlib
+
+from src.character_class import CharacterClass
 from src.db import DB
 from src.dice import Dice
-from src.character_class import CharacterClass
 from src.race import Race
 
 
@@ -47,6 +48,10 @@ class Character:
         self.name = name
         self.race = race
         self.dnd_class = dnd_class
+
+        min_stat = 1
+        max_stat = 20
+
         if stats is None:
             primary_stat = CharacterClass(self.dnd_class).get_primary_stat()
             worst_stat = CharacterClass(self.dnd_class).get_worst_stat()
@@ -56,11 +61,14 @@ class Character:
             required_stats = ["Constitution", "Dexterity", "Strength", "Wisdom", "Intelligence", "Charisma"]
             for stat in required_stats:
                 if stat not in stats:
-                    raise ValueError(f"Missing required stat: {stat}")
+                    error_message = f"Missing required stat: {stat}"
+                    raise ValueError(error_message)
                 if not isinstance(stats[stat], int):
-                    raise TypeError(f"Stat value for {stat} must be an integer")
-                if stats[stat] < 1 or stats[stat] > 20:  # D&D stats typically range from 1-20
-                    raise ValueError(f"Stat value for {stat} must be between 1 and 20")
+                    error_message = f"Stat value for {stat} must be an integer"
+                    raise TypeError(error_message)
+                if stats[stat] < min_stat or stats[stat] > max_stat:  # D&D stats typically range from 1-20
+                    error_message = f"Stat value for {stat} must be between {min_stat} and {max_stat}"
+                    raise ValueError(error_message)
             self.stats = stats
         self.update_race_details()
         self.update_skills()
