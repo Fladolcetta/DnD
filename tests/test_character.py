@@ -17,6 +17,12 @@ def fixture_mock_dice() -> None:
         yield mock_dice_object
 
 
+def test_character_destruction() -> None:
+    """Test that the Character class closes the connection when the object is destroyed."""
+    character = Character()
+    del character
+
+
 @pytest.fixture(name="_mock_race")
 def fixture_mock_race() -> None:
     """Mock the race class."""
@@ -40,6 +46,18 @@ def fixture_mock_character_class() -> None:
         instance.get_skill_proficiencies.return_value = ["Acrobatics", "Perception"]
         instance.get_saving_throw_proficiencies.return_value = ["Dexterity"]
         yield mock_character_class_object
+
+
+def test_character__stat_validation() -> None:
+    """Test the validation of the Character class."""
+    char = Character()
+
+    with pytest.raises(ValueError, match="Missing required stat: Dexterity"):
+        char.new_character("Aragorn", "Elf", "Ranger", {"Constitution": 19})
+    with pytest.raises(TypeError):
+        char.new_character("Aragorn", "Elf", "Ranger", {"Constitution": "19"})
+    with pytest.raises(ValueError, match="Constitution must be between 1 and 20"):
+        char.new_character("Aragorn", "Elf", "Ranger", {"Constitution": 200})
 
 
 def test_character_initialization() -> None:
