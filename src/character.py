@@ -3,14 +3,10 @@
 from __future__ import annotations
 
 import contextlib
-import typing
-
-if typing.TYPE_CHECKING:
-    from src.character_class import CharacterClass
-    from src.race import Race
-
 from src.db import DB
 from src.dice import Dice
+from src.character_class import CharacterClass
+from src.race import Race
 
 
 class Character:
